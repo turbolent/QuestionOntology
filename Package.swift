@@ -17,7 +17,10 @@ let package = Package(
     targets: [
         .target(
             name: "QuestionOntology",
-            dependencies: ["ParserDescription"]
+            dependencies: [
+                "ParserDescription",
+                "ParserDescriptionOperators"
+            ]
         ),
         .testTarget(
             name: "QuestionOntologyTests",
