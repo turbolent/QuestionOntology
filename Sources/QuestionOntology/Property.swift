@@ -26,7 +26,6 @@ public final class Property<M> where M: OntologyMappings {
 
     public var isSymmetric = false
     public var isTransitive = false
-    public private(set) var pattern: Pattern?
 
     public var superProperties: [Property<M>] {
         return superPropertyIdentifiers.map {
@@ -78,16 +77,6 @@ public final class Property<M> where M: OntologyMappings {
         isTransitive = true
         return self
     }
-
-    @discardableResult
-    public func hasPattern(_ pattern: Pattern) -> Property {
-        if let existingPattern = self.pattern {
-            self.pattern = existingPattern.or(pattern)
-        } else {
-            self.pattern = pattern
-        }
-        return self
-    }
 }
 
 
@@ -118,7 +107,6 @@ extension Property: Codable {
         case transitive
         case equivalencies
         case superProperties = "superproperties"
-        case pattern
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -141,10 +129,6 @@ extension Property: Codable {
                 superPropertyIdentifiers.sorted(),
                 forKey: .superProperties
             )
-        }
-
-        if let pattern = pattern {
-            try container.encode(TypedPattern(pattern), forKey: .pattern)
         }
     }
 
@@ -181,12 +165,6 @@ extension Property: Codable {
             for identifier in superPropertyIdentifiers {
                 codingUserInfo.reference(property: identifier)
             }
-        }
-
-        if let typedPattern =
-            try container.decodeIfPresent(TypedPattern.self, forKey: .pattern)
-        {
-            pattern = typedPattern.pattern
         }
     }
 }

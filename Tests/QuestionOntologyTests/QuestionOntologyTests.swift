@@ -19,11 +19,9 @@ final class QuestionOntologyTests: XCTestCase {
 
         let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
             .map(to: .property(Wikidata.P.569))
-            .hasPattern(pattern(lemma: "bear", partOfSpeech: .verb))
 
         let hasDateOfDeath = ontology.define(property: "hasDateOfDeath")
             .map(to: .property(Wikidata.P.570))
-            .hasPattern(pattern(lemma: "die", partOfSpeech: .verb))
 
         ontology.define(property: "hasAge")
             .map(to: .operation(
@@ -33,13 +31,11 @@ final class QuestionOntologyTests: XCTestCase {
                 ))
             )
 
-        ontology.define(property: "hasPlaceOfBirth")
+        let hasPlaceOfBirth = ontology.define(property: "hasPlaceOfBirth")
             .map(to: .property(Wikidata.P.19))
-            .hasPattern(pattern(lemma: "bear", partOfSpeech: .verb))
 
-        ontology.define(property: "hasPlaceOfDeath")
+        let hasPlaceOfDeath = ontology.define(property: "hasPlaceOfDeath")
             .map(to: .property(Wikidata.P.20))
-            .hasPattern(pattern(lemma: "die", partOfSpeech: .verb))
 
         let hasParent = ontology.define(property: "hasParent")
 
@@ -112,7 +108,6 @@ final class QuestionOntologyTests: XCTestCase {
         ontology.define(property: "hasSpouse")
             .makeSymmetric()
             .map(to: .property(Wikidata.P.26))
-            .hasPattern(pattern(lemma: "marry", partOfSpeech: .verb))
 
         let Spouse = ontology.define(class: "Spouse")
             .hasPattern(pattern(lemma: "spouse", partOfSpeech: .noun))
@@ -857,50 +852,10 @@ final class QuestionOntologyTests: XCTestCase {
                   "identifier" : "hasChild"
                 },
                 {
-                  "identifier" : "hasDateOfBirth",
-                  "pattern" : {
-                    "condition" : {
-                      "conditions" : [
-                        {
-                          "input" : "bear",
-                          "label" : "lemma",
-                          "op" : "=",
-                          "type" : "label"
-                        },
-                        {
-                          "input" : "V",
-                          "label" : "tag",
-                          "op" : "prefix",
-                          "type" : "label"
-                        }
-                      ],
-                      "type" : "and"
-                    },
-                    "type" : "token"
-                  }
+                  "identifier" : "hasDateOfBirth"
                 },
                 {
-                  "identifier" : "hasDateOfDeath",
-                  "pattern" : {
-                    "condition" : {
-                      "conditions" : [
-                        {
-                          "input" : "die",
-                          "label" : "lemma",
-                          "op" : "=",
-                          "type" : "label"
-                        },
-                        {
-                          "input" : "V",
-                          "label" : "tag",
-                          "op" : "prefix",
-                          "type" : "label"
-                        }
-                      ],
-                      "type" : "and"
-                    },
-                    "type" : "token"
-                  }
+                  "identifier" : "hasDateOfDeath"
                 },
                 {
                   "identifier" : "hasFather",
@@ -928,50 +883,10 @@ final class QuestionOntologyTests: XCTestCase {
                   "identifier" : "hasParent"
                 },
                 {
-                  "identifier" : "hasPlaceOfBirth",
-                  "pattern" : {
-                    "condition" : {
-                      "conditions" : [
-                        {
-                          "input" : "bear",
-                          "label" : "lemma",
-                          "op" : "=",
-                          "type" : "label"
-                        },
-                        {
-                          "input" : "V",
-                          "label" : "tag",
-                          "op" : "prefix",
-                          "type" : "label"
-                        }
-                      ],
-                      "type" : "and"
-                    },
-                    "type" : "token"
-                  }
+                  "identifier" : "hasPlaceOfBirth"
                 },
                 {
-                  "identifier" : "hasPlaceOfDeath",
-                  "pattern" : {
-                    "condition" : {
-                      "conditions" : [
-                        {
-                          "input" : "die",
-                          "label" : "lemma",
-                          "op" : "=",
-                          "type" : "label"
-                        },
-                        {
-                          "input" : "V",
-                          "label" : "tag",
-                          "op" : "prefix",
-                          "type" : "label"
-                        }
-                      ],
-                      "type" : "and"
-                    },
-                    "type" : "token"
-                  }
+                  "identifier" : "hasPlaceOfDeath"
                 },
                 {
                   "identifier" : "hasSibling",
@@ -979,26 +894,6 @@ final class QuestionOntologyTests: XCTestCase {
                 },
                 {
                   "identifier" : "hasSpouse",
-                  "pattern" : {
-                    "condition" : {
-                      "conditions" : [
-                        {
-                          "input" : "marry",
-                          "label" : "lemma",
-                          "op" : "=",
-                          "type" : "label"
-                        },
-                        {
-                          "input" : "V",
-                          "label" : "tag",
-                          "op" : "prefix",
-                          "type" : "label"
-                        }
-                      ],
-                      "type" : "and"
-                    },
-                    "type" : "token"
-                  },
                   "symmetric" : true
                 }
               ],
