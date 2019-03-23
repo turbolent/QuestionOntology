@@ -3,7 +3,7 @@ import ParserDescription
 import ParserDescriptionOperators
 
 
-public enum PartOfSpeech: String {
+public enum Tag: String {
     case noun = "N"
     case verb = "V"
 
@@ -22,7 +22,7 @@ private enum Label: String {
 }
 
 
-public func pattern(lemma: String, partOfSpeech: PartOfSpeech) -> TokenPattern {
+public func pattern(lemma: String, tag: Tag) -> TokenPattern {
     return TokenPattern(condition:
         LabelCondition(
             label: Label.lemma.rawValue,
@@ -30,8 +30,8 @@ public func pattern(lemma: String, partOfSpeech: PartOfSpeech) -> TokenPattern {
             input: lemma
         ) && LabelCondition(
             label: Label.tag.rawValue,
-            op: partOfSpeech.operation,
-            input: partOfSpeech.rawValue
+            op: tag.operation,
+            input: tag.rawValue
         )
     )
 }
