@@ -14,8 +14,10 @@ final class QuestionOntologyTests: XCTestCase {
 
         let Person = ontology.define(class: "Person")
             .map(to: Wikidata.Q.5)
-            .hasPattern(pattern(lemma: "person", tag: .noun))
-            .hasPattern(pattern(lemma: "people", tag: .noun))
+            .hasPatterns(
+                pattern(lemma: "person", tag: .noun),
+                pattern(lemma: "people", tag: .noun)
+            )
 
         let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
             .map(to: .property(Wikidata.P.569))
@@ -62,10 +64,18 @@ final class QuestionOntologyTests: XCTestCase {
         let Male = ontology.define(class: "Male")
             .isSubClassOf(Person)
             .hasEquivalent(outgoing: hasGender, male)
+            .hasPatterns(
+                pattern(lemma: "male", tag: .noun),
+                pattern(lemma: "man", tag: .noun)
+            )
 
         let Female = ontology.define(class: "Female")
             .isSubClassOf(Person)
             .hasEquivalent(outgoing: hasGender, female)
+            .hasPatterns(
+                pattern(lemma: "female", tag: .noun),
+                pattern(lemma: "woman", tag: .noun)
+            )
 
         let hasChild = ontology.define(property: "hasChild")
             .hasEquivalent(incoming: hasFather)
@@ -327,6 +337,51 @@ final class QuestionOntologyTests: XCTestCase {
                     ]
                   ],
                   "identifier" : "Female",
+                  "pattern" : {
+                    "patterns" : [
+                      {
+                        "condition" : {
+                          "conditions" : [
+                            {
+                              "input" : "female",
+                              "label" : "lemma",
+                              "op" : "=",
+                              "type" : "label"
+                            },
+                            {
+                              "input" : "N",
+                              "label" : "tag",
+                              "op" : "prefix",
+                              "type" : "label"
+                            }
+                          ],
+                          "type" : "and"
+                        },
+                        "type" : "token"
+                      },
+                      {
+                        "condition" : {
+                          "conditions" : [
+                            {
+                              "input" : "woman",
+                              "label" : "lemma",
+                              "op" : "=",
+                              "type" : "label"
+                            },
+                            {
+                              "input" : "N",
+                              "label" : "tag",
+                              "op" : "prefix",
+                              "type" : "label"
+                            }
+                          ],
+                          "type" : "and"
+                        },
+                        "type" : "token"
+                      }
+                    ],
+                    "type" : "or"
+                  },
                   "superclasses" : [
                     "Person"
                   ]
@@ -553,6 +608,51 @@ final class QuestionOntologyTests: XCTestCase {
                     ]
                   ],
                   "identifier" : "Male",
+                  "pattern" : {
+                    "patterns" : [
+                      {
+                        "condition" : {
+                          "conditions" : [
+                            {
+                              "input" : "male",
+                              "label" : "lemma",
+                              "op" : "=",
+                              "type" : "label"
+                            },
+                            {
+                              "input" : "N",
+                              "label" : "tag",
+                              "op" : "prefix",
+                              "type" : "label"
+                            }
+                          ],
+                          "type" : "and"
+                        },
+                        "type" : "token"
+                      },
+                      {
+                        "condition" : {
+                          "conditions" : [
+                            {
+                              "input" : "man",
+                              "label" : "lemma",
+                              "op" : "=",
+                              "type" : "label"
+                            },
+                            {
+                              "input" : "N",
+                              "label" : "tag",
+                              "op" : "prefix",
+                              "type" : "label"
+                            }
+                          ],
+                          "type" : "and"
+                        },
+                        "type" : "token"
+                      }
+                    ],
+                    "type" : "or"
+                  },
                   "superclasses" : [
                     "Person"
                   ]

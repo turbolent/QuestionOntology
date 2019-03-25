@@ -137,6 +137,11 @@ public final class Class<M> where M: OntologyMappings {
         }
         return self
     }
+
+    @discardableResult
+    public func hasPatterns(_ pattern: Pattern, _ morePatterns: Pattern...) -> Class {
+        return hasPattern(morePatterns.reduce(pattern) { $0.or($1) })
+    }
 }
 
 
