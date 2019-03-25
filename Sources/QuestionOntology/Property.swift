@@ -45,7 +45,7 @@ public final class Property<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func isSubPropertyOf(_ superProperties: Property...) -> Property {
+    public func isSubProperty(of superProperties: Property...) -> Property {
         superPropertyIdentifiers.formUnion(superProperties.map { $0.identifier })
         return self
     }

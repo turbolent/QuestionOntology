@@ -45,7 +45,7 @@ public final class Class<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func isSubClassOf(_ superClasses: Class...) -> Class {
+    public func isSubClass(of superClasses: Class...) -> Class {
         superClassIdentifiers.formUnion(superClasses.map { $0.identifier })
         return self
     }
