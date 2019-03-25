@@ -115,7 +115,7 @@ final class QuestionOntologyTests: XCTestCase {
             .isSubClassOf(Male)
             .hasPattern(pattern(lemma: "son", tag: .noun))
 
-        ontology.define(property: "hasSpouse")
+        let hasSpouse = ontology.define(property: "hasSpouse")
             .makeSymmetric()
             .map(to: .property(Wikidata.P.26))
 
@@ -188,6 +188,27 @@ final class QuestionOntologyTests: XCTestCase {
             .isSubClassOf(GrandChild)
             .isSubClassOf(Male)
             .hasPattern(pattern(lemma: "grandson", tag: .noun))
+
+
+        ontology.add(
+            namedPropertyPattern:
+                pattern(lemma: "be", tag: .verb)
+                    ~ pattern(lemma: "bear", tag: .verb),
+            properties: hasDateOfBirth, hasPlaceOfBirth
+        )
+
+        ontology.add(
+            namedPropertyPattern:
+                pattern(lemma: "die", tag: .verb),
+            properties: hasDateOfDeath, hasPlaceOfDeath
+        )
+
+        ontology.add(
+            namedPropertyPattern:
+                pattern(lemma: "be", tag: .verb).opt()
+                    ~ pattern(lemma: "marry", tag: .verb),
+            properties: hasSpouse
+        )
 
         diffedAssertJSONEqual(
             """
@@ -929,6 +950,140 @@ final class QuestionOntologyTests: XCTestCase {
                   "identifier" : "male",
                   "types" : [
                     "Gender"
+                  ]
+                }
+              ],
+              "named_property_patterns" : [
+                {
+                  "pattern" : {
+                    "patterns" : [
+                      {
+                        "condition" : {
+                          "conditions" : [
+                            {
+                              "input" : "be",
+                              "label" : "lemma",
+                              "op" : "=",
+                              "type" : "label"
+                            },
+                            {
+                              "input" : "V",
+                              "label" : "tag",
+                              "op" : "prefix",
+                              "type" : "label"
+                            }
+                          ],
+                          "type" : "and"
+                        },
+                        "type" : "token"
+                      },
+                      {
+                        "condition" : {
+                          "conditions" : [
+                            {
+                              "input" : "bear",
+                              "label" : "lemma",
+                              "op" : "=",
+                              "type" : "label"
+                            },
+                            {
+                              "input" : "V",
+                              "label" : "tag",
+                              "op" : "prefix",
+                              "type" : "label"
+                            }
+                          ],
+                          "type" : "and"
+                        },
+                        "type" : "token"
+                      }
+                    ],
+                    "type" : "sequence"
+                  },
+                  "properties" : [
+                    "hasDateOfBirth",
+                    "hasPlaceOfBirth"
+                  ]
+                },
+                {
+                  "pattern" : {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "die",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "V",
+                          "label" : "tag",
+                          "op" : "prefix",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  "properties" : [
+                    "hasDateOfDeath",
+                    "hasPlaceOfDeath"
+                  ]
+                },
+                {
+                  "pattern" : {
+                    "patterns" : [
+                      {
+                        "max" : 1,
+                        "min" : 0,
+                        "pattern" : {
+                          "condition" : {
+                            "conditions" : [
+                              {
+                                "input" : "be",
+                                "label" : "lemma",
+                                "op" : "=",
+                                "type" : "label"
+                              },
+                              {
+                                "input" : "V",
+                                "label" : "tag",
+                                "op" : "prefix",
+                                "type" : "label"
+                              }
+                            ],
+                            "type" : "and"
+                          },
+                          "type" : "token"
+                        },
+                        "type" : "repetition"
+                      },
+                      {
+                        "condition" : {
+                          "conditions" : [
+                            {
+                              "input" : "marry",
+                              "label" : "lemma",
+                              "op" : "=",
+                              "type" : "label"
+                            },
+                            {
+                              "input" : "V",
+                              "label" : "tag",
+                              "op" : "prefix",
+                              "type" : "label"
+                            }
+                          ],
+                          "type" : "and"
+                        },
+                        "type" : "token"
+                      }
+                    ],
+                    "type" : "sequence"
+                  },
+                  "properties" : [
+                    "hasSpouse"
                   ]
                 }
               ],
