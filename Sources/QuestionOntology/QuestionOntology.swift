@@ -1,5 +1,6 @@
 
 import protocol ParserDescription.Pattern
+import enum ParserDescription.AnyPattern
 import class Foundation.JSONDecoder
 
 
@@ -52,9 +53,33 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     public func add(
-        namedPropertyPattern pattern: Pattern,
+        namedPropertyPattern pattern: AnyPattern,
         properties property: Property<M>,
         _ moreProperties: Property<M>...
+    ) {
+        add(
+            namedPropertyPattern: pattern,
+            property: property,
+            moreProperties: moreProperties
+        )
+    }
+
+    public func add<T: Pattern>(
+        namedPropertyPattern pattern: T,
+        properties property: Property<M>,
+        _ moreProperties: Property<M>...
+    ) {
+        add(
+            namedPropertyPattern: AnyPattern(pattern),
+            property: property,
+            moreProperties: moreProperties
+        )
+    }
+
+    private func add(
+        namedPropertyPattern pattern: AnyPattern,
+        property: Property<M>,
+        moreProperties: [Property<M>]
     ) {
         namedPropertyPatterns.append(
             NamedPropertyPattern(

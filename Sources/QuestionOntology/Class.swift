@@ -25,7 +25,7 @@ public final class Class<M> where M: OntologyMappings {
 
     public private(set) var superClassIdentifiers: Set<String> = []
     public private(set) var equivalencies: Set<Equivalency> = []
-    public private(set) var pattern: Pattern?
+    public private(set) var pattern: AnyPattern?
 
     public var superClasses: [Class<M>] {
         return superClassIdentifiers.map {
@@ -129,9 +129,9 @@ public final class Class<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func hasPattern(_ pattern: Pattern) -> Class {
+    public func hasPattern(_ pattern: AnyPattern) -> Class {
         if let existingPattern = self.pattern {
-            self.pattern = existingPattern.or(pattern)
+            self.pattern = AnyPattern(existingPattern.or(pattern))
         } else {
             self.pattern = pattern
         }
@@ -139,8 +139,18 @@ public final class Class<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func hasPatterns(_ pattern: Pattern, _ morePatterns: Pattern...) -> Class {
-        return hasPattern(morePatterns.reduce(pattern) { $0.or($1) })
+    public func hasPattern<T: Pattern>(_ pattern: T) -> Class {
+        return hasPattern(AnyPattern(pattern))
+    }
+
+    @discardableResult
+    public func hasPatterns(_ pattern: AnyPattern, _ morePatterns: AnyPattern...) -> Class {
+        return hasPattern(morePatterns.reduce(pattern) { AnyPattern($0.or($1)) })
+    }
+
+    @discardableResult
+    public func hasPatterns<T: Pattern>(_ pattern: T, _ morePatterns: T...) -> Class {
+        return hasPattern(morePatterns.reduce(AnyPattern(pattern)) { AnyPattern($0.or($1)) })
     }
 }
 
@@ -148,10 +158,10 @@ public final class Class<M> where M: OntologyMappings {
 extension Class: Equatable {
 
     public static func == (lhs: Class, rhs: Class) -> Bool {
-        // NOTE: not comparing patterns
         return lhs.identifier == rhs.identifier
             && lhs.equivalencies == rhs.equivalencies
             && lhs.superClassIdentifiers == rhs.superClassIdentifiers
+            && lhs.pattern == rhs.pattern
     }
 }
 
@@ -210,8 +220,6 @@ extension Class.Equivalency: Comparable {
 }
 
 
-
-
 extension Class: Codable {
 
     internal enum CodingKeys: String, CodingKey {
@@ -240,7 +248,7 @@ extension Class: Codable {
         }
 
         if let pattern = pattern {
-            try container.encode(TypedPattern(pattern), forKey: .pattern)
+            try container.encode(pattern, forKey: .pattern)
         }
     }
 
@@ -272,10 +280,10 @@ extension Class: Codable {
             }
         }
 
-        if let typedPattern =
-            try container.decodeIfPresent(TypedPattern.self, forKey: .pattern)
+        if let pattern =
+            try container.decodeIfPresent(AnyPattern.self, forKey: .pattern)
         {
-            pattern = typedPattern.pattern
+            self.pattern = pattern
         }
     }
 }
