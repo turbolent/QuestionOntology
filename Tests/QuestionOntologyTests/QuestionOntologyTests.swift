@@ -70,6 +70,7 @@ final class QuestionOntologyTests: XCTestCase {
             .map(to: Wikidata.Q.6581072)
 
         let hasGender = ontology.define(property: "hasGender")
+            .map(to: .property(Wikidata.P.21))
 
         let Male = ontology.define(class: "Male")
             .isSubClass(of: Person)
@@ -163,6 +164,14 @@ final class QuestionOntologyTests: XCTestCase {
             .isSubClass(of: Male)
             .hasPattern(pattern(lemma: "brother", tag: .noun))
 
+        ontology.define(property: "hasBrother")
+            .isSubProperty(of: hasSibling)
+            .map(to: .property(Wikidata.P.7))
+
+        ontology.define(property: "hasSister")
+            .isSubProperty(of: hasSibling)
+            .map(to: .property(Wikidata.P.9))
+
         let GrandParent = ontology.define(class: "GrandParent")
             .isSubClass(of: Parent)
             .hasEquivalent(
@@ -221,8 +230,11 @@ final class QuestionOntologyTests: XCTestCase {
         )
 
 
+        let expectedOntologyJSON =
+            String(data: try loadFixture(path: "ontology.json"), encoding: .utf8)!
+
         diffedAssertJSONEqual(
-            String(data: try loadFixture(path: "ontology.json"), encoding: .utf8)!,
+            expectedOntologyJSON,
             ontology
         )
 

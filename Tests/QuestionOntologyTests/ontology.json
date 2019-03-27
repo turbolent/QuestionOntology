@@ -878,6 +878,12 @@
       "identifier" : "hasAge"
     },
     {
+      "identifier" : "hasBrother",
+      "superproperties" : [
+        "hasSibling"
+      ]
+    },
+    {
       "equivalencies" : [
         [
           {
@@ -934,6 +940,12 @@
       "symmetric" : true
     },
     {
+      "identifier" : "hasSister",
+      "superproperties" : [
+        "hasSibling"
+      ]
+    },
+    {
       "identifier" : "hasSpouse",
       "symmetric" : true
     }
@@ -944,6 +956,11 @@
         "birthDateProperty" : "hasDateOfBirth",
         "deathDateProperty" : "hasDateOfDeath",
         "type" : "age"
+      }
+    },
+    "hasBrother" : {
+      "property" : {
+        "identifier" : "http://www.wikidata.org/prop/direct/P7"
       }
     },
     "hasDateOfBirth" : {
@@ -959,6 +976,11 @@
     "hasFather" : {
       "property" : {
         "identifier" : "http://www.wikidata.org/prop/direct/P22"
+      }
+    },
+    "hasGender" : {
+      "property" : {
+        "identifier" : "http://www.wikidata.org/prop/direct/P21"
       }
     },
     "hasMother" : {
@@ -979,6 +1001,11 @@
     "hasSibling" : {
       "property" : {
         "identifier" : "http://www.wikidata.org/prop/direct/P3373"
+      }
+    },
+    "hasSister" : {
+      "property" : {
+        "identifier" : "http://www.wikidata.org/prop/direct/P9"
       }
     },
     "hasSpouse" : {
