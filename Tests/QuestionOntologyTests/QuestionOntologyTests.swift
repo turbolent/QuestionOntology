@@ -280,16 +280,18 @@ final class QuestionOntologyTests: XCTestCase {
         }
     }
 
-    func testInvalidPropertyEquivalencies() throws {
+    func testInvalidPropertyEquivalents() throws {
         let encoded = """
         {
           "properties": [
             {
               "identifier": "foo",
-              "equivalencies": [
-                [
-                  {"incoming": "non-existent"}
-                ]
+              "equivalents": [
+                {
+                  "segments": [
+                    {"incoming": "non-existent"}
+                  ]
+                }
               ]
             }
           ]
@@ -312,16 +314,18 @@ final class QuestionOntologyTests: XCTestCase {
         }
     }
 
-    func testInvalidClassEquivalencies() throws {
+    func testInvalidClassEquivalents() throws {
         let encoded = """
         {
           "classes": [
             {
               "identifier": "foo",
-              "equivalencies": [
-                [
-                  {"outgoing": "non-existent"}
-                ]
+              "equivalents": [
+                {
+                  "segments": [
+                    {"outgoing": "non-existent"}
+                  ]
+                }
               ]
             }
           ]
@@ -344,16 +348,18 @@ final class QuestionOntologyTests: XCTestCase {
         }
     }
 
-    func testInvalidClassEquivalencies2() throws {
+    func testInvalidClassEquivalents2() throws {
         let encoded = """
         {
           "classes": [
             {
               "identifier": "foo",
-              "equivalencies": [
-                [
-                  {"individual": "non-existent"}
-                ]
+              "equivalents": [
+                {
+                  "segments": [
+                    {"individual": "non-existent"}
+                  ]
+                }
               ]
             }
           ]

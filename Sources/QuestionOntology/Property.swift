@@ -2,27 +2,13 @@
 import ParserDescription
 
 
-public final class Property<M> where M: OntologyMappings {
-
-    public struct Equivalency: Hashable {
-
-        public enum Segment: Hashable {
-            case incoming(String)
-            case outgoing(String)
-        }
-
-        public let segments: [Segment]
-
-        init(_ segments: Segment...) {
-            self.segments = segments
-        }
-    }
+public final class Property<M>: HasEquivalents where M: OntologyMappings {
 
     public let identifier: String
     private unowned var ontology: QuestionOntology<M>
 
     public private(set) var superPropertyIdentifiers: Set<String> = []
-    public private(set) var equivalencies: Set<Equivalency> = []
+    public var equivalents: Set<Equivalent<M>> = []
 
     public var isSymmetric = false
     public var isTransitive = false
@@ -51,22 +37,6 @@ public final class Property<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func hasEquivalent(outgoing: Property) -> Property {
-        equivalencies.insert(Equivalency(
-            .outgoing(outgoing.identifier)
-        ))
-        return self
-    }
-
-    @discardableResult
-    public func hasEquivalent(incoming: Property) -> Property {
-        equivalencies.insert(Equivalency(
-            .incoming(incoming.identifier)
-        ))
-        return self
-    }
-
-    @discardableResult
     public func makeSymmetric() -> Property {
         isSymmetric = true
         return self
@@ -86,7 +56,7 @@ extension Property: Equatable {
         return lhs.identifier == rhs.identifier
             && lhs.isSymmetric == rhs.isSymmetric
             && lhs.isTransitive == rhs.isTransitive
-            && lhs.equivalencies == rhs.equivalencies
+            && lhs.equivalents == rhs.equivalents
             && lhs.superPropertyIdentifiers == rhs.superPropertyIdentifiers
     }
 }
@@ -105,7 +75,7 @@ extension Property: Codable {
         case identifier
         case symmetric
         case transitive
-        case equivalencies
+        case equivalents
         case superProperties = "superproperties"
     }
 
@@ -118,10 +88,10 @@ extension Property: Codable {
         if isTransitive {
             try container.encode(true, forKey: .transitive)
         }
-        if !equivalencies.isEmpty {
+        if !equivalents.isEmpty {
             try container.encode(
-                equivalencies.sorted(),
-                forKey: .equivalencies
+                equivalents.sorted(),
+                forKey: .equivalents
             )
         }
         if !superPropertyIdentifiers.isEmpty {
@@ -152,10 +122,10 @@ extension Property: Codable {
             self.isTransitive = isTransitive
         }
 
-        if let equivalencies =
-            try container.decodeIfPresent(Set<Equivalency>.self, forKey: .equivalencies)
+        if let equivalents =
+            try container.decodeIfPresent(Set<Equivalent<M>>.self, forKey: .equivalents)
         {
-            self.equivalencies = equivalencies
+            self.equivalents = equivalents
         }
 
         if let superPropertyIdentifiers =
@@ -169,115 +139,3 @@ extension Property: Codable {
     }
 }
 
-
-extension Property.Equivalency: Comparable {
-
-    public static func < (lhs: Property.Equivalency, rhs: Property.Equivalency) -> Bool {
-        for (leftSegment, rightSegment) in zip(lhs.segments, rhs.segments) {
-            if leftSegment < rightSegment {
-                return true
-            }
-            if leftSegment > rightSegment {
-                return false
-            }
-        }
-        return lhs.segments.count < rhs.segments.count
-    }
-}
-
-
-extension Property.Equivalency: Codable {
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.unkeyedContainer()
-        try container.encode(contentsOf: segments)
-    }
-
-    public init(from decoder: Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        var segments: [Property.Equivalency.Segment] = []
-        while !container.isAtEnd {
-            segments.append(try container.decode(Segment.self))
-        }
-        self.segments = segments
-    }
-}
-
-
-extension Property.Equivalency.Segment: Comparable {
-
-    private var orderIndex: Int {
-        switch self {
-        case .incoming:
-            return 0
-        case .outgoing:
-            return 1
-        }
-    }
-
-    public static func < (
-        lhs: Property.Equivalency.Segment,
-        rhs: Property.Equivalency.Segment
-    ) -> Bool {
-        switch (lhs, rhs) {
-        case let (.incoming(left), .incoming(right)):
-            return left < right
-        case let (.outgoing(left), .outgoing(right)):
-            return left < right
-        case (.incoming, _), (.outgoing, _):
-            return lhs.orderIndex < rhs.orderIndex
-        }
-    }
-}
-
-
-extension Property.Equivalency.Segment: Codable {
-
-    internal enum CodingKeys: String, CodingKey, CaseIterable {
-        case incoming
-        case outgoing
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-
-        switch self {
-        case .incoming(let identifier):
-            try container.encode(identifier, forKey: .incoming)
-
-        case .outgoing(let identifier):
-            try container.encode(identifier, forKey: .outgoing)
-        }
-    }
-
-    public init(from decoder: Decoder) throws {
-        let codingUserInfo =
-            try QuestionOntology<M>.codingUserInfo(from: decoder)
-
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        for codingKey in CodingKeys.allCases {
-            switch codingKey {
-            case .incoming:
-                if let identifier =
-                    try container.decodeIfPresent(String.self, forKey: .incoming)
-                {
-                    self = .incoming(identifier)
-                    codingUserInfo.reference(property: identifier)
-                    return
-                }
-            case .outgoing:
-                if let identifier =
-                    try container.decodeIfPresent(String.self, forKey: .outgoing)
-                {
-                    self = .outgoing(identifier)
-                    codingUserInfo.reference(property: identifier)
-                    return
-                }
-            }
-        }
-
-        let allProperties = Set(CodingKeys.allCases.map { $0.rawValue })
-        throw QuestionOntologyDecodingError.missingPropertyOneOf(allProperties)
-    }
-}

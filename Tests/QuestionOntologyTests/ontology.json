@@ -39,12 +39,14 @@
       ]
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "incoming" : "hasChild"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "incoming" : "hasChild"
+            }
+          ]
+        }
       ],
       "identifier" : "Child",
       "pattern" : {
@@ -99,12 +101,14 @@
       ]
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "incoming" : "hasFather"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "incoming" : "hasFather"
+            }
+          ]
+        }
       ],
       "identifier" : "Father",
       "pattern" : {
@@ -133,15 +137,17 @@
       ]
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "outgoing" : "hasGender"
-          },
-          {
-            "individual" : "female"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasGender"
+            },
+            {
+              "individual" : "female"
+            }
+          ]
+        }
       ],
       "identifier" : "Female",
       "pattern" : {
@@ -197,15 +203,17 @@
       "identifier" : "Gender"
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "incoming" : "hasChild"
-          },
-          {
-            "incoming" : "hasChild"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "incoming" : "hasChild"
+            },
+            {
+              "incoming" : "hasChild"
+            }
+          ]
+        }
       ],
       "identifier" : "GrandChild",
       "pattern" : {
@@ -314,15 +322,17 @@
       ]
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "outgoing" : "hasChild"
-          },
-          {
-            "outgoing" : "hasChild"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasChild"
+            },
+            {
+              "outgoing" : "hasChild"
+            }
+          ]
+        }
       ],
       "identifier" : "GrandParent",
       "pattern" : {
@@ -404,15 +414,17 @@
       ]
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "outgoing" : "hasGender"
-          },
-          {
-            "individual" : "male"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasGender"
+            },
+            {
+              "individual" : "male"
+            }
+          ]
+        }
       ],
       "identifier" : "Male",
       "pattern" : {
@@ -465,12 +477,14 @@
       ]
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "incoming" : "hasMother"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "incoming" : "hasMother"
+            }
+          ]
+        }
       ],
       "identifier" : "Mother",
       "pattern" : {
@@ -499,12 +513,14 @@
       ]
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "outgoing" : "hasChild"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasChild"
+            }
+          ]
+        }
       ],
       "identifier" : "Parent",
       "pattern" : {
@@ -580,12 +596,14 @@
       }
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "outgoing" : "hasSibling"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasSibling"
+            }
+          ]
+        }
       ],
       "identifier" : "Sibling",
       "pattern" : {
@@ -884,17 +902,21 @@
       ]
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "incoming" : "hasFather"
-          }
-        ],
-        [
-          {
-            "incoming" : "hasMother"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "incoming" : "hasFather"
+            }
+          ]
+        },
+        {
+          "segments" : [
+            {
+              "incoming" : "hasMother"
+            }
+          ]
+        }
       ],
       "identifier" : "hasChild"
     },
@@ -920,12 +942,14 @@
       ]
     },
     {
-      "equivalencies" : [
-        [
-          {
-            "incoming" : "hasChild"
-          }
-        ]
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "incoming" : "hasChild"
+            }
+          ]
+        }
       ],
       "identifier" : "hasParent"
     },
