@@ -1,14 +1,31 @@
 
+
 public indirect enum Equivalent<M>: Hashable where M: OntologyMappings {
 
-    public enum Segment: Hashable {
-        case incoming(String)
-        case outgoing(String)
-        case individual(String)
+    public struct Segment: Hashable {
+
+        public enum Identifier: Hashable {
+            case incoming(String)
+            case outgoing(String)
+            case individual(String)
+        }
+
+        fileprivate let identifier: Identifier
+
+        public static func incoming(_ property: Property<M>) -> Segment {
+            return Segment(identifier: .incoming(property.identifier))
+        }
+
+        public static func outgoing(_ property: Property<M>) -> Segment {
+            return Segment(identifier: .outgoing(property.identifier))
+        }
+
+        public static func individual(_ individual: Individual<M>) -> Segment {
+            return Segment(identifier: .individual(individual.identifier))
+        }
     }
 
     case segments([Segment])
-    case or([Equivalent])
     case and([Equivalent])
 }
 
@@ -17,7 +34,6 @@ extension Equivalent: Codable {
 
     internal enum CodingKeys: String, CodingKey, CaseIterable {
         case segments
-        case or
         case and
     }
 
@@ -27,9 +43,6 @@ extension Equivalent: Codable {
         switch self {
         case .segments(let segments):
             try container.encode(segments, forKey: .segments)
-
-        case .or(let equivalents):
-            try container.encode(equivalents, forKey: .or)
 
         case .and(let equivalents):
             try container.encode(equivalents, forKey: .and)
@@ -43,17 +56,9 @@ extension Equivalent: Codable {
             switch codingKey {
             case .segments:
                 if let segments =
-                    try container.decodeIfPresent([Equivalent<M>.Segment].self, forKey: .segments)
+                    try container.decodeIfPresent([Segment].self, forKey: .segments)
                 {
                     self = .segments(segments)
-                    return
-                }
-
-            case .or:
-                if let equivalents =
-                    try container.decodeIfPresent([Equivalent<M>].self, forKey: .or)
-                {
-                    self = .or(equivalents)
                     return
                 }
 
@@ -74,6 +79,19 @@ extension Equivalent: Codable {
 
 
 extension Equivalent.Segment: Codable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(identifier)
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        identifier = try container.decode(Identifier.self)
+    }
+}
+
+
+extension Equivalent.Segment.Identifier: Codable {
 
     internal enum CodingKeys: String, CodingKey, CaseIterable {
         case incoming
@@ -137,44 +155,12 @@ extension Equivalent.Segment: Codable {
 }
 
 
-extension Equivalent.Segment: Comparable {
-
-    private var orderIndex: Int {
-        switch self {
-        case .incoming:
-            return 0
-        case .outgoing:
-            return 1
-        case .individual:
-            return 2
-        }
-    }
-
-    public static func < (
-        lhs: Equivalent.Segment,
-        rhs: Equivalent.Segment
-    ) -> Bool {
-        switch (lhs, rhs) {
-        case let (.incoming(left), .incoming(right)):
-            return left < right
-        case let (.outgoing(left), .outgoing(right)):
-            return left < right
-        case let (.individual(left), .individual(right)):
-            return left < right
-        case (.incoming, _), (.outgoing, _), (.individual, _):
-            return lhs.orderIndex < rhs.orderIndex
-        }
-    }
-}
-
 extension Equivalent: Comparable {
 
     private var orderIndex: Int {
         switch self {
         case .segments:
             return 0
-        case .or:
-            return 1
         case .and:
             return 2
         }
@@ -193,8 +179,7 @@ extension Equivalent: Comparable {
             }
             return left.count < right.count
 
-        case let (.or(left), .or(right)),
-             let (.and(left), .and(right)):
+        case let (.and(left), .and(right)):
 
             for (leftEquivalent, rightEquivalent) in zip(left, right) {
                 if leftEquivalent < rightEquivalent {
@@ -206,7 +191,48 @@ extension Equivalent: Comparable {
             }
             return left.count < right.count
 
-        case (.segments, _), (.or, _), (.and, _):
+        case (.segments, _), (.and, _):
+            return lhs.orderIndex < rhs.orderIndex
+        }
+    }
+}
+
+
+extension Equivalent.Segment: Comparable {
+    public static func < (
+        lhs: Equivalent.Segment,
+        rhs: Equivalent.Segment
+    ) -> Bool {
+        return lhs.identifier < rhs.identifier
+    }
+}
+
+
+extension Equivalent.Segment.Identifier: Comparable {
+
+    private var orderIndex: Int {
+        switch self {
+        case .incoming:
+            return 0
+        case .outgoing:
+            return 1
+        case .individual:
+            return 2
+        }
+    }
+
+    public static func < (
+        lhs: Equivalent.Segment.Identifier,
+        rhs: Equivalent.Segment.Identifier
+    ) -> Bool {
+        switch (lhs, rhs) {
+        case let (.incoming(left), .incoming(right)):
+            return left < right
+        case let (.outgoing(left), .outgoing(right)):
+            return left < right
+        case let (.individual(left), .individual(right)):
+            return left < right
+        case (.incoming, _), (.outgoing, _), (.individual, _):
             return lhs.orderIndex < rhs.orderIndex
         }
     }

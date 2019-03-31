@@ -15,15 +15,15 @@ public extension HasEquivalents {
     @discardableResult
     func hasEquivalent(outgoing: Property<M>, _ individual: Individual<M>) -> Self {
         return hasEquivalent(.segments([
-            .outgoing(outgoing.identifier),
-            .individual(individual.identifier)
+            .outgoing(outgoing),
+            .individual(individual)
         ]))
     }
 
     @discardableResult
     func hasEquivalent(outgoing: Property<M>) -> Self {
         return hasEquivalent(.segments([
-            .outgoing(outgoing.identifier)
+            .outgoing(outgoing)
         ]))
     }
 
@@ -33,31 +33,31 @@ public extension HasEquivalents {
         outgoing secondOutgoing: Property<M>
     ) -> Self {
         return hasEquivalent(.segments([
-            .outgoing(outgoing.identifier),
-            .outgoing(secondOutgoing.identifier)
+            .outgoing(outgoing),
+            .outgoing(secondOutgoing)
         ]))
     }
 
     @discardableResult
     func hasEquivalent(outgoing: Property<M>, incoming: Property<M>) -> Self {
         return hasEquivalent(.segments([
-            .outgoing(outgoing.identifier),
-            .incoming(incoming.identifier)
+            .outgoing(outgoing),
+            .incoming(incoming)
         ]))
     }
 
     @discardableResult
     func hasEquivalent(individual: Individual<M>, incoming: Property<M>) -> Self {
         return hasEquivalent(.segments([
-            .individual(individual.identifier),
-            .incoming(incoming.identifier)
+            .individual(individual),
+            .incoming(incoming)
         ]))
     }
 
     @discardableResult
     func hasEquivalent(incoming: Property<M>) -> Self {
         return hasEquivalent(.segments([
-            .incoming(incoming.identifier)
+            .incoming(incoming)
         ]))
     }
 
@@ -67,16 +67,16 @@ public extension HasEquivalents {
         incoming secondIncoming: Property<M>
     ) -> Self {
         return hasEquivalent(.segments([
-            .incoming(incoming.identifier),
-            .incoming(secondIncoming.identifier)
+            .incoming(incoming),
+            .incoming(secondIncoming)
         ]))
     }
 
     @discardableResult
     func hasEquivalent(incoming: Property<M>, outgoing: Property<M>) -> Self {
         return hasEquivalent(.segments([
-            .incoming(incoming.identifier),
-            .outgoing(outgoing.identifier)
+            .incoming(incoming),
+            .outgoing(outgoing)
         ]))
     }
 }
