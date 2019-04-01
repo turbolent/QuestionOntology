@@ -757,140 +757,6 @@
       ]
     }
   ],
-  "named_property_patterns" : [
-    {
-      "pattern" : {
-        "patterns" : [
-          {
-            "condition" : {
-              "conditions" : [
-                {
-                  "input" : "be",
-                  "label" : "lemma",
-                  "op" : "=",
-                  "type" : "label"
-                },
-                {
-                  "input" : "V",
-                  "label" : "tag",
-                  "op" : "prefix",
-                  "type" : "label"
-                }
-              ],
-              "type" : "and"
-            },
-            "type" : "token"
-          },
-          {
-            "condition" : {
-              "conditions" : [
-                {
-                  "input" : "bear",
-                  "label" : "lemma",
-                  "op" : "=",
-                  "type" : "label"
-                },
-                {
-                  "input" : "V",
-                  "label" : "tag",
-                  "op" : "prefix",
-                  "type" : "label"
-                }
-              ],
-              "type" : "and"
-            },
-            "type" : "token"
-          }
-        ],
-        "type" : "sequence"
-      },
-      "properties" : [
-        "hasDateOfBirth",
-        "hasPlaceOfBirth"
-      ]
-    },
-    {
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "die",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
-            },
-            {
-              "input" : "V",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
-      "properties" : [
-        "hasDateOfDeath",
-        "hasPlaceOfDeath"
-      ]
-    },
-    {
-      "pattern" : {
-        "patterns" : [
-          {
-            "max" : 1,
-            "min" : 0,
-            "pattern" : {
-              "condition" : {
-                "conditions" : [
-                  {
-                    "input" : "be",
-                    "label" : "lemma",
-                    "op" : "=",
-                    "type" : "label"
-                  },
-                  {
-                    "input" : "V",
-                    "label" : "tag",
-                    "op" : "prefix",
-                    "type" : "label"
-                  }
-                ],
-                "type" : "and"
-              },
-              "type" : "token"
-            },
-            "type" : "repetition"
-          },
-          {
-            "condition" : {
-              "conditions" : [
-                {
-                  "input" : "marry",
-                  "label" : "lemma",
-                  "op" : "=",
-                  "type" : "label"
-                },
-                {
-                  "input" : "V",
-                  "label" : "tag",
-                  "op" : "prefix",
-                  "type" : "label"
-                }
-              ],
-              "type" : "and"
-            },
-            "type" : "token"
-          }
-        ],
-        "type" : "sequence"
-      },
-      "properties" : [
-        "hasSpouse"
-      ]
-    }
-  ],
   "properties" : [
     {
       "identifier" : "hasAge"
@@ -971,7 +837,260 @@
     },
     {
       "identifier" : "hasSpouse",
+      "pattern" : {
+        "patterns" : [
+          {
+            "max" : 1,
+            "min" : 0,
+            "pattern" : {
+              "condition" : {
+                "conditions" : [
+                  {
+                    "input" : "be",
+                    "label" : "lemma",
+                    "op" : "=",
+                    "type" : "label"
+                  },
+                  {
+                    "input" : "V",
+                    "label" : "tag",
+                    "op" : "prefix",
+                    "type" : "label"
+                  }
+                ],
+                "type" : "and"
+              },
+              "type" : "token"
+            },
+            "type" : "repetition"
+          },
+          {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "marry",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "V",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          }
+        ],
+        "type" : "sequence"
+      },
       "symmetric" : true
+    },
+    {
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasDateOfBirth"
+            }
+          ]
+        },
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasPlaceOfBirth"
+            }
+          ]
+        }
+      ],
+      "identifier" : "isBorn",
+      "pattern" : {
+        "patterns" : [
+          {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "bear",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          },
+          {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "alive",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "JJ",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        ],
+        "type" : "or"
+      }
+    },
+    {
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasDateOfDeath"
+            }
+          ]
+        },
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasPlaceOfDeath"
+            }
+          ]
+        }
+      ],
+      "identifier" : "isDead",
+      "pattern" : {
+        "patterns" : [
+          {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "die",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "V",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "dead",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "JJ",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        ],
+        "type" : "or"
+      }
     }
   ],
   "property_mapping" : {

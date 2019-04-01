@@ -35,6 +35,35 @@ final class QuestionOntologyTests: XCTestCase {
         let hasDateOfDeath = ontology.define(property: "hasDateOfDeath")
             .map(to: .property(Wikidata.P.570))
 
+        let hasPlaceOfBirth = ontology.define(property: "hasPlaceOfBirth")
+            .map(to: .property(Wikidata.P.19))
+
+        let hasPlaceOfDeath = ontology.define(property: "hasPlaceOfDeath")
+            .map(to: .property(Wikidata.P.20))
+
+        ontology.define(property: "isBorn")
+            .hasEquivalent(outgoing: hasDateOfBirth)
+            .hasEquivalent(outgoing: hasPlaceOfBirth)
+            .hasPattern(
+                pattern(lemma: "be", tag: .verb)
+                    ~ pattern(lemma: "bear", tag: .verb)
+            )
+            .hasPattern(
+                pattern(lemma: "be", tag: .verb)
+                    ~ pattern(lemma: "alive", tag: .adjective)
+            )
+
+        ontology.define(property: "isDead")
+            .hasEquivalent(outgoing: hasDateOfDeath)
+            .hasEquivalent(outgoing: hasPlaceOfDeath)
+            .hasPattern(
+                pattern(lemma: "die", tag: .verb)
+            )
+            .hasPattern(
+                pattern(lemma: "be", tag: .verb)
+                    ~ pattern(lemma: "dead", tag: .adjective)
+            )
+
         ontology.define(property: "hasAge")
             .map(to: .operation(
                 .age(
@@ -42,12 +71,6 @@ final class QuestionOntologyTests: XCTestCase {
                     deathDateProperty: hasDateOfDeath
                 ))
             )
-
-        let hasPlaceOfBirth = ontology.define(property: "hasPlaceOfBirth")
-            .map(to: .property(Wikidata.P.19))
-
-        let hasPlaceOfDeath = ontology.define(property: "hasPlaceOfDeath")
-            .map(to: .property(Wikidata.P.20))
 
         let hasParent = ontology.define(property: "hasParent")
 
@@ -126,9 +149,13 @@ final class QuestionOntologyTests: XCTestCase {
             .isSubClass(of: Male)
             .hasPattern(pattern(lemma: "son", tag: .noun))
 
-        let hasSpouse = ontology.define(property: "hasSpouse")
+        ontology.define(property: "hasSpouse")
             .makeSymmetric()
             .map(to: .property(Wikidata.P.26))
+            .hasPattern(
+                pattern(lemma: "be", tag: .verb).opt()
+                    ~ pattern(lemma: "marry", tag: .verb)
+            )
 
         let Spouse = ontology.define(class: "Spouse")
             .hasPattern(pattern(lemma: "spouse", tag: .noun))
