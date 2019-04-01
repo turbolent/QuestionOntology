@@ -1,14 +1,14 @@
 import ParserDescription
 
 
-public final class Class<M>: HasEquivalents, HasPattern where M: OntologyMappings {
+public final class Class<M>: HasEquivalents where M: OntologyMappings {
 
     public let identifier: String
     private unowned var ontology: QuestionOntology<M>
 
     public private(set) var superClassIdentifiers: Set<String> = []
     public var equivalents: Set<Equivalent<M>> = []
-    public var pattern: AnyPattern?
+    public var patterns: [ClassPattern] = []
 
     public var superClasses: [Class<M>] {
         return superClassIdentifiers.map {
@@ -32,6 +32,21 @@ public final class Class<M>: HasEquivalents, HasPattern where M: OntologyMapping
         superClassIdentifiers.formUnion(superClasses.map { $0.identifier })
         return self
     }
+
+    @discardableResult
+    public func hasPattern(_ pattern: ClassPattern) -> Class {
+        patterns.append(pattern)
+        return self
+    }
+
+    @discardableResult
+    public func hasPatterns(_ pattern: ClassPattern, _ morePatterns: ClassPattern...) -> Class {
+        hasPattern(pattern)
+        for pattern in morePatterns {
+            hasPattern(pattern)
+        }
+        return self
+    }
 }
 
 
@@ -41,7 +56,7 @@ extension Class: Equatable {
         return lhs.identifier == rhs.identifier
             && lhs.equivalents == rhs.equivalents
             && lhs.superClassIdentifiers == rhs.superClassIdentifiers
-            && lhs.pattern == rhs.pattern
+            && lhs.patterns == rhs.patterns
     }
 }
 
@@ -59,7 +74,7 @@ extension Class: Codable {
         case identifier
         case equivalents
         case superClasses = "superclasses"
-        case pattern
+        case patterns
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -80,8 +95,8 @@ extension Class: Codable {
             )
         }
 
-        if let pattern = pattern {
-            try container.encode(pattern, forKey: .pattern)
+        if !patterns.isEmpty {
+            try container.encode(patterns, forKey: .patterns)
         }
     }
 
@@ -113,10 +128,10 @@ extension Class: Codable {
             }
         }
 
-        if let pattern =
-            try container.decodeIfPresent(AnyPattern.self, forKey: .pattern)
+        if let patterns =
+            try container.decodeIfPresent([ClassPattern].self, forKey: .patterns)
         {
-            self.pattern = pattern
+            self.patterns = patterns
         }
     }
 }

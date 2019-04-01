@@ -25,8 +25,8 @@ final class QuestionOntologyTests: XCTestCase {
         let Person = ontology.define(class: "Person")
             .map(to: Wikidata.Q.5)
             .hasPatterns(
-                pattern(lemma: "person", tag: .noun),
-                pattern(lemma: "people", tag: .noun)
+                .named(pattern(lemma: "person", tag: .noun)),
+                .named(pattern(lemma: "people", tag: .noun))
             )
 
         let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
@@ -45,23 +45,29 @@ final class QuestionOntologyTests: XCTestCase {
             .hasEquivalent(outgoing: hasDateOfBirth)
             .hasEquivalent(outgoing: hasPlaceOfBirth)
             .hasPattern(
-                pattern(lemma: "be", tag: .verb)
-                    ~ pattern(lemma: "bear", tag: .verb)
+                .named(
+                    pattern(lemma: "be", tag: .verb)
+                        ~ pattern(lemma: "bear", tag: .verb)
+                )
             )
             .hasPattern(
-                pattern(lemma: "be", tag: .verb)
-                    ~ pattern(lemma: "alive", tag: .adjective)
+                .named(
+                    pattern(lemma: "be", tag: .verb)
+                        ~ pattern(lemma: "alive", tag: .adjective)
+                )
             )
 
         ontology.define(property: "isDead")
             .hasEquivalent(outgoing: hasDateOfDeath)
             .hasEquivalent(outgoing: hasPlaceOfDeath)
             .hasPattern(
-                pattern(lemma: "die", tag: .verb)
+                .named(pattern(lemma: "die", tag: .verb))
             )
             .hasPattern(
-                pattern(lemma: "be", tag: .verb)
-                    ~ pattern(lemma: "dead", tag: .adjective)
+                .named(
+                    pattern(lemma: "be", tag: .verb)
+                        ~ pattern(lemma: "dead", tag: .adjective)
+                )
             )
 
         ontology.define(property: "hasAge")
@@ -70,6 +76,12 @@ final class QuestionOntologyTests: XCTestCase {
                     birthDateProperty: hasDateOfBirth,
                     deathDateProperty: hasDateOfDeath
                 ))
+            )
+            .hasPattern(
+                .adjective(
+                    pattern(lemma: "be", tag: .verb)
+                        ~ pattern(lemma: "old", tag: .adjective)
+                )
             )
 
         let hasParent = ontology.define(property: "hasParent")
@@ -99,16 +111,16 @@ final class QuestionOntologyTests: XCTestCase {
             .isSubClass(of: Person)
             .hasEquivalent(outgoing: hasGender, male)
             .hasPatterns(
-                pattern(lemma: "male", tag: .noun),
-                pattern(lemma: "man", tag: .noun)
+                .named(pattern(lemma: "male", tag: .noun)),
+                .named(pattern(lemma: "man", tag: .noun))
             )
 
         let Female = ontology.define(class: "Female")
             .isSubClass(of: Person)
             .hasEquivalent(outgoing: hasGender, female)
             .hasPatterns(
-                pattern(lemma: "female", tag: .noun),
-                pattern(lemma: "woman", tag: .noun)
+                .named(pattern(lemma: "female", tag: .noun)),
+                .named(pattern(lemma: "woman", tag: .noun))
             )
 
         let hasChild = ontology.define(property: "hasChild")
@@ -120,57 +132,77 @@ final class QuestionOntologyTests: XCTestCase {
         let Parent = ontology.define(class: "Parent")
             .isSubClass(of: Person)
             .hasEquivalent(outgoing: hasChild)
-            .hasPattern(pattern(lemma: "parent", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "parent", tag: .noun))
+            )
 
         ontology.define(class: "Mother")
             .isSubClass(of: Parent)
             .isSubClass(of: Female)
             .hasEquivalent(incoming: hasMother)
-            .hasPattern(pattern(lemma: "mother", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "mother", tag: .noun))
+            )
 
         ontology.define(class: "Father")
             .isSubClass(of: Parent)
             .isSubClass(of: Male)
             .hasEquivalent(incoming: hasFather)
-            .hasPattern(pattern(lemma: "father", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "father", tag: .noun))
+            )
 
         let Child = ontology.define(class: "Child")
             .isSubClass(of: Person)
             .hasEquivalent(incoming: hasChild)
-            .hasPattern(pattern(lemma: "child", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "child", tag: .noun))
+            )
 
         ontology.define(class: "Daughter")
             .isSubClass(of: Child)
             .isSubClass(of: Female)
-            .hasPattern(pattern(lemma: "daughter", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "daughter", tag: .noun))
+            )
 
         ontology.define(class: "Son")
             .isSubClass(of: Child)
             .isSubClass(of: Male)
-            .hasPattern(pattern(lemma: "son", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "son", tag: .noun))
+            )
 
         ontology.define(property: "hasSpouse")
             .makeSymmetric()
             .map(to: .property(Wikidata.P.26))
             .hasPattern(
-                pattern(lemma: "be", tag: .verb).opt()
-                    ~ pattern(lemma: "marry", tag: .verb)
+                .named(
+                    pattern(lemma: "be", tag: .verb).opt()
+                        ~ pattern(lemma: "marry", tag: .verb)
+                )
             )
 
         let Spouse = ontology.define(class: "Spouse")
-            .hasPattern(pattern(lemma: "spouse", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "spouse", tag: .noun))
+            )
 
         ontology.define(class: "Wife")
             .isSubClass(of: Spouse)
             .isSubClass(of: Female)
             .map(to: Wikidata.Q.188830)
-            .hasPattern(pattern(lemma: "wife", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "wife", tag: .noun))
+            )
 
         ontology.define(class: "Husband")
             .isSubClass(of: Spouse)
             .isSubClass(of: Male)
             .map(to: Wikidata.Q.212878)
-            .hasPattern(pattern(lemma: "husband", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "husband", tag: .noun))
+            )
 
         let hasSibling = ontology.define(property: "hasSibling")
             .makeSymmetric()
@@ -179,17 +211,23 @@ final class QuestionOntologyTests: XCTestCase {
         let Sibling = ontology.define(class: "Sibling")
             .isSubClass(of: Person)
             .hasEquivalent(outgoing: hasSibling)
-            .hasPattern(pattern(lemma: "sibling", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "sibling", tag: .noun))
+            )
 
         ontology.define(class: "Sister")
             .isSubClass(of: Sibling)
             .isSubClass(of: Female)
-            .hasPattern(pattern(lemma: "sister", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "sister", tag: .noun))
+            )
 
         ontology.define(class: "Brother")
             .isSubClass(of: Sibling)
             .isSubClass(of: Male)
-            .hasPattern(pattern(lemma: "brother", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "brother", tag: .noun))
+            )
 
         ontology.define(property: "hasBrother")
             .isSubProperty(of: hasSibling)
@@ -205,17 +243,23 @@ final class QuestionOntologyTests: XCTestCase {
                 outgoing: hasChild,
                 outgoing: hasChild
             )
-            .hasPattern(pattern(lemma: "grandparent", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "grandparent", tag: .noun))
+            )
 
         ontology.define(class: "GrandMother")
             .isSubClass(of: GrandParent)
             .isSubClass(of: Female)
-            .hasPattern(pattern(lemma: "grandmother", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "grandmother", tag: .noun))
+            )
 
         ontology.define(class: "GrandFather")
             .isSubClass(of: GrandParent)
             .isSubClass(of: Male)
-            .hasPattern(pattern(lemma: "grandfather", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "grandfather", tag: .noun))
+            )
 
         let GrandChild = ontology.define(class: "GrandChild")
             .isSubClass(of: Child)
@@ -223,17 +267,23 @@ final class QuestionOntologyTests: XCTestCase {
                 incoming: hasChild,
                 incoming: hasChild
             )
-            .hasPattern(pattern(lemma: "grandchild", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "grandchild", tag: .noun))
+            )
 
         ontology.define(class: "GrandDaughter")
             .isSubClass(of: GrandChild)
             .isSubClass(of: Female)
-            .hasPattern(pattern(lemma: "granddaughter", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "granddaughter", tag: .noun))
+            )
 
         ontology.define(class: "GrandSon")
             .isSubClass(of: GrandChild)
             .isSubClass(of: Male)
-            .hasPattern(pattern(lemma: "grandson", tag: .noun))
+            .hasPattern(
+                .named(pattern(lemma: "grandson", tag: .noun))
+            )
 
 
 

@@ -1,14 +1,14 @@
 import ParserDescription
 
 
-public final class Property<M>: HasEquivalents, HasPattern where M: OntologyMappings {
+public final class Property<M>: HasEquivalents where M: OntologyMappings {
 
     public let identifier: String
     private unowned var ontology: QuestionOntology<M>
 
     public private(set) var superPropertyIdentifiers: Set<String> = []
     public var equivalents: Set<Equivalent<M>> = []
-    public var pattern: AnyPattern?
+    public var patterns: [PropertyPattern] = []
 
     public var isSymmetric = false
     public var isTransitive = false
@@ -47,6 +47,21 @@ public final class Property<M>: HasEquivalents, HasPattern where M: OntologyMapp
         isTransitive = true
         return self
     }
+
+    @discardableResult
+    public func hasPattern(_ pattern: PropertyPattern) -> Property {
+        patterns.append(pattern)
+        return self
+    }
+
+    @discardableResult
+    public func hasPatterns(_ pattern: PropertyPattern, _ morePatterns: PropertyPattern...) -> Property {
+        hasPattern(pattern)
+        for pattern in morePatterns {
+            hasPattern(pattern)
+        }
+        return self
+    }
 }
 
 
@@ -58,7 +73,7 @@ extension Property: Equatable {
             && lhs.isTransitive == rhs.isTransitive
             && lhs.equivalents == rhs.equivalents
             && lhs.superPropertyIdentifiers == rhs.superPropertyIdentifiers
-            && lhs.pattern == rhs.pattern
+            && lhs.patterns == rhs.patterns
     }
 }
 
@@ -78,7 +93,7 @@ extension Property: Codable {
         case transitive
         case equivalents
         case superProperties = "superproperties"
-        case pattern
+        case patterns
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -102,8 +117,8 @@ extension Property: Codable {
                 forKey: .superProperties
             )
         }
-        if let pattern = pattern {
-            try container.encode(pattern, forKey: .pattern)
+        if !patterns.isEmpty {
+            try container.encode(patterns, forKey: .patterns)
         }
     }
 
@@ -142,10 +157,10 @@ extension Property: Codable {
             }
         }
 
-        if let pattern =
-            try container.decodeIfPresent(AnyPattern.self, forKey: .pattern)
+        if let patterns =
+            try container.decodeIfPresent([PropertyPattern].self, forKey: .patterns)
         {
-            self.pattern = pattern
+            self.patterns = patterns
         }
     }
 }

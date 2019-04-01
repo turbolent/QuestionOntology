@@ -13,26 +13,30 @@
   "classes" : [
     {
       "identifier" : "Brother",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "brother",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "brother",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Male",
         "Sibling"
@@ -49,52 +53,60 @@
         }
       ],
       "identifier" : "Child",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "child",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "child",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Person"
       ]
     },
     {
       "identifier" : "Daughter",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "daughter",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "daughter",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Child",
         "Female"
@@ -111,26 +123,30 @@
         }
       ],
       "identifier" : "Father",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "father",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "father",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Male",
         "Parent"
@@ -150,9 +166,9 @@
         }
       ],
       "identifier" : "Female",
-      "pattern" : {
-        "patterns" : [
-          {
+      "patterns" : [
+        {
+          "named" : {
             "condition" : {
               "conditions" : [
                 {
@@ -171,8 +187,10 @@
               "type" : "and"
             },
             "type" : "token"
-          },
-          {
+          }
+        },
+        {
+          "named" : {
             "condition" : {
               "conditions" : [
                 {
@@ -192,9 +210,8 @@
             },
             "type" : "token"
           }
-        ],
-        "type" : "or"
-      },
+        }
+      ],
       "superclasses" : [
         "Person"
       ]
@@ -216,52 +233,60 @@
         }
       ],
       "identifier" : "GrandChild",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "grandchild",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "grandchild",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Child"
       ]
     },
     {
       "identifier" : "GrandDaughter",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "granddaughter",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "granddaughter",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Female",
         "GrandChild"
@@ -269,26 +294,30 @@
     },
     {
       "identifier" : "GrandFather",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "grandfather",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "grandfather",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "GrandParent",
         "Male"
@@ -296,26 +325,30 @@
     },
     {
       "identifier" : "GrandMother",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "grandmother",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "grandmother",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Female",
         "GrandParent"
@@ -335,52 +368,60 @@
         }
       ],
       "identifier" : "GrandParent",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "grandparent",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "grandparent",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Parent"
       ]
     },
     {
       "identifier" : "GrandSon",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "grandson",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "grandson",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "GrandChild",
         "Male"
@@ -388,26 +429,30 @@
     },
     {
       "identifier" : "Husband",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "husband",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "husband",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Male",
         "Spouse"
@@ -427,9 +472,9 @@
         }
       ],
       "identifier" : "Male",
-      "pattern" : {
-        "patterns" : [
-          {
+      "patterns" : [
+        {
+          "named" : {
             "condition" : {
               "conditions" : [
                 {
@@ -448,8 +493,10 @@
               "type" : "and"
             },
             "type" : "token"
-          },
-          {
+          }
+        },
+        {
+          "named" : {
             "condition" : {
               "conditions" : [
                 {
@@ -469,9 +516,8 @@
             },
             "type" : "token"
           }
-        ],
-        "type" : "or"
-      },
+        }
+      ],
       "superclasses" : [
         "Person"
       ]
@@ -487,26 +533,30 @@
         }
       ],
       "identifier" : "Mother",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "mother",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "mother",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Female",
         "Parent"
@@ -523,35 +573,39 @@
         }
       ],
       "identifier" : "Parent",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "parent",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "parent",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Person"
       ]
     },
     {
       "identifier" : "Person",
-      "pattern" : {
-        "patterns" : [
-          {
+      "patterns" : [
+        {
+          "named" : {
             "condition" : {
               "conditions" : [
                 {
@@ -570,8 +624,10 @@
               "type" : "and"
             },
             "type" : "token"
-          },
-          {
+          }
+        },
+        {
+          "named" : {
             "condition" : {
               "conditions" : [
                 {
@@ -591,9 +647,8 @@
             },
             "type" : "token"
           }
-        ],
-        "type" : "or"
-      }
+        }
+      ]
     },
     {
       "equivalents" : [
@@ -606,52 +661,60 @@
         }
       ],
       "identifier" : "Sibling",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "sibling",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "sibling",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Person"
       ]
     },
     {
       "identifier" : "Sister",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "sister",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "sister",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Female",
         "Sibling"
@@ -659,26 +722,30 @@
     },
     {
       "identifier" : "Son",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "son",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "son",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Child",
         "Male"
@@ -686,49 +753,57 @@
     },
     {
       "identifier" : "Spouse",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "spouse",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "spouse",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      }
+            "type" : "token"
+          }
+        }
+      ]
     },
     {
       "identifier" : "Wife",
-      "pattern" : {
-        "condition" : {
-          "conditions" : [
-            {
-              "input" : "wife",
-              "label" : "lemma",
-              "op" : "=",
-              "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "wife",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
             },
-            {
-              "input" : "N",
-              "label" : "tag",
-              "op" : "prefix",
-              "type" : "label"
-            }
-          ],
-          "type" : "and"
-        },
-        "type" : "token"
-      },
+            "type" : "token"
+          }
+        }
+      ],
       "superclasses" : [
         "Female",
         "Spouse"
@@ -759,7 +834,56 @@
   ],
   "properties" : [
     {
-      "identifier" : "hasAge"
+      "identifier" : "hasAge",
+      "patterns" : [
+        {
+          "adjective" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "old",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "JJ",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        }
+      ]
     },
     {
       "identifier" : "hasBrother",
@@ -837,56 +961,60 @@
     },
     {
       "identifier" : "hasSpouse",
-      "pattern" : {
-        "patterns" : [
-          {
-            "max" : 1,
-            "min" : 0,
-            "pattern" : {
-              "condition" : {
-                "conditions" : [
-                  {
-                    "input" : "be",
-                    "label" : "lemma",
-                    "op" : "=",
-                    "type" : "label"
+      "patterns" : [
+        {
+          "named" : {
+            "patterns" : [
+              {
+                "max" : 1,
+                "min" : 0,
+                "pattern" : {
+                  "condition" : {
+                    "conditions" : [
+                      {
+                        "input" : "be",
+                        "label" : "lemma",
+                        "op" : "=",
+                        "type" : "label"
+                      },
+                      {
+                        "input" : "V",
+                        "label" : "tag",
+                        "op" : "prefix",
+                        "type" : "label"
+                      }
+                    ],
+                    "type" : "and"
                   },
-                  {
-                    "input" : "V",
-                    "label" : "tag",
-                    "op" : "prefix",
-                    "type" : "label"
-                  }
-                ],
-                "type" : "and"
-              },
-              "type" : "token"
-            },
-            "type" : "repetition"
-          },
-          {
-            "condition" : {
-              "conditions" : [
-                {
-                  "input" : "marry",
-                  "label" : "lemma",
-                  "op" : "=",
-                  "type" : "label"
+                  "type" : "token"
                 },
-                {
-                  "input" : "V",
-                  "label" : "tag",
-                  "op" : "prefix",
-                  "type" : "label"
-                }
-              ],
-              "type" : "and"
-            },
-            "type" : "token"
+                "type" : "repetition"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "marry",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
           }
-        ],
-        "type" : "sequence"
-      },
+        }
+      ],
       "symmetric" : true
     },
     {
@@ -907,9 +1035,9 @@
         }
       ],
       "identifier" : "isBorn",
-      "pattern" : {
-        "patterns" : [
-          {
+      "patterns" : [
+        {
+          "named" : {
             "patterns" : [
               {
                 "condition" : {
@@ -953,8 +1081,10 @@
               }
             ],
             "type" : "sequence"
-          },
-          {
+          }
+        },
+        {
+          "named" : {
             "patterns" : [
               {
                 "condition" : {
@@ -999,9 +1129,8 @@
             ],
             "type" : "sequence"
           }
-        ],
-        "type" : "or"
-      }
+        }
+      ]
     },
     {
       "equivalents" : [
@@ -1021,9 +1150,9 @@
         }
       ],
       "identifier" : "isDead",
-      "pattern" : {
-        "patterns" : [
-          {
+      "patterns" : [
+        {
+          "named" : {
             "condition" : {
               "conditions" : [
                 {
@@ -1042,8 +1171,10 @@
               "type" : "and"
             },
             "type" : "token"
-          },
-          {
+          }
+        },
+        {
+          "named" : {
             "patterns" : [
               {
                 "condition" : {
@@ -1088,9 +1219,8 @@
             ],
             "type" : "sequence"
           }
-        ],
-        "type" : "or"
-      }
+        }
+      ]
     }
   ],
   "property_mapping" : {

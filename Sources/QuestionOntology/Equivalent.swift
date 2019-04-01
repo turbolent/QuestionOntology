@@ -162,7 +162,7 @@ extension Equivalent: Comparable {
         case .segments:
             return 0
         case .and:
-            return 2
+            return 1
         }
     }
 
