@@ -1,14 +1,14 @@
-
 import ParserDescription
 
 
-public final class Property<M>: HasEquivalents where M: OntologyMappings {
+public final class Property<M>: HasEquivalents, HasPattern where M: OntologyMappings {
 
     public let identifier: String
     private unowned var ontology: QuestionOntology<M>
 
     public private(set) var superPropertyIdentifiers: Set<String> = []
     public var equivalents: Set<Equivalent<M>> = []
+    public var pattern: AnyPattern?
 
     public var isSymmetric = false
     public var isTransitive = false
@@ -58,6 +58,7 @@ extension Property: Equatable {
             && lhs.isTransitive == rhs.isTransitive
             && lhs.equivalents == rhs.equivalents
             && lhs.superPropertyIdentifiers == rhs.superPropertyIdentifiers
+            && lhs.pattern == rhs.pattern
     }
 }
 
@@ -77,6 +78,7 @@ extension Property: Codable {
         case transitive
         case equivalents
         case superProperties = "superproperties"
+        case pattern
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -99,6 +101,9 @@ extension Property: Codable {
                 superPropertyIdentifiers.sorted(),
                 forKey: .superProperties
             )
+        }
+        if let pattern = pattern {
+            try container.encode(pattern, forKey: .pattern)
         }
     }
 
@@ -136,6 +141,11 @@ extension Property: Codable {
                 codingUserInfo.reference(property: identifier)
             }
         }
+
+        if let pattern =
+            try container.decodeIfPresent(AnyPattern.self, forKey: .pattern)
+        {
+            self.pattern = pattern
+        }
     }
 }
-

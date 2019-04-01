@@ -1,15 +1,14 @@
-
 import ParserDescription
 
 
-public final class Class<M>: HasEquivalents where M: OntologyMappings {
+public final class Class<M>: HasEquivalents, HasPattern where M: OntologyMappings {
 
     public let identifier: String
     private unowned var ontology: QuestionOntology<M>
 
     public private(set) var superClassIdentifiers: Set<String> = []
-    public private(set) var pattern: AnyPattern?
     public var equivalents: Set<Equivalent<M>> = []
+    public var pattern: AnyPattern?
 
     public var superClasses: [Class<M>] {
         return superClassIdentifiers.map {
@@ -32,31 +31,6 @@ public final class Class<M>: HasEquivalents where M: OntologyMappings {
     public func isSubClass(of superClasses: Class...) -> Class {
         superClassIdentifiers.formUnion(superClasses.map { $0.identifier })
         return self
-    }
-
-    @discardableResult
-    public func hasPattern(_ pattern: AnyPattern) -> Class {
-        if let existingPattern = self.pattern {
-            self.pattern = AnyPattern(existingPattern.or(pattern))
-        } else {
-            self.pattern = pattern
-        }
-        return self
-    }
-
-    @discardableResult
-    public func hasPattern<T: Pattern>(_ pattern: T) -> Class {
-        return hasPattern(AnyPattern(pattern))
-    }
-
-    @discardableResult
-    public func hasPatterns(_ pattern: AnyPattern, _ morePatterns: AnyPattern...) -> Class {
-        return hasPattern(morePatterns.reduce(pattern) { AnyPattern($0.or($1)) })
-    }
-
-    @discardableResult
-    public func hasPatterns<T: Pattern>(_ pattern: T, _ morePatterns: T...) -> Class {
-        return hasPattern(morePatterns.reduce(AnyPattern(pattern)) { AnyPattern($0.or($1)) })
     }
 }
 
