@@ -6,10 +6,11 @@ import ParserDescriptionOperators
 public enum Tag: String {
     case noun = "N"
     case verb = "V"
+    case adjective = "JJ"
 
     var operation: Operation {
         switch self {
-        case .noun, .verb:
+        case .noun, .verb, .adjective:
             return .hasPrefix
         }
     }
