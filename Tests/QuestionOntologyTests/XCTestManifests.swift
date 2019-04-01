@@ -7,9 +7,9 @@ extension QuestionOntologyTests {
     // to regenerate.
     static let __allTests__QuestionOntologyTests = [
         ("testDefinitions", testDefinitions),
-        ("testInvalidClassEquivalencies2", testInvalidClassEquivalencies2),
-        ("testInvalidClassEquivalencies", testInvalidClassEquivalencies),
-        ("testInvalidPropertyEquivalencies", testInvalidPropertyEquivalencies),
+        ("testInvalidClassEquivalents2", testInvalidClassEquivalents2),
+        ("testInvalidClassEquivalents", testInvalidClassEquivalents),
+        ("testInvalidPropertyEquivalents", testInvalidPropertyEquivalents),
         ("testInvalidSuperClasses", testInvalidSuperClasses),
         ("testInvalidSuperProperties", testInvalidSuperProperties),
         ("testInvalidTypes", testInvalidTypes),
