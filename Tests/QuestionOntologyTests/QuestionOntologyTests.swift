@@ -209,25 +209,7 @@ final class QuestionOntologyTests: XCTestCase {
             .hasPattern(pattern(lemma: "grandson", tag: .noun))
 
 
-        ontology.add(
-            namedPropertyPattern:
-                pattern(lemma: "be", tag: .verb)
-                    ~ pattern(lemma: "bear", tag: .verb),
-            properties: hasDateOfBirth, hasPlaceOfBirth
-        )
 
-        ontology.add(
-            namedPropertyPattern:
-                pattern(lemma: "die", tag: .verb),
-            properties: hasDateOfDeath, hasPlaceOfDeath
-        )
-
-        ontology.add(
-            namedPropertyPattern:
-                pattern(lemma: "be", tag: .verb).opt()
-                    ~ pattern(lemma: "marry", tag: .verb),
-            properties: hasSpouse
-        )
 
 
         let expectedOntologyJSON =

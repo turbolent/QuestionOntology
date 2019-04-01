@@ -24,8 +24,6 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     public private(set) var propertyMapping: TwoWayDictionary<String, M.Property> = [:]
     public private(set) var individualMapping: TwoWayDictionary<String, M.Individual> = [:]
 
-    public private(set) var namedPropertyPatterns: [NamedPropertyPattern<M>] = []
-
     public init() {}
 
     @discardableResult
@@ -50,45 +48,6 @@ public final class QuestionOntology<M> where M: OntologyMappings {
         let newIndividual = Individual(identifier: identifier, ontology: self)
         individuals[identifier] = newIndividual
         return newIndividual
-    }
-
-    public func add(
-        namedPropertyPattern pattern: AnyPattern,
-        properties property: Property<M>,
-        _ moreProperties: Property<M>...
-    ) {
-        add(
-            namedPropertyPattern: pattern,
-            property: property,
-            moreProperties: moreProperties
-        )
-    }
-
-    public func add<T: Pattern>(
-        namedPropertyPattern pattern: T,
-        properties property: Property<M>,
-        _ moreProperties: Property<M>...
-    ) {
-        add(
-            namedPropertyPattern: AnyPattern(pattern),
-            property: property,
-            moreProperties: moreProperties
-        )
-    }
-
-    private func add(
-        namedPropertyPattern pattern: AnyPattern,
-        property: Property<M>,
-        moreProperties: [Property<M>]
-    ) {
-        namedPropertyPatterns.append(
-            NamedPropertyPattern(
-                pattern: pattern,
-                propertyIdentifiers:
-                    Set([property.identifier])
-                        .union(moreProperties.map { $0.identifier })
-            )
-        )
     }
 
     private func ensureNewDefinition(_ identifier: String) {
@@ -189,7 +148,6 @@ extension QuestionOntology: Equatable {
             && lhs.classMapping == rhs.classMapping
             && lhs.propertyMapping == rhs.propertyMapping
             && lhs.individualMapping == rhs.individualMapping
-            && lhs.namedPropertyPatterns == rhs.namedPropertyPatterns
     }
 }
 
@@ -203,7 +161,6 @@ extension QuestionOntology: Codable {
         case classMapping = "class_mapping"
         case propertyMapping = "property_mapping"
         case individualMapping = "individual_mapping"
-        case namedPropertyPatterns = "named_property_patterns"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -237,10 +194,6 @@ extension QuestionOntology: Codable {
 
         if !individualMapping.isEmpty {
             try container.encode(individualMapping, forKey: .individualMapping)
-        }
-
-        if !namedPropertyPatterns.isEmpty {
-            try container.encode(namedPropertyPatterns, forKey: .namedPropertyPatterns)
         }
     }
 
@@ -350,15 +303,6 @@ extension QuestionOntology: Codable {
             )
         {
             self.individualMapping = individualMapping
-        }
-
-        if let namedPropertyPatterns =
-            try container.decodeIfPresent(
-                [NamedPropertyPattern<M>].self,
-                forKey: .namedPropertyPatterns
-            )
-        {
-            self.namedPropertyPatterns = namedPropertyPatterns
         }
     }
 }
