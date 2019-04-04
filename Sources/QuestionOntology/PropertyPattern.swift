@@ -3,6 +3,7 @@ import ParserDescription
 public enum PropertyPattern: Hashable {
     case _named(AnyPattern)
     case _adjective(AnyPattern)
+    case _comparative(AnyPattern, filter: AnyPattern)
 
     public static func named<T: Pattern>(_ pattern: T) -> PropertyPattern {
         return ._named(AnyPattern(pattern))
@@ -11,6 +12,15 @@ public enum PropertyPattern: Hashable {
     public static func adjective<T: Pattern>(_ pattern: T) -> PropertyPattern {
         return ._adjective(AnyPattern(pattern))
     }
+
+    public static func comparative<T, U>(_ pattern: T, filter: U) -> PropertyPattern
+        where T: Pattern, U: Pattern
+    {
+        return ._comparative(
+            AnyPattern(pattern),
+            filter: AnyPattern(filter)
+        )
+    }
 }
 
 extension PropertyPattern: Codable {
@@ -18,6 +28,8 @@ extension PropertyPattern: Codable {
     internal enum CodingKeys: String, CodingKey, CaseIterable {
         case named
         case adjective
+        case comparative
+        case filter
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -28,6 +40,9 @@ extension PropertyPattern: Codable {
             try container.encode(pattern, forKey: .named)
         case ._adjective(let pattern):
             try container.encode(pattern, forKey: .adjective)
+        case let ._comparative(pattern, filter):
+            try container.encode(pattern, forKey: .comparative)
+            try container.encode(filter, forKey: .filter)
         }
     }
 
@@ -50,6 +65,18 @@ extension PropertyPattern: Codable {
                     self = ._adjective(pattern)
                     return
                 }
+            case .comparative:
+                if
+                    let pattern =
+                        try container.decodeIfPresent(AnyPattern.self, forKey: .comparative),
+                    let filter =
+                        try container.decodeIfPresent(AnyPattern.self, forKey: .filter)
+                {
+                    self = ._comparative(pattern, filter: filter)
+                    return
+                }
+            case .filter:
+                continue
             }
         }
 

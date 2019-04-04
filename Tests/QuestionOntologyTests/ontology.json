@@ -13,6 +13,15 @@
   "classes" : [
     {
       "identifier" : "Brother",
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "incoming" : "hasBrother"
+            }
+          ]
+        }
+      ],
       "patterns" : [
         {
           "named" : {
@@ -691,6 +700,15 @@
     },
     {
       "identifier" : "Sister",
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "incoming" : "hasSister"
+            }
+          ]
+        }
+      ],
       "patterns" : [
         {
           "named" : {
@@ -872,6 +890,73 @@
                       "input" : "JJ",
                       "label" : "tag",
                       "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        },
+        {
+          "comparative" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "be",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "V",
+                  "label" : "tag",
+                  "op" : "prefix",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "filter" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "old",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "JJR",
+                      "label" : "tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "than",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "IN",
+                      "label" : "tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],

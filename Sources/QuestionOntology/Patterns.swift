@@ -4,14 +4,18 @@ import ParserDescriptionOperators
 
 
 public enum Tag: String {
-    case noun = "N"
-    case verb = "V"
-    case adjective = "JJ"
+    case anyNoun = "N"
+    case anyVerb = "V"
+    case anyAdjective = "JJ"
+    case comparativeAdjective = "JJR"
+    case prepositionOrSubordinatingConjunction = "IN"
 
     var operation: Operation {
         switch self {
-        case .noun, .verb, .adjective:
+        case .anyNoun, .anyVerb, .anyAdjective:
             return .hasPrefix
+        case .comparativeAdjective, .prepositionOrSubordinatingConjunction:
+            return .isEqualTo
         }
     }
 }
