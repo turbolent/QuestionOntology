@@ -1214,6 +1214,98 @@
             ],
             "type" : "sequence"
           }
+        },
+        {
+          "value" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "bear",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "in",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "on",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "or"
+              }
+            ],
+            "type" : "sequence"
+          }
         }
       ]
     },
@@ -1300,6 +1392,78 @@
                   "type" : "and"
                 },
                 "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        },
+        {
+          "value" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "die",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "in",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "on",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "or"
               }
             ],
             "type" : "sequence"

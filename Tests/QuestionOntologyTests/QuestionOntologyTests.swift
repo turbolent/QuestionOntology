@@ -52,6 +52,12 @@ final class QuestionOntologyTests: XCTestCase {
                 .named(
                     pattern(lemma: "be", tag: .anyVerb)
                         ~ pattern(lemma: "alive", tag: .anyAdjective)
+                ),
+                .value(
+                    pattern(lemma: "be", tag: .anyVerb)
+                        ~ pattern(lemma: "bear", tag: .anyVerb)
+                        ~ (pattern(lemma: "in", tag: .prepositionOrSubordinatingConjunction)
+                            || pattern(lemma: "on", tag: .prepositionOrSubordinatingConjunction))
                 )
             )
 
@@ -65,6 +71,11 @@ final class QuestionOntologyTests: XCTestCase {
                 .named(
                     pattern(lemma: "be", tag: .anyVerb)
                         ~ pattern(lemma: "dead", tag: .anyAdjective)
+                ),
+                .value(
+                    pattern(lemma: "die", tag: .anyVerb)
+                        ~ (pattern(lemma: "in", tag: .prepositionOrSubordinatingConjunction)
+                            || pattern(lemma: "on", tag: .prepositionOrSubordinatingConjunction))
                 )
             )
 
