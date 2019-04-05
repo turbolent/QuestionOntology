@@ -41,7 +41,7 @@ final class QuestionOntologyTests: XCTestCase {
         let hasPlaceOfDeath = ontology.define(property: "hasPlaceOfDeath")
             .map(to: .property(Wikidata.P.20))
 
-        ontology.define(property: "isBorn")
+        ontology.define(property: "born")
             .hasEquivalent(outgoing: hasDateOfBirth)
             .hasEquivalent(outgoing: hasPlaceOfBirth)
             .hasPatterns(
@@ -61,7 +61,7 @@ final class QuestionOntologyTests: XCTestCase {
                 )
             )
 
-        ontology.define(property: "isDead")
+        ontology.define(property: "died")
             .hasEquivalent(outgoing: hasDateOfDeath)
             .hasEquivalent(outgoing: hasPlaceOfDeath)
             .hasPatterns(
@@ -191,10 +191,15 @@ final class QuestionOntologyTests: XCTestCase {
         ontology.define(property: "hasSpouse")
             .makeSymmetric()
             .map(to: .property(Wikidata.P.26))
-            .hasPattern(
+            .hasPatterns(
                 .named(
                     pattern(lemma: "be", tag: .anyVerb).opt()
                         ~ pattern(lemma: "marry", tag: .anyVerb)
+                ),
+                .value(
+                    pattern(lemma: "be", tag: .anyVerb)
+                        ~ pattern(lemma: "marry", tag: .anyVerb)
+                        ~ pattern(lemma: "to", tag: .prepositionOrSubordinatingConjunction)
                 )
             )
 
@@ -301,10 +306,6 @@ final class QuestionOntologyTests: XCTestCase {
             .hasPattern(
                 .named(pattern(lemma: "grandson", tag: .anyNoun))
             )
-
-
-
-
 
         let expectedOntologyJSON =
             String(data: try loadFixture(path: "ontology.json"), encoding: .utf8)!
