@@ -1,8 +1,10 @@
 import QuestionOntology
 import ParserDescriptionOperators
 
-public let testQuestionOntology: QuestionOntology<WikidataOntologyMappings> = {
-    let ontology = QuestionOntology<WikidataOntologyMappings>()
+public typealias TestQuestionOntology = QuestionOntology<WikidataOntologyMappings>
+
+public let testQuestionOntology: TestQuestionOntology = {
+    let ontology = TestQuestionOntology()
 
     let Person = ontology.define(class: "Person")
         .map(to: Wikidata.Q.5)
