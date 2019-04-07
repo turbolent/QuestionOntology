@@ -9,6 +9,10 @@ let package = Package(
             name: "QuestionOntology",
             targets: ["QuestionOntology"]
         ),
+        .library(
+            name: "TestQuestionOntology",
+            targets: ["TestQuestionOntology"]
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/turbolent/DiffedAssertEqual.git", from: "0.2.0"),
@@ -22,10 +26,19 @@ let package = Package(
                 "ParserDescriptionOperators"
             ]
         ),
+        .target(
+            name: "TestQuestionOntology",
+            dependencies: [
+                "QuestionOntology",
+                "ParserDescription",
+                "ParserDescriptionOperators"
+            ]
+        ),
         .testTarget(
             name: "QuestionOntologyTests",
             dependencies: [
                 "QuestionOntology",
+                "TestQuestionOntology",
                 "DiffedAssertEqual",
                 "ParserDescription",
                 "ParserDescriptionOperators"

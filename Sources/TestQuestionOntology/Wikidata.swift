@@ -7,12 +7,12 @@ protocol WikidataDefinition {
 }
 
 
-struct WikidataItem: OntologyMapping, WikidataDefinition {
+public struct WikidataItem: OntologyMapping, WikidataDefinition {
     let identifier: String
 }
 
 
-struct WikidataProperty: OntologyMapping, WikidataDefinition {
+public struct WikidataProperty: OntologyMapping, WikidataDefinition {
     let identifier: String
 }
 
@@ -41,7 +41,7 @@ struct Wikidata {
 }
 
 
-enum WikidataPropertyMapping: OntologyMapping {
+public enum WikidataPropertyMapping: OntologyMapping {
     case property(WikidataProperty)
     case operation(WikidataOperation)
 }
@@ -54,7 +54,7 @@ extension WikidataPropertyMapping {
         case operation
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
         case .property(let property):
@@ -64,7 +64,7 @@ extension WikidataPropertyMapping {
         }
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         for codingKey in CodingKeys.allCases {
@@ -92,7 +92,7 @@ extension WikidataPropertyMapping {
 }
 
 
-enum WikidataOperation: Codable, Hashable {
+public enum WikidataOperation: Codable, Hashable {
     case age(birthDatePropertyIdentifier: String, deathDatePropertyIdentifier: String)
 
     static func age(
@@ -122,7 +122,7 @@ extension WikidataOperation {
         case deathDateProperty
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         switch self {
         case .age(let birthDatePropertyIdentifier, let deathDatePropertyIdentifier):
             var commonContainer = encoder.container(keyedBy: CommonCodingKeys.self)
@@ -134,7 +134,7 @@ extension WikidataOperation {
         }
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CommonCodingKeys.self)
         guard let type = Types(rawValue: try container.decode(String.self, forKey: .type)) else {
             throw DecodingError.dataCorruptedError(
@@ -157,8 +157,8 @@ extension WikidataOperation {
 }
 
 
-struct WikidataOntologyMappings: OntologyMappings {
-    typealias Class = WikidataItem
-    typealias Individual = WikidataItem
-    typealias Property = WikidataPropertyMapping
+public struct WikidataOntologyMappings: OntologyMappings {
+    public typealias Class = WikidataItem
+    public typealias Individual = WikidataItem
+    public typealias Property = WikidataPropertyMapping
 }
