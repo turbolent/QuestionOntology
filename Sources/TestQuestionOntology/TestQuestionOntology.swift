@@ -13,6 +13,8 @@ public let testQuestionOntology: TestQuestionOntology = {
             .named(pattern(lemma: "people", tag: .anyNoun))
         )
 
+    ontology.personClass = Person
+
     let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
         .map(to: .property(Wikidata.P.569))
 

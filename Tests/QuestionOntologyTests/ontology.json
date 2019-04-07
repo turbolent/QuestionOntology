@@ -1106,6 +1106,7 @@
       ]
     }
   ],
+  "person_class" : "Person",
   "properties" : [
     {
       "equivalents" : [

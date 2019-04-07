@@ -24,6 +24,17 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     public private(set) var propertyMapping: TwoWayDictionary<String, M.Property> = [:]
     public private(set) var individualMapping: TwoWayDictionary<String, M.Individual> = [:]
 
+    public private(set) var personClassIdentifier: String?
+
+    public var personClass: Class<M>? {
+        set {
+            personClassIdentifier = newValue?.identifier
+        }
+        get {
+            return personClassIdentifier.map { classes[$0]! }
+        }
+    }
+
     public init() {}
 
     @discardableResult
@@ -148,6 +159,7 @@ extension QuestionOntology: Equatable {
             && lhs.classMapping == rhs.classMapping
             && lhs.propertyMapping == rhs.propertyMapping
             && lhs.individualMapping == rhs.individualMapping
+            && lhs.personClassIdentifier == rhs.personClassIdentifier
     }
 }
 
@@ -161,6 +173,7 @@ extension QuestionOntology: Codable {
         case classMapping = "class_mapping"
         case propertyMapping = "property_mapping"
         case individualMapping = "individual_mapping"
+        case personClass = "person_class"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -195,6 +208,8 @@ extension QuestionOntology: Codable {
         if !individualMapping.isEmpty {
             try container.encode(individualMapping, forKey: .individualMapping)
         }
+
+        try container.encodeIfPresent(personClassIdentifier, forKey: .personClass)
     }
 
     public static func prepare(decoder: JSONDecoder) {
@@ -304,5 +319,8 @@ extension QuestionOntology: Codable {
         {
             self.individualMapping = individualMapping
         }
+
+        personClassIdentifier =
+            try container.decodeIfPresent(String.self, forKey: .personClass)
     }
 }
