@@ -24,7 +24,10 @@ public let testQuestionOntology: QuestionOntology<WikidataOntologyMappings> = {
         .map(to: .property(Wikidata.P.19))
         .hasPattern(
             .value(
-                pattern(lemma: "be", tag: .anyVerb).opt()
+                (
+                    pattern(lemma: "be", tag: .anyVerb)
+                        || pattern(lemma: "come", tag: .anyVerb)
+                ).opt()
                     ~ pattern(lemma: "from", tag: .prepositionOrSubordinatingConjunction)
             )
         )
@@ -49,6 +52,34 @@ public let testQuestionOntology: QuestionOntology<WikidataOntologyMappings> = {
                     ~ pattern(lemma: "bear", tag: .anyVerb)
                     ~ (pattern(lemma: "in", tag: .prepositionOrSubordinatingConjunction)
                         || pattern(lemma: "on", tag: .prepositionOrSubordinatingConjunction))
+            )
+        )
+
+    ontology.define(class: "BirthPlace")
+        .hasEquivalent(incoming: hasPlaceOfBirth)
+        .hasPatterns(
+            .named(
+                pattern(lemma: "birth", tag: .anyNoun)
+                    ~ pattern(lemma: "place", tag: .anyNoun)
+            ),
+            .named(
+                pattern(lemma: "place", tag: .anyNoun)
+                    ~ pattern(lemma: "of", tag: .prepositionOrSubordinatingConjunction)
+                    ~ pattern(lemma: "birth", tag: .anyNoun)
+            )
+        )
+
+    ontology.define(class: "DeathPlace")
+        .hasEquivalent(incoming: hasPlaceOfDeath)
+        .hasPatterns(
+            .named(
+                pattern(lemma: "death", tag: .anyNoun)
+                    ~ pattern(lemma: "place", tag: .anyNoun)
+            ),
+            .named(
+                pattern(lemma: "place", tag: .anyNoun)
+                    ~ pattern(lemma: "of", tag: .prepositionOrSubordinatingConjunction)
+                    ~ pattern(lemma: "death", tag: .anyNoun)
             )
         )
 

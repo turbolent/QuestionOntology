@@ -16,6 +16,134 @@
         {
           "segments" : [
             {
+              "incoming" : "hasPlaceOfBirth"
+            }
+          ]
+        }
+      ],
+      "identifier" : "BirthPlace",
+      "patterns" : [
+        {
+          "named" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "birth",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "N",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "place",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "N",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        },
+        {
+          "named" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "place",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "N",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "of",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "IN",
+                      "label" : "tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "birth",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "N",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        }
+      ]
+    },
+    {
+      "equivalents" : [
+        {
+          "segments" : [
+            {
               "incoming" : "hasBrother"
             }
           ]
@@ -119,6 +247,134 @@
       "superclasses" : [
         "Child",
         "Female"
+      ]
+    },
+    {
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "incoming" : "hasPlaceOfDeath"
+            }
+          ]
+        }
+      ],
+      "identifier" : "DeathPlace",
+      "patterns" : [
+        {
+          "named" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "death",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "N",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "place",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "N",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        },
+        {
+          "named" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "place",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "N",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "of",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "IN",
+                      "label" : "tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "death",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "N",
+                      "label" : "tag",
+                      "op" : "prefix",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        }
       ]
     },
     {
@@ -1296,24 +1552,49 @@
                 "max" : 1,
                 "min" : 0,
                 "pattern" : {
-                  "condition" : {
-                    "conditions" : [
-                      {
-                        "input" : "be",
-                        "label" : "lemma",
-                        "op" : "=",
-                        "type" : "label"
+                  "patterns" : [
+                    {
+                      "condition" : {
+                        "conditions" : [
+                          {
+                            "input" : "be",
+                            "label" : "lemma",
+                            "op" : "=",
+                            "type" : "label"
+                          },
+                          {
+                            "input" : "V",
+                            "label" : "tag",
+                            "op" : "prefix",
+                            "type" : "label"
+                          }
+                        ],
+                        "type" : "and"
                       },
-                      {
-                        "input" : "V",
-                        "label" : "tag",
-                        "op" : "prefix",
-                        "type" : "label"
-                      }
-                    ],
-                    "type" : "and"
-                  },
-                  "type" : "token"
+                      "type" : "token"
+                    },
+                    {
+                      "condition" : {
+                        "conditions" : [
+                          {
+                            "input" : "come",
+                            "label" : "lemma",
+                            "op" : "=",
+                            "type" : "label"
+                          },
+                          {
+                            "input" : "V",
+                            "label" : "tag",
+                            "op" : "prefix",
+                            "type" : "label"
+                          }
+                        ],
+                        "type" : "and"
+                      },
+                      "type" : "token"
+                    }
+                  ],
+                  "type" : "or"
                 },
                 "type" : "repetition"
               },
