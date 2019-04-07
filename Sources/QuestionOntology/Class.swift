@@ -40,11 +40,8 @@ public final class Class<M>: HasEquivalents where M: OntologyMappings {
     }
 
     @discardableResult
-    public func hasPatterns(_ pattern: ClassPattern, _ morePatterns: ClassPattern...) -> Class {
-        hasPattern(pattern)
-        for pattern in morePatterns {
-            hasPattern(pattern)
-        }
+    public func hasPatterns(_ patterns: ClassPattern...) -> Class {
+        patterns.forEach { hasPattern($0) }
         return self
     }
 }
