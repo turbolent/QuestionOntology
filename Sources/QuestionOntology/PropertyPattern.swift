@@ -4,7 +4,7 @@ public enum PropertyPattern: Hashable {
     case _named(AnyPattern)
     case _value(AnyPattern)
     case _adjective(AnyPattern)
-    case _comparative(AnyPattern, filter: AnyPattern)
+    case _oppositeAdjective(AnyPattern)
 
     public static func named<T: Pattern>(_ pattern: T) -> PropertyPattern {
         return ._named(AnyPattern(pattern))
@@ -18,13 +18,8 @@ public enum PropertyPattern: Hashable {
         return ._adjective(AnyPattern(pattern))
     }
 
-    public static func comparative<T, U>(_ pattern: T, filter: U) -> PropertyPattern
-        where T: Pattern, U: Pattern
-    {
-        return ._comparative(
-            AnyPattern(pattern),
-            filter: AnyPattern(filter)
-        )
+    public static func oppositeAdjective<T: Pattern>(_ pattern: T) -> PropertyPattern {
+        return ._oppositeAdjective(AnyPattern(pattern))
     }
 }
 
@@ -34,8 +29,7 @@ extension PropertyPattern: Codable {
         case named
         case value
         case adjective
-        case comparative
-        case filter
+        case oppositeAdjective = "opposite_adjective"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -48,9 +42,8 @@ extension PropertyPattern: Codable {
             try container.encode(pattern, forKey: .value)
         case ._adjective(let pattern):
             try container.encode(pattern, forKey: .adjective)
-        case let ._comparative(pattern, filter):
-            try container.encode(pattern, forKey: .comparative)
-            try container.encode(filter, forKey: .filter)
+        case ._oppositeAdjective(let pattern):
+            try container.encode(pattern, forKey: .oppositeAdjective)
         }
     }
 
@@ -80,18 +73,13 @@ extension PropertyPattern: Codable {
                     self = ._adjective(pattern)
                     return
                 }
-            case .comparative:
-                if
-                    let pattern =
-                        try container.decodeIfPresent(AnyPattern.self, forKey: .comparative),
-                    let filter =
-                        try container.decodeIfPresent(AnyPattern.self, forKey: .filter)
+            case .oppositeAdjective:
+                if let pattern =
+                    try container.decodeIfPresent(AnyPattern.self, forKey: .oppositeAdjective)
                 {
-                    self = ._comparative(pattern, filter: filter)
+                    self = ._oppositeAdjective(pattern)
                     return
                 }
-            case .filter:
-                continue
             }
         }
 

@@ -40,6 +40,12 @@ final class QuestionOntologyTests: XCTestCase {
         let hasPlaceOfBirth = ontology.define(property: "hasPlaceOfBirth")
             .hasDomain(Person)
             .map(to: .property(Wikidata.P.19))
+            .hasPattern(
+                .value(
+                    pattern(lemma: "be", tag: .anyVerb).opt()
+                        ~ pattern(lemma: "from", tag: .prepositionOrSubordinatingConjunction)
+                )
+            )
 
         let hasPlaceOfDeath = ontology.define(property: "hasPlaceOfDeath")
             .hasDomain(Person)
@@ -53,9 +59,8 @@ final class QuestionOntologyTests: XCTestCase {
                     pattern(lemma: "be", tag: .anyVerb)
                         ~ pattern(lemma: "bear", tag: .anyVerb)
                 ),
-                .named(
-                    pattern(lemma: "be", tag: .anyVerb)
-                        ~ pattern(lemma: "alive", tag: .anyAdjective)
+                .adjective(
+                    pattern(lemma: "alive", tag: .anyAdjective)
                 ),
                 .value(
                     pattern(lemma: "be", tag: .anyVerb)
@@ -72,9 +77,8 @@ final class QuestionOntologyTests: XCTestCase {
                 .named(
                     pattern(lemma: "die", tag: .anyVerb)
                 ),
-                .named(
-                    pattern(lemma: "be", tag: .anyVerb)
-                        ~ pattern(lemma: "dead", tag: .anyAdjective)
+                .adjective(
+                    pattern(lemma: "dead", tag: .anyAdjective)
                 ),
                 .value(
                     pattern(lemma: "die", tag: .anyVerb)
@@ -92,14 +96,10 @@ final class QuestionOntologyTests: XCTestCase {
             )
             .hasPatterns(
                 .adjective(
-                    pattern(lemma: "be", tag: .anyVerb)
-                        ~ pattern(lemma: "old", tag: .anyAdjective)
+                    pattern(lemma: "old", tag: .anyAdjective)
                 ),
-                .comparative(
-                    pattern(lemma: "be", tag: .anyVerb),
-                    filter:
-                        pattern(lemma: "old", tag: .comparativeAdjective)
-                            ~ pattern(lemma: "than", tag: .prepositionOrSubordinatingConjunction)
+                .oppositeAdjective(
+                    pattern(lemma: "young", tag: .anyAdjective)
                 )
             )
 
