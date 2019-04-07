@@ -14,15 +14,12 @@ public let testQuestionOntology: TestQuestionOntology = {
         )
 
     let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
-        .hasDomain(Person)
         .map(to: .property(Wikidata.P.569))
 
     let hasDateOfDeath = ontology.define(property: "hasDateOfDeath")
-        .hasDomain(Person)
         .map(to: .property(Wikidata.P.570))
 
     let hasPlaceOfBirth = ontology.define(property: "hasPlaceOfBirth")
-        .hasDomain(Person)
         .map(to: .property(Wikidata.P.19))
         .hasPattern(
             .value(
@@ -35,7 +32,6 @@ public let testQuestionOntology: TestQuestionOntology = {
         )
 
     let hasPlaceOfDeath = ontology.define(property: "hasPlaceOfDeath")
-        .hasDomain(Person)
         .map(to: .property(Wikidata.P.20))
 
     ontology.define(property: "born")

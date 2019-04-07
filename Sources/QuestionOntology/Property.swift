@@ -7,7 +7,6 @@ public final class Property<M>: HasEquivalents where M: OntologyMappings {
     private unowned var ontology: QuestionOntology<M>
 
     public private(set) var superPropertyIdentifiers: Set<String> = []
-    public private(set) var domainIdentifiers: Set<String> = []
     public var equivalents: Set<Equivalent<M>> = []
     public var patterns: [PropertyPattern] = []
 
@@ -17,12 +16,6 @@ public final class Property<M>: HasEquivalents where M: OntologyMappings {
     public var superProperties: [Property<M>] {
         return superPropertyIdentifiers.map {
             ontology.properties[$0]!
-        }
-    }
-
-    public var domains: [Class<M>] {
-        return domainIdentifiers.map {
-            ontology.classes[$0]!
         }
     }
 
@@ -40,12 +33,6 @@ public final class Property<M>: HasEquivalents where M: OntologyMappings {
     @discardableResult
     public func isSubProperty(of superProperties: Property...) -> Property {
         superPropertyIdentifiers.formUnion(superProperties.map { $0.identifier })
-        return self
-    }
-
-    @discardableResult
-    public func hasDomain(_ domain: Class<M>) -> Property {
-        domainIdentifiers.insert(domain.identifier)
         return self
     }
 
@@ -83,7 +70,6 @@ extension Property: Equatable {
             && lhs.isTransitive == rhs.isTransitive
             && lhs.equivalents == rhs.equivalents
             && lhs.superPropertyIdentifiers == rhs.superPropertyIdentifiers
-            && lhs.domainIdentifiers == rhs.domainIdentifiers
             && lhs.patterns == rhs.patterns
     }
 }
@@ -104,7 +90,6 @@ extension Property: Codable {
         case transitive
         case equivalents
         case superProperties = "superproperties"
-        case domains
         case patterns
     }
 
@@ -131,13 +116,6 @@ extension Property: Codable {
             try container.encode(
                 superPropertyIdentifiers.sorted(),
                 forKey: .superProperties
-            )
-        }
-
-        if !domains.isEmpty {
-            try container.encode(
-                domainIdentifiers.sorted(),
-                forKey: .domains
             )
         }
 
@@ -178,15 +156,6 @@ extension Property: Codable {
             self.superPropertyIdentifiers = superPropertyIdentifiers
             for identifier in superPropertyIdentifiers {
                 codingUserInfo.reference(property: identifier)
-            }
-        }
-
-        if let domainIdentifiers =
-            try container.decodeIfPresent(Set<String>.self, forKey: .domains)
-        {
-            self.domainIdentifiers = domainIdentifiers
-            for identifier in domainIdentifiers {
-                codingUserInfo.reference(class: identifier)
             }
         }
 

@@ -1501,15 +1501,9 @@
       "identifier" : "hasChild"
     },
     {
-      "domains" : [
-        "Person"
-      ],
       "identifier" : "hasDateOfBirth"
     },
     {
-      "domains" : [
-        "Person"
-      ],
       "identifier" : "hasDateOfDeath"
     },
     {
@@ -1540,9 +1534,6 @@
       "identifier" : "hasParent"
     },
     {
-      "domains" : [
-        "Person"
-      ],
       "identifier" : "hasPlaceOfBirth",
       "patterns" : [
         {
@@ -1625,9 +1616,6 @@
       ]
     },
     {
-      "domains" : [
-        "Person"
-      ],
       "identifier" : "hasPlaceOfDeath"
     },
     {
