@@ -1106,6 +1106,7 @@
       ]
     }
   ],
+  "instance_property" : "isA",
   "person_class" : "Person",
   "properties" : [
     {
@@ -1753,6 +1754,28 @@
         }
       ],
       "symmetric" : true
+    },
+    {
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "isInstanceOf"
+            },
+            {
+              "outgoing" : "isSubclassOf"
+            }
+          ]
+        }
+      ],
+      "identifier" : "isA"
+    },
+    {
+      "identifier" : "isInstanceOf"
+    },
+    {
+      "identifier" : "isSubclassOf",
+      "transitive" : true
     }
   ],
   "property_mapping" : {
@@ -1816,6 +1839,16 @@
     "hasSpouse" : {
       "property" : {
         "identifier" : "http://www.wikidata.org/prop/direct/P26"
+      }
+    },
+    "isInstanceOf" : {
+      "property" : {
+        "identifier" : "http://www.wikidata.org/prop/direct/P31"
+      }
+    },
+    "isSubclassOf" : {
+      "property" : {
+        "identifier" : "http://www.wikidata.org/prop/direct/P279"
       }
     }
   }

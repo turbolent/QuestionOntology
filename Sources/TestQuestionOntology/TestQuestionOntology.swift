@@ -6,6 +6,21 @@ public typealias TestQuestionOntology = QuestionOntology<WikidataOntologyMapping
 public let testQuestionOntology: TestQuestionOntology = {
     let ontology = TestQuestionOntology()
 
+    let isInstanceOf = ontology.define(property: "isInstanceOf")
+        .map(to: .property(Wikidata.P.31))
+
+    let isSubclassOf = ontology.define(property: "isSubclassOf")
+        .makeTransitive()
+        .map(to: .property(Wikidata.P.279))
+
+    let isA = ontology.define(property: "isA")
+        .hasEquivalent(
+            outgoing: isInstanceOf,
+            outgoing: isSubclassOf
+        )
+
+    ontology.instanceProperty = isA
+
     let Person = ontology.define(class: "Person")
         .map(to: Wikidata.Q.5)
         .hasPatterns(

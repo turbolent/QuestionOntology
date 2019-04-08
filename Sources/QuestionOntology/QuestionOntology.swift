@@ -25,6 +25,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     public private(set) var individualMapping: TwoWayDictionary<String, M.Individual> = [:]
 
     public private(set) var personClassIdentifier: String?
+    public private(set) var instancePropertyIdentifier: String?
 
     public var personClass: Class<M>? {
         set {
@@ -32,6 +33,15 @@ public final class QuestionOntology<M> where M: OntologyMappings {
         }
         get {
             return personClassIdentifier.map { classes[$0]! }
+        }
+    }
+
+    public var instanceProperty: Property<M>? {
+        set {
+            instancePropertyIdentifier = newValue?.identifier
+        }
+        get {
+            return instancePropertyIdentifier.map { properties[$0]! }
         }
     }
 
@@ -174,6 +184,7 @@ extension QuestionOntology: Codable {
         case propertyMapping = "property_mapping"
         case individualMapping = "individual_mapping"
         case personClass = "person_class"
+        case instanceProperty = "instance_property"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -210,6 +221,7 @@ extension QuestionOntology: Codable {
         }
 
         try container.encodeIfPresent(personClassIdentifier, forKey: .personClass)
+        try container.encodeIfPresent(instancePropertyIdentifier, forKey: .instanceProperty)
     }
 
     public static func prepare(decoder: JSONDecoder) {
@@ -322,5 +334,7 @@ extension QuestionOntology: Codable {
 
         personClassIdentifier =
             try container.decodeIfPresent(String.self, forKey: .personClass)
+        instancePropertyIdentifier =
+            try container.decodeIfPresent(String.self, forKey: .instanceProperty)
     }
 }
