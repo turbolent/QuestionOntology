@@ -50,6 +50,9 @@ public final class Property<M>: HasEquivalents where M: OntologyMappings {
 
     @discardableResult
     public func hasPattern(_ pattern: PropertyPattern) -> Property {
+        guard pattern.hasDefinedLength else {
+            fatalError("invalid property pattern, unknown length: \(pattern)")
+        }
         patterns.append(pattern)
         return self
     }

@@ -40,3 +40,24 @@ public func pattern(lemma: String, tag: Tag) -> TokenPattern {
         )
     )
 }
+
+
+extension _Pattern {
+    var hasDefinedLength: Bool {
+        switch self {
+        case let anyPattern as AnyPattern:
+            return anyPattern.pattern.hasDefinedLength
+        case is TokenPattern:
+            return true
+        case let orPattern as OrPattern:
+            return orPattern.patterns.allSatisfy { $0.hasDefinedLength }
+        case let sequencePattern as SequencePattern:
+            return sequencePattern.patterns.allSatisfy { $0.hasDefinedLength }
+        case let repetitionPattern as RepetitionPattern:
+            return repetitionPattern.pattern.hasDefinedLength
+                && repetitionPattern.max != nil
+        default:
+            return false
+        }
+    }
+}

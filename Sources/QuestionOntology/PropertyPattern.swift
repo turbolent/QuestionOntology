@@ -21,6 +21,20 @@ public enum PropertyPattern: Hashable {
     public static func oppositeAdjective<T: Pattern>(_ pattern: T) -> PropertyPattern {
         return ._oppositeAdjective(AnyPattern(pattern))
     }
+
+    public var pattern: AnyPattern {
+        switch self {
+        case ._named(let pattern),
+             ._value(let pattern),
+             ._adjective(let pattern),
+             ._oppositeAdjective(let pattern):
+            return pattern
+        }
+    }
+
+    public var hasDefinedLength: Bool {
+        return pattern.hasDefinedLength
+    }
 }
 
 extension PropertyPattern: Codable {

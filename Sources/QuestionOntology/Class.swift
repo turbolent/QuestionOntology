@@ -35,6 +35,9 @@ public final class Class<M>: HasEquivalents where M: OntologyMappings {
 
     @discardableResult
     public func hasPattern(_ pattern: ClassPattern) -> Class {
+        guard pattern.hasDefinedLength else {
+            fatalError("invalid class pattern, unknown length: \(pattern)")
+        }
         patterns.append(pattern)
         return self
     }

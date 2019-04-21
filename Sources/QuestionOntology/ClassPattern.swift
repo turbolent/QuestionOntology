@@ -6,6 +6,17 @@ public enum ClassPattern: Hashable {
     public static func named<T: Pattern>(_ pattern: T) -> ClassPattern {
         return ._named(AnyPattern(pattern))
     }
+
+    public var pattern: AnyPattern {
+        switch self {
+        case ._named(let pattern):
+            return pattern
+        }
+    }
+
+    public var hasDefinedLength: Bool {
+        return pattern.hasDefinedLength
+    }
 }
 
 
