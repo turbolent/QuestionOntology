@@ -36,9 +36,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "N",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "NN",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -56,9 +56,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "N",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "NN",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -83,9 +83,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "N",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "NN",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -123,9 +123,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "N",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "NN",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -162,9 +162,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -202,9 +202,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -232,9 +232,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -274,9 +274,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "N",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "NN",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -294,9 +294,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "N",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "NN",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -321,9 +321,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "N",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "NN",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -361,9 +361,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "N",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "NN",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -400,9 +400,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -443,9 +443,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -465,9 +465,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -510,9 +510,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -540,9 +540,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -571,9 +571,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -602,9 +602,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -645,9 +645,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -675,9 +675,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -706,9 +706,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -749,9 +749,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -771,9 +771,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -810,9 +810,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -850,9 +850,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -880,9 +880,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -902,9 +902,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -938,9 +938,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -977,9 +977,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -1008,9 +1008,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -1039,9 +1039,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -1066,9 +1066,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "N",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "NN",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -1141,9 +1141,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "V",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "VB",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -1161,9 +1161,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "V",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "VB",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -1187,8 +1187,8 @@
                 },
                 {
                   "input" : "JJ",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -1210,9 +1210,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "V",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "VB",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -1230,9 +1230,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "V",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "VB",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -1321,9 +1321,9 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "V",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "input" : "VB",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -1344,8 +1344,8 @@
                 },
                 {
                   "input" : "JJ",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -1367,9 +1367,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "V",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "VB",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -1443,8 +1443,8 @@
                 },
                 {
                   "input" : "JJ",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -1465,8 +1465,8 @@
                 },
                 {
                   "input" : "JJ",
-                  "label" : "tag",
-                  "op" : "prefix",
+                  "label" : "broad_tag",
+                  "op" : "=",
                   "type" : "label"
                 }
               ],
@@ -1556,9 +1556,9 @@
                             "type" : "label"
                           },
                           {
-                            "input" : "V",
-                            "label" : "tag",
-                            "op" : "prefix",
+                            "input" : "VB",
+                            "label" : "broad_tag",
+                            "op" : "=",
                             "type" : "label"
                           }
                         ],
@@ -1576,9 +1576,9 @@
                             "type" : "label"
                           },
                           {
-                            "input" : "V",
-                            "label" : "tag",
-                            "op" : "prefix",
+                            "input" : "VB",
+                            "label" : "broad_tag",
+                            "op" : "=",
                             "type" : "label"
                           }
                         ],
@@ -1649,9 +1649,9 @@
                         "type" : "label"
                       },
                       {
-                        "input" : "V",
-                        "label" : "tag",
-                        "op" : "prefix",
+                        "input" : "VB",
+                        "label" : "broad_tag",
+                        "op" : "=",
                         "type" : "label"
                       }
                     ],
@@ -1671,9 +1671,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "V",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "VB",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -1698,9 +1698,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "V",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "VB",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
@@ -1718,9 +1718,9 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "V",
-                      "label" : "tag",
-                      "op" : "prefix",
+                      "input" : "VB",
+                      "label" : "broad_tag",
+                      "op" : "=",
                       "type" : "label"
                     }
                   ],
