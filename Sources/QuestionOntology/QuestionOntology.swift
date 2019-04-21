@@ -14,11 +14,20 @@ public protocol OntologyMappings {
 }
 
 
+public typealias OntologyClass = Class
+public typealias OntologyProperty = Property
+public typealias OntologyIndividual = Individual
+
+
 public final class QuestionOntology<M> where M: OntologyMappings {
 
-    public private(set) var classes: [String: Class<M>] = [:]
-    public private(set) var properties: [String: Property<M>] = [:]
-    public private(set) var individuals: [String: Individual<M>] = [:]
+    public typealias Class = OntologyClass<M>
+    public typealias Property = OntologyProperty<M>
+    public typealias Individual = OntologyIndividual<M>
+
+    public private(set) var classes: [String: Class] = [:]
+    public private(set) var properties: [String: Property] = [:]
+    public private(set) var individuals: [String: Individual] = [:]
 
     public private(set) var classMapping: TwoWayDictionary<String, M.Class> = [:]
     public private(set) var propertyMapping: TwoWayDictionary<String, M.Property> = [:]
@@ -27,7 +36,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     public private(set) var personClassIdentifier: String?
     public private(set) var instancePropertyIdentifier: String?
 
-    public var personClass: Class<M>? {
+    public var personClass: Class? {
         set {
             personClassIdentifier = newValue?.identifier
         }
@@ -36,7 +45,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
         }
     }
 
-    public var instanceProperty: Property<M>? {
+    public var instanceProperty: Property? {
         set {
             instancePropertyIdentifier = newValue?.identifier
         }
@@ -48,7 +57,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     public init() {}
 
     @discardableResult
-    public func define(class identifier: String) -> Class<M> {
+    public func define(class identifier: String) -> Class {
         ensureNewDefinition(identifier)
         let newClass = Class(identifier: identifier, ontology: self)
         classes[identifier] = newClass
@@ -56,7 +65,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func define(property identifier: String) -> Property<M> {
+    public func define(property identifier: String) -> Property {
         ensureNewDefinition(identifier)
         let newProperty = Property(identifier: identifier, ontology: self)
         properties[identifier] = newProperty
@@ -64,7 +73,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func define(individual identifier: String) -> Individual<M> {
+    public func define(individual identifier: String) -> Individual {
         ensureNewDefinition(identifier)
         let newIndividual = Individual(identifier: identifier, ontology: self)
         individuals[identifier] = newIndividual
@@ -93,7 +102,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func map(_ class: Class<M>, to mapped: M.Class) -> QuestionOntology {
+    public func map(_ class: Class, to mapped: M.Class) -> QuestionOntology {
         ensureNewMapping(mapped)
         if let existingMapping = classMapping[`class`.identifier] {
             fatalError(
@@ -106,7 +115,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func map(_ property: Property<M>, to mapped: M.Property) -> QuestionOntology {
+    public func map(_ property: Property, to mapped: M.Property) -> QuestionOntology {
         ensureNewMapping(mapped)
         if let existingMapping = propertyMapping[property.identifier] {
             fatalError(
@@ -119,7 +128,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func map(_ individual: Individual<M>, to mapped: M.Individual) -> QuestionOntology {
+    public func map(_ individual: Individual, to mapped: M.Individual) -> QuestionOntology {
         ensureNewMapping(mapped)
         if let existingMapping = individualMapping[individual.identifier] {
             fatalError(
@@ -254,7 +263,7 @@ extension QuestionOntology: Codable {
         // decode classes, properties, and individuals
 
         if let classes =
-            try container.decodeIfPresent([Class<M>].self, forKey: .classes)
+            try container.decodeIfPresent([Class].self, forKey: .classes)
         {
             for `class` in classes {
                 self.classes[`class`.identifier] = `class`
@@ -262,7 +271,7 @@ extension QuestionOntology: Codable {
         }
 
         if let properties =
-            try container.decodeIfPresent([Property<M>].self, forKey: .properties)
+            try container.decodeIfPresent([Property].self, forKey: .properties)
         {
             for property in properties {
                 self.properties[property.identifier] = property
@@ -270,7 +279,7 @@ extension QuestionOntology: Codable {
         }
 
         if let individuals =
-            try container.decodeIfPresent([Individual<M>].self, forKey: .individuals)
+            try container.decodeIfPresent([Individual].self, forKey: .individuals)
         {
             for individual in individuals {
                 self.individuals[individual.identifier] = individual
