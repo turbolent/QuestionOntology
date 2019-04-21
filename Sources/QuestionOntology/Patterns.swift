@@ -4,9 +4,9 @@ import ParserDescriptionOperators
 
 
 public enum Tag: String {
-    case anyNoun = "NN"
-    case anyVerb = "VB"
-    case anyAdjective = "JJ"
+    case anyNoun = "N"
+    case anyVerb = "V"
+    case anyAdjective = "J"
     case comparativeAdjective = "JJR"
     case prepositionOrSubordinatingConjunction = "IN"
 
@@ -23,7 +23,7 @@ public enum Tag: String {
 
 public enum Label: String {
     case lemma
-    case fineTag = "tag"
+    case fineTag = "fine_tag"
     case broadTag = "broad_tag"
 }
 

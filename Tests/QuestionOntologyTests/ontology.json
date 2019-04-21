@@ -36,7 +36,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "NN",
+                      "input" : "N",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -56,7 +56,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "NN",
+                      "input" : "N",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -83,7 +83,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "NN",
+                      "input" : "N",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -104,7 +104,7 @@
                     },
                     {
                       "input" : "IN",
-                      "label" : "tag",
+                      "label" : "fine_tag",
                       "op" : "=",
                       "type" : "label"
                     }
@@ -123,7 +123,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "NN",
+                      "input" : "N",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -162,7 +162,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -202,7 +202,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -232,7 +232,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -274,7 +274,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "NN",
+                      "input" : "N",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -294,7 +294,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "NN",
+                      "input" : "N",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -321,7 +321,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "NN",
+                      "input" : "N",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -342,7 +342,7 @@
                     },
                     {
                       "input" : "IN",
-                      "label" : "tag",
+                      "label" : "fine_tag",
                       "op" : "=",
                       "type" : "label"
                     }
@@ -361,7 +361,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "NN",
+                      "input" : "N",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -400,7 +400,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -443,7 +443,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -465,7 +465,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -510,7 +510,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -540,7 +540,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -571,7 +571,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -602,7 +602,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -645,7 +645,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -675,7 +675,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -706,7 +706,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -749,7 +749,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -771,7 +771,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -810,7 +810,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -850,7 +850,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -880,7 +880,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -902,7 +902,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -938,7 +938,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -977,7 +977,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -1008,7 +1008,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -1039,7 +1039,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -1066,7 +1066,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "NN",
+                  "input" : "N",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -1141,7 +1141,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "VB",
+                      "input" : "V",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -1161,7 +1161,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "VB",
+                      "input" : "V",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -1186,7 +1186,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "JJ",
+                  "input" : "J",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -1210,7 +1210,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "VB",
+                      "input" : "V",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -1230,7 +1230,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "VB",
+                      "input" : "V",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -1253,7 +1253,7 @@
                         },
                         {
                           "input" : "IN",
-                          "label" : "tag",
+                          "label" : "fine_tag",
                           "op" : "=",
                           "type" : "label"
                         }
@@ -1273,7 +1273,7 @@
                         },
                         {
                           "input" : "IN",
-                          "label" : "tag",
+                          "label" : "fine_tag",
                           "op" : "=",
                           "type" : "label"
                         }
@@ -1321,7 +1321,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "VB",
+                  "input" : "V",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -1343,7 +1343,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "JJ",
+                  "input" : "J",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -1367,7 +1367,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "VB",
+                      "input" : "V",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -1390,7 +1390,7 @@
                         },
                         {
                           "input" : "IN",
-                          "label" : "tag",
+                          "label" : "fine_tag",
                           "op" : "=",
                           "type" : "label"
                         }
@@ -1410,7 +1410,7 @@
                         },
                         {
                           "input" : "IN",
-                          "label" : "tag",
+                          "label" : "fine_tag",
                           "op" : "=",
                           "type" : "label"
                         }
@@ -1442,7 +1442,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "JJ",
+                  "input" : "J",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -1464,7 +1464,7 @@
                   "type" : "label"
                 },
                 {
-                  "input" : "JJ",
+                  "input" : "J",
                   "label" : "broad_tag",
                   "op" : "=",
                   "type" : "label"
@@ -1556,7 +1556,7 @@
                             "type" : "label"
                           },
                           {
-                            "input" : "VB",
+                            "input" : "V",
                             "label" : "broad_tag",
                             "op" : "=",
                             "type" : "label"
@@ -1576,7 +1576,7 @@
                             "type" : "label"
                           },
                           {
-                            "input" : "VB",
+                            "input" : "V",
                             "label" : "broad_tag",
                             "op" : "=",
                             "type" : "label"
@@ -1602,7 +1602,7 @@
                     },
                     {
                       "input" : "IN",
-                      "label" : "tag",
+                      "label" : "fine_tag",
                       "op" : "=",
                       "type" : "label"
                     }
@@ -1649,7 +1649,7 @@
                         "type" : "label"
                       },
                       {
-                        "input" : "VB",
+                        "input" : "V",
                         "label" : "broad_tag",
                         "op" : "=",
                         "type" : "label"
@@ -1671,7 +1671,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "VB",
+                      "input" : "V",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -1698,7 +1698,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "VB",
+                      "input" : "V",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -1718,7 +1718,7 @@
                       "type" : "label"
                     },
                     {
-                      "input" : "VB",
+                      "input" : "V",
                       "label" : "broad_tag",
                       "op" : "=",
                       "type" : "label"
@@ -1739,7 +1739,7 @@
                     },
                     {
                       "input" : "IN",
-                      "label" : "tag",
+                      "label" : "fine_tag",
                       "op" : "=",
                       "type" : "label"
                     }
