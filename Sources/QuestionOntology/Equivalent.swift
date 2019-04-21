@@ -10,7 +10,7 @@ public indirect enum Equivalent<M>: Hashable where M: OntologyMappings {
             case individual(String)
         }
 
-        fileprivate let identifier: Identifier
+        public let identifier: Identifier
 
         public static func incoming(_ property: Property<M>) -> Segment {
             return Segment(identifier: .incoming(property.identifier))
