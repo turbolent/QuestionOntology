@@ -231,6 +231,10 @@ public let testQuestionOntology: TestQuestionOntology = {
                 pattern(lemma: "be", tag: .anyVerb).opt()
                     ~ pattern(lemma: "marry", tag: .anyVerb)
             ),
+            .inverse(
+                pattern(lemma: "do", tag: .anyVerb)
+                    ~ pattern(lemma: "marry", tag: .anyVerb)
+            ),
             .value(
                 pattern(lemma: "be", tag: .anyVerb)
                     ~ pattern(lemma: "marry", tag: .anyVerb)

@@ -2,12 +2,17 @@ import ParserDescription
 
 public enum PropertyPattern: Hashable {
     case _named(AnyPattern)
+    case _inverse(AnyPattern)
     case _value(AnyPattern)
     case _adjective(AnyPattern)
     case _oppositeAdjective(AnyPattern)
 
     public static func named<T: Pattern>(_ pattern: T) -> PropertyPattern {
         return ._named(AnyPattern(pattern))
+    }
+
+    public static func inverse<T: Pattern>(_ pattern: T) -> PropertyPattern {
+        return ._inverse(AnyPattern(pattern))
     }
 
     public static func value<T: Pattern>(_ pattern: T) -> PropertyPattern {
@@ -25,6 +30,7 @@ public enum PropertyPattern: Hashable {
     public var pattern: AnyPattern {
         switch self {
         case ._named(let pattern),
+             ._inverse(let pattern),
              ._value(let pattern),
              ._adjective(let pattern),
              ._oppositeAdjective(let pattern):
@@ -41,6 +47,7 @@ extension PropertyPattern: Codable {
 
     internal enum CodingKeys: String, CodingKey, CaseIterable {
         case named
+        case inverse
         case value
         case adjective
         case oppositeAdjective = "opposite_adjective"
@@ -52,6 +59,8 @@ extension PropertyPattern: Codable {
         switch self {
         case ._named(let pattern):
             try container.encode(pattern, forKey: .named)
+        case ._inverse(let pattern):
+            try container.encode(pattern, forKey: .inverse)
         case ._value(let pattern):
             try container.encode(pattern, forKey: .value)
         case ._adjective(let pattern):
@@ -71,6 +80,13 @@ extension PropertyPattern: Codable {
                     try container.decodeIfPresent(AnyPattern.self, forKey: .named)
                 {
                     self = ._named(pattern)
+                    return
+                }
+            case .inverse:
+                if let pattern =
+                    try container.decodeIfPresent(AnyPattern.self, forKey: .inverse)
+                {
+                    self = ._inverse(pattern)
                     return
                 }
             case .value:

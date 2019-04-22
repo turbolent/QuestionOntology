@@ -1686,6 +1686,53 @@
           }
         },
         {
+          "inverse" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "do",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "marry",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        },
+        {
           "value" : {
             "patterns" : [
               {
