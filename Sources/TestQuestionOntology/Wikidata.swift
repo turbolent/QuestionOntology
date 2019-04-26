@@ -44,6 +44,7 @@ struct Wikidata {
 public enum WikidataPropertyMapping: OntologyMapping {
     case property(WikidataProperty)
     case operation(WikidataOperation)
+    case label
 }
 
 
@@ -52,6 +53,7 @@ extension WikidataPropertyMapping {
     internal enum CodingKeys: String, CodingKey, CaseIterable {
         case property
         case operation
+        case label
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -61,6 +63,8 @@ extension WikidataPropertyMapping {
             try container.encode(property, forKey: .property)
         case .operation(let operation):
             try container.encode(operation, forKey: .operation)
+        case .label:
+            try container.encodeNil(forKey: .label)
         }
     }
 
@@ -81,6 +85,11 @@ extension WikidataPropertyMapping {
                     try container.decodeIfPresent(WikidataOperation.self, forKey: .operation)
                 {
                     self = .operation(operation)
+                    return
+                }
+            case .label:
+                if container.contains(.label) {
+                    self = .label
                     return
                 }
             }

@@ -24,6 +24,9 @@ public let testQuestionOntology: TestQuestionOntology = {
 
     ontology.instanceProperty = isA
 
+    ontology.labelProperty = ontology.define(property: "label")
+        .map(to: .label)
+
     let Person = ontology.define(class: "Person")
         .map(to: Wikidata.Q.5)
         .hasPatterns(

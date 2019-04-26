@@ -1107,6 +1107,7 @@
     }
   ],
   "instance_property" : "isA",
+  "label_property" : "label",
   "person_class" : "Person",
   "properties" : [
     {
@@ -1823,6 +1824,9 @@
     {
       "identifier" : "isSubclassOf",
       "transitive" : true
+    },
+    {
+      "identifier" : "label"
     }
   ],
   "property_mapping" : {
@@ -1897,6 +1901,9 @@
       "property" : {
         "identifier" : "http://www.wikidata.org/prop/direct/P279"
       }
+    },
+    "label" : {
+      "label" : null
     }
   }
 }
