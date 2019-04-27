@@ -4,7 +4,7 @@ import ParserDescription
 public final class Class<M>: HasEquivalents where M: OntologyMappings {
 
     public let identifier: String
-    private unowned var ontology: QuestionOntology<M>
+    public private(set) unowned var ontology: QuestionOntology<M>
 
     public private(set) var superClassIdentifiers: Set<String> = []
     public var equivalents: Set<Equivalent<M>> = []

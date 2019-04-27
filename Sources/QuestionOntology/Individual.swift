@@ -2,7 +2,7 @@
 public final class Individual<M> where M: OntologyMappings {
 
     public let identifier: String
-    private unowned var ontology: QuestionOntology<M>
+    public private(set) unowned var ontology: QuestionOntology<M>
 
     public private(set) var typeIdentifiers: Set<String> = []
 
