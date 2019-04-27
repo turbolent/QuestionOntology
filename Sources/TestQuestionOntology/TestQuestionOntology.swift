@@ -16,16 +16,16 @@ public let testQuestionOntology: TestQuestionOntology = {
         .makeTransitive()
         .map(to: .property(Wikidata.P.279))
 
-    let isA = ontology.define(property: "isA")
-        .hasEquivalent(
-            outgoing: isInstanceOf,
-            outgoing: isSubclassOf
-        )
+    ontology.instanceProperty =
+        ontology.define(property: "isA")
+            .hasEquivalent(
+                outgoing: isInstanceOf,
+                outgoing: isSubclassOf
+            )
 
-    ontology.instanceProperty = isA
-
-    ontology.labelProperty = ontology.define(property: "label")
-        .map(to: .label)
+    ontology.labelProperty =
+        ontology.define(property: "label")
+            .map(to: .label)
 
     let Person = ontology.define(class: "Person")
         .map(to: Wikidata.Q.5)
@@ -226,7 +226,7 @@ public let testQuestionOntology: TestQuestionOntology = {
             .named(pattern(lemma: "son", tag: .anyNoun))
         )
 
-    ontology.define(property: "hasSpouse")
+    let hasSpouse = ontology.define(property: "hasSpouse")
         .makeSymmetric()
         .map(to: .property(Wikidata.P.26))
         .hasPatterns(
@@ -246,6 +246,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         )
 
     let Spouse = ontology.define(class: "Spouse")
+        .hasEquivalent(outgoing: hasSpouse)
         .hasPattern(
             .named(pattern(lemma: "spouse", tag: .anyNoun))
         )

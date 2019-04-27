@@ -1026,6 +1026,15 @@
       ]
     },
     {
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasSpouse"
+            }
+          ]
+        }
+      ],
       "identifier" : "Spouse",
       "patterns" : [
         {
