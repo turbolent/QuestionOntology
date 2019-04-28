@@ -43,6 +43,22 @@ public func pattern(lemma: String, tag: Tag) -> TokenPattern {
 }
 
 
+/// prefix a word (with lemma and tag) with optional be/V, and suffix with preposition
+public func comparativePattern(be: Bool, lemma: String, tag: Tag, preposition: String) -> AnyPattern {
+    var sequence =
+        pattern(lemma: lemma, tag: tag)
+            ~ pattern(
+                lemma: preposition,
+                tag: .prepositionOrSubordinatingConjunction
+            )
+    if be {
+        sequence = pattern(lemma: "be", tag: .anyVerb)
+            ~ sequence
+    }
+    return .sequence(sequence)
+}
+
+
 extension _Pattern {
     var hasDefinedLength: Bool {
         switch self {

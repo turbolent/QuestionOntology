@@ -5,7 +5,7 @@ public enum PropertyPattern: Hashable {
     case _inverse(AnyPattern)
     case _value(AnyPattern)
     case _adjective(AnyPattern)
-    case _oppositeAdjective(AnyPattern)
+    case _comparative(AnyPattern, Comparison)
 
     public static func named<T: Pattern>(_ pattern: T) -> PropertyPattern {
         return ._named(AnyPattern(pattern))
@@ -23,8 +23,13 @@ public enum PropertyPattern: Hashable {
         return ._adjective(AnyPattern(pattern))
     }
 
-    public static func oppositeAdjective<T: Pattern>(_ pattern: T) -> PropertyPattern {
-        return ._oppositeAdjective(AnyPattern(pattern))
+    public static func comparative<T: Pattern>(
+        _ pattern: T,
+        _ comparison: Comparison
+    )
+        -> PropertyPattern
+    {
+        return ._comparative(AnyPattern(pattern), comparison)
     }
 
     public var pattern: AnyPattern {
@@ -33,7 +38,7 @@ public enum PropertyPattern: Hashable {
              ._inverse(let pattern),
              ._value(let pattern),
              ._adjective(let pattern),
-             ._oppositeAdjective(let pattern):
+             ._comparative(let pattern, _):
             return pattern
         }
     }
@@ -50,7 +55,8 @@ extension PropertyPattern: Codable {
         case inverse
         case value
         case adjective
-        case oppositeAdjective = "opposite_adjective"
+        case comparative
+        case comparison
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -65,8 +71,9 @@ extension PropertyPattern: Codable {
             try container.encode(pattern, forKey: .value)
         case ._adjective(let pattern):
             try container.encode(pattern, forKey: .adjective)
-        case ._oppositeAdjective(let pattern):
-            try container.encode(pattern, forKey: .oppositeAdjective)
+        case let ._comparative(pattern, comparison):
+            try container.encode(pattern, forKey: .comparative)
+            try container.encode(comparison, forKey: .comparison)
         }
     }
 
@@ -103,13 +110,17 @@ extension PropertyPattern: Codable {
                     self = ._adjective(pattern)
                     return
                 }
-            case .oppositeAdjective:
+            case .comparative:
                 if let pattern =
-                    try container.decodeIfPresent(AnyPattern.self, forKey: .oppositeAdjective)
+                    try container.decodeIfPresent(AnyPattern.self, forKey: .comparative)
                 {
-                    self = ._oppositeAdjective(pattern)
+                    let comparison =
+                        try container.decode(Comparison.self, forKey: .comparison)
+                    self = ._comparative(pattern, comparison)
                     return
                 }
+            case .comparison:
+                break
             }
         }
 

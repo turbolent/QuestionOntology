@@ -1442,48 +1442,150 @@
       "identifier" : "hasAge",
       "patterns" : [
         {
-          "adjective" : {
-            "condition" : {
-              "conditions" : [
-                {
-                  "input" : "old",
-                  "label" : "lemma",
-                  "op" : "=",
-                  "type" : "label"
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
                 },
-                {
-                  "input" : "J",
-                  "label" : "broad_tag",
-                  "op" : "=",
-                  "type" : "label"
-                }
-              ],
-              "type" : "and"
-            },
-            "type" : "token"
-          }
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "old",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "JJR",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "than",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "sequence"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : ">"
         },
         {
-          "opposite_adjective" : {
-            "condition" : {
-              "conditions" : [
-                {
-                  "input" : "young",
-                  "label" : "lemma",
-                  "op" : "=",
-                  "type" : "label"
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
                 },
-                {
-                  "input" : "J",
-                  "label" : "broad_tag",
-                  "op" : "=",
-                  "type" : "label"
-                }
-              ],
-              "type" : "and"
-            },
-            "type" : "token"
-          }
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "young",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "JJR",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "than",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "sequence"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : "<"
         }
       ]
     },
@@ -1513,10 +1615,256 @@
       "identifier" : "hasChild"
     },
     {
-      "identifier" : "hasDateOfBirth"
+      "identifier" : "hasDateOfBirth",
+      "patterns" : [
+        {
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "bear",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "V",
+                          "label" : "broad_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "after",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "sequence"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : ">"
+        },
+        {
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "bear",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "V",
+                          "label" : "broad_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "before",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "sequence"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : "<"
+        }
+      ]
     },
     {
-      "identifier" : "hasDateOfDeath"
+      "identifier" : "hasDateOfDeath",
+      "patterns" : [
+        {
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "die",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "after",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "IN",
+                      "label" : "fine_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : ">"
+        },
+        {
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "die",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "before",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "IN",
+                      "label" : "fine_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : "<"
+        }
+      ]
     },
     {
       "identifier" : "hasFather",

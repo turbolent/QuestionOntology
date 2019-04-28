@@ -1,9 +1,20 @@
 import QuestionOntology
+import ParserDescription
 import ParserDescriptionOperators
 
 
 public typealias TestQuestionOntology =
     QuestionOntology<WikidataOntologyMappings>
+
+
+struct Patterns {
+    private init() {}
+
+    static let be = pattern(lemma: "be", tag: .anyVerb)
+    static let `in` = pattern(lemma: "in", tag: .prepositionOrSubordinatingConjunction)
+    static let on = pattern(lemma: "on", tag: .prepositionOrSubordinatingConjunction)
+    static let of = pattern(lemma: "of", tag: .prepositionOrSubordinatingConjunction)
+}
 
 
 public let testQuestionOntology: TestQuestionOntology = {
@@ -38,16 +49,56 @@ public let testQuestionOntology: TestQuestionOntology = {
 
     let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
         .map(to: .property(Wikidata.P.569))
+        .hasPatterns(
+            .comparative(
+                comparativePattern(
+                    be: true,
+                    lemma: "bear",
+                    tag: .anyVerb,
+                    preposition: "after"
+                ),
+                .greaterThan
+            ),
+            .comparative(
+                comparativePattern(
+                    be: true,
+                    lemma: "bear",
+                    tag: .anyVerb,
+                    preposition: "before"
+                ),
+                .lessThan
+            )
+        )
 
     let hasDateOfDeath = ontology.define(property: "hasDateOfDeath")
         .map(to: .property(Wikidata.P.570))
+        .hasPatterns(
+            .comparative(
+                comparativePattern(
+                    be: false,
+                    lemma: "die",
+                    tag: .anyVerb,
+                    preposition: "after"
+                ),
+                .greaterThan
+            ),
+            .comparative(
+                comparativePattern(
+                    be: false,
+                    lemma: "die",
+                    tag: .anyVerb,
+                    preposition: "before"
+                ),
+                .lessThan
+            )
+        )
 
     let hasPlaceOfBirth = ontology.define(property: "hasPlaceOfBirth")
         .map(to: .property(Wikidata.P.19))
         .hasPattern(
             .value(
                 (
-                    pattern(lemma: "be", tag: .anyVerb)
+                    Patterns.be
                         || pattern(lemma: "come", tag: .anyVerb)
                 ).opt()
                     ~ pattern(lemma: "from", tag: .prepositionOrSubordinatingConjunction)
@@ -62,17 +113,15 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasEquivalent(outgoing: hasPlaceOfBirth)
         .hasPatterns(
             .named(
-                pattern(lemma: "be", tag: .anyVerb)
-                    ~ pattern(lemma: "bear", tag: .anyVerb)
+                Patterns.be ~ pattern(lemma: "bear", tag: .anyVerb)
             ),
             .adjective(
                 pattern(lemma: "alive", tag: .anyAdjective)
             ),
             .value(
-                pattern(lemma: "be", tag: .anyVerb)
+                Patterns.be
                     ~ pattern(lemma: "bear", tag: .anyVerb)
-                    ~ (pattern(lemma: "in", tag: .prepositionOrSubordinatingConjunction)
-                        || pattern(lemma: "on", tag: .prepositionOrSubordinatingConjunction))
+                    ~ (Patterns.in || Patterns.on)
             )
         )
 
@@ -85,7 +134,7 @@ public let testQuestionOntology: TestQuestionOntology = {
             ),
             .named(
                 pattern(lemma: "place", tag: .anyNoun)
-                    ~ pattern(lemma: "of", tag: .prepositionOrSubordinatingConjunction)
+                    ~ Patterns.of
                     ~ pattern(lemma: "birth", tag: .anyNoun)
             )
         )
@@ -99,7 +148,7 @@ public let testQuestionOntology: TestQuestionOntology = {
             ),
             .named(
                 pattern(lemma: "place", tag: .anyNoun)
-                    ~ pattern(lemma: "of", tag: .prepositionOrSubordinatingConjunction)
+                    ~ Patterns.of
                     ~ pattern(lemma: "death", tag: .anyNoun)
             )
         )
@@ -116,8 +165,7 @@ public let testQuestionOntology: TestQuestionOntology = {
             ),
             .value(
                 pattern(lemma: "die", tag: .anyVerb)
-                    ~ (pattern(lemma: "in", tag: .prepositionOrSubordinatingConjunction)
-                        || pattern(lemma: "on", tag: .prepositionOrSubordinatingConjunction))
+                    ~ (Patterns.in || Patterns.on)
             )
         )
 
@@ -129,11 +177,23 @@ public let testQuestionOntology: TestQuestionOntology = {
             ))
         )
         .hasPatterns(
-            .adjective(
-                pattern(lemma: "old", tag: .anyAdjective)
+            .comparative(
+                comparativePattern(
+                    be: true,
+                    lemma: "old",
+                    tag: .comparativeAdjective,
+                    preposition: "than"
+                ),
+                .greaterThan
             ),
-            .oppositeAdjective(
-                pattern(lemma: "young", tag: .anyAdjective)
+            .comparative(
+                comparativePattern(
+                    be: true,
+                    lemma: "young",
+                    tag: .comparativeAdjective,
+                    preposition: "than"
+                ),
+                .lessThan
             )
         )
 
@@ -231,7 +291,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         .map(to: .property(Wikidata.P.26))
         .hasPatterns(
             .named(
-                pattern(lemma: "be", tag: .anyVerb).opt()
+                Patterns.be.opt()
                     ~ pattern(lemma: "marry", tag: .anyVerb)
             ),
             .inverse(
@@ -239,7 +299,7 @@ public let testQuestionOntology: TestQuestionOntology = {
                     ~ pattern(lemma: "marry", tag: .anyVerb)
             ),
             .value(
-                pattern(lemma: "be", tag: .anyVerb)
+                Patterns.be
                     ~ pattern(lemma: "marry", tag: .anyVerb)
                     ~ pattern(lemma: "to", tag: .prepositionOrSubordinatingConjunction)
             )
