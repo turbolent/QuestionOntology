@@ -177,6 +177,9 @@ public let testQuestionOntology: TestQuestionOntology = {
             ))
         )
         .hasPatterns(
+            .adjective(
+                pattern(lemma: "old", tag: .anyAdjective)
+            ),
             .comparative(
                 comparativePattern(
                     be: true,
