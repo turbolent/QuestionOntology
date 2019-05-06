@@ -137,6 +137,9 @@
             "type" : "sequence"
           }
         }
+      ],
+      "superclasses" : [
+          "Place"
       ]
     },
     {
@@ -375,6 +378,9 @@
             "type" : "sequence"
           }
         }
+      ],
+      "superclasses" : [
+          "Place"
       ]
     },
     {
@@ -897,6 +903,33 @@
               "conditions" : [
                 {
                   "input" : "people",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "broad_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          }
+        }
+      ]
+    },
+    {
+      "identifier" : "Place",
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "place",
                   "label" : "lemma",
                   "op" : "=",
                   "type" : "label"

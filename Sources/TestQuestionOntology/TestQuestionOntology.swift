@@ -47,6 +47,11 @@ public let testQuestionOntology: TestQuestionOntology = {
 
     ontology.personClass = Person
 
+    let Place = ontology.define(class: "Place")
+        .hasPattern(
+            .named(pattern(lemma: "place", tag: .anyNoun))
+        )
+
     let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
         .map(to: .property(Wikidata.P.569))
         .hasPatterns(
@@ -126,6 +131,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         )
 
     ontology.define(class: "BirthPlace")
+        .isSubClass(of: Place)
         .hasEquivalent(incoming: hasPlaceOfBirth)
         .hasPatterns(
             .named(
@@ -140,6 +146,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         )
 
     ontology.define(class: "DeathPlace")
+        .isSubClass(of: Place)
         .hasEquivalent(incoming: hasPlaceOfDeath)
         .hasPatterns(
             .named(
