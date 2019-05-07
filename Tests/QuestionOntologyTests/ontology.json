@@ -138,6 +138,36 @@
           }
         }
       ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasPlaceOfBirth"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasPlaceOfBirth"
+        }
+      ],
       "superclasses" : [
           "Place"
       ]
@@ -175,6 +205,36 @@
             },
             "type" : "token"
           }
+        }
+      ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasBrother"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasBrother"
         }
       ],
       "superclasses" : [
@@ -215,6 +275,36 @@
             },
             "type" : "token"
           }
+        }
+      ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasChild"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasChild"
         }
       ],
       "superclasses" : [
@@ -379,6 +469,36 @@
           }
         }
       ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasPlaceOfDeath"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasPlaceOfDeath"
+        }
+      ],
       "superclasses" : [
           "Place"
       ]
@@ -416,6 +536,36 @@
             },
             "type" : "token"
           }
+        }
+      ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasFather"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasFather"
         }
       ],
       "superclasses" : [
@@ -511,6 +661,36 @@
             },
             "type" : "token"
           }
+        }
+      ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasGender"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasGender"
         }
       ]
     },
@@ -748,6 +928,36 @@
           }
         }
       ],
+      "relations" : [
+        {
+          "direction" : "outgoing",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasSpouse"
+        },
+        {
+          "direction" : "outgoing",
+          "property" : "hasSpouse"
+        }
+      ],
       "superclasses" : [
         "Male",
         "Spouse"
@@ -852,6 +1062,36 @@
           }
         }
       ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasMother"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasMother"
+        }
+      ],
       "superclasses" : [
         "Female",
         "Parent"
@@ -890,6 +1130,36 @@
             },
             "type" : "token"
           }
+        }
+      ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasParent"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasParent"
         }
       ],
       "superclasses" : [
@@ -979,6 +1249,60 @@
             "type" : "token"
           }
         }
+      ],
+      "relations" : [
+        {
+          "direction" : "outgoing",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "in",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasLocation"
+        },
+        {
+          "direction" : "outgoing",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasLocation"
+        },
+        {
+          "direction" : "outgoing",
+          "property" : "hasLocation"
+        }
       ]
     },
     {
@@ -1014,6 +1338,36 @@
             },
             "type" : "token"
           }
+        }
+      ],
+      "relations" : [
+        {
+          "direction" : "outgoing",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasSibling"
+        },
+        {
+          "direction" : "outgoing",
+          "property" : "hasSibling"
         }
       ],
       "superclasses" : [
@@ -1053,6 +1407,36 @@
             },
             "type" : "token"
           }
+        }
+      ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasSister"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasSister"
         }
       ],
       "superclasses" : [
@@ -1125,6 +1509,39 @@
             "type" : "token"
           }
         }
+      ],
+      "relations" : [
+        {
+          "direction" : "outgoing",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasSpouse"
+        },
+        {
+          "direction" : "outgoing",
+          "property" : "hasSpouse"
+        }
+      ],
+      "superclasses" : [
+        "Person"
       ]
     },
     {
@@ -1151,6 +1568,36 @@
             },
             "type" : "token"
           }
+        }
+      ],
+      "relations" : [
+        {
+          "direction" : "outgoing",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasSpouse"
+        },
+        {
+          "direction" : "outgoing",
+          "property" : "hasSpouse"
         }
       ],
       "superclasses" : [

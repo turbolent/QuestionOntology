@@ -64,6 +64,15 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "place", tag: .anyNoun))
         )
+        .hasRelation(outgoing: hasLocation)
+        .hasRelation(
+            outgoing: hasLocation,
+            pattern: Patterns.of
+        )
+        .hasRelation(
+            outgoing: hasLocation,
+            pattern: Patterns.in
+        )
 
     let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
         .map(to: .property(Wikidata.P.569))
@@ -157,6 +166,11 @@ public let testQuestionOntology: TestQuestionOntology = {
                     ~ pattern(lemma: "birth", tag: .anyNoun)
             )
         )
+        .hasRelation(incoming: hasPlaceOfBirth)
+        .hasRelation(
+            incoming: hasPlaceOfBirth,
+            pattern: Patterns.of
+        )
 
     ontology.define(class: "DeathPlace")
         .isSubClass(of: Place)
@@ -171,6 +185,11 @@ public let testQuestionOntology: TestQuestionOntology = {
                     ~ Patterns.of
                     ~ pattern(lemma: "death", tag: .anyNoun)
             )
+        )
+        .hasRelation(incoming: hasPlaceOfDeath)
+        .hasRelation(
+            incoming: hasPlaceOfDeath,
+            pattern: Patterns.of
         )
 
     ontology.define(property: "died")
@@ -237,6 +256,11 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "gender", tag: .anyNoun))
         )
+        .hasRelation(incoming: hasGender)
+        .hasRelation(
+            incoming: hasGender,
+            pattern: Patterns.of
+        )
 
     let male = ontology.define(individual: "male")
         .isA(Gender)
@@ -274,6 +298,11 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "parent", tag: .anyNoun))
         )
+        .hasRelation(incoming: hasParent)
+        .hasRelation(
+            incoming: hasParent,
+            pattern: Patterns.of
+        )
 
     ontology.define(class: "Mother")
         .isSubClass(of: Parent)
@@ -281,6 +310,11 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasEquivalent(incoming: hasMother)
         .hasPattern(
             .named(pattern(lemma: "mother", tag: .anyNoun))
+        )
+        .hasRelation(incoming: hasMother)
+        .hasRelation(
+            incoming: hasMother,
+            pattern: Patterns.of
         )
 
     ontology.define(class: "Father")
@@ -290,12 +324,22 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "father", tag: .anyNoun))
         )
+        .hasRelation(incoming: hasFather)
+        .hasRelation(
+            incoming: hasFather,
+            pattern: Patterns.of
+        )
 
     let Child = ontology.define(class: "Child")
         .isSubClass(of: Person)
         .hasEquivalent(incoming: hasChild)
         .hasPattern(
             .named(pattern(lemma: "child", tag: .anyNoun))
+        )
+        .hasRelation(incoming: hasChild)
+        .hasRelation(
+            incoming: hasChild,
+            pattern: Patterns.of
         )
 
     ontology.define(class: "Daughter")
@@ -304,6 +348,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "daughter", tag: .anyNoun))
         )
+        // TODO: relation
 
     ontology.define(class: "Son")
         .isSubClass(of: Child)
@@ -311,6 +356,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "son", tag: .anyNoun))
         )
+        // TODO: relation
 
     let hasSpouse = ontology.define(property: "hasSpouse")
         .makeSymmetric()
@@ -332,9 +378,15 @@ public let testQuestionOntology: TestQuestionOntology = {
         )
 
     let Spouse = ontology.define(class: "Spouse")
+        .isSubClass(of: Person)
         .hasEquivalent(outgoing: hasSpouse)
         .hasPattern(
             .named(pattern(lemma: "spouse", tag: .anyNoun))
+        )
+        .hasRelation(outgoing: hasSpouse)
+        .hasRelation(
+            outgoing: hasSpouse,
+            pattern: Patterns.of
         )
 
     ontology.define(class: "Wife")
@@ -344,6 +396,11 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "wife", tag: .anyNoun))
         )
+        .hasRelation(outgoing: hasSpouse)
+        .hasRelation(
+            outgoing: hasSpouse,
+            pattern: Patterns.of
+        )
 
     ontology.define(class: "Husband")
         .isSubClass(of: Spouse)
@@ -351,6 +408,11 @@ public let testQuestionOntology: TestQuestionOntology = {
         .map(to: Wikidata.Q.212878)
         .hasPattern(
             .named(pattern(lemma: "husband", tag: .anyNoun))
+        )
+        .hasRelation(outgoing: hasSpouse)
+        .hasRelation(
+            outgoing: hasSpouse,
+            pattern: Patterns.of
         )
 
     let hasSibling = ontology.define(property: "hasSibling")
@@ -362,6 +424,11 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasEquivalent(outgoing: hasSibling)
         .hasPattern(
             .named(pattern(lemma: "sibling", tag: .anyNoun))
+        )
+        .hasRelation(outgoing: hasSibling)
+        .hasRelation(
+            outgoing: hasSibling,
+            pattern: Patterns.of
         )
 
     let hasSister = ontology.define(property: "hasSister")
@@ -379,6 +446,11 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "sister", tag: .anyNoun))
         )
+        .hasRelation(incoming: hasSister)
+        .hasRelation(
+            incoming: hasSister,
+            pattern: Patterns.of
+        )
 
     ontology.define(class: "Brother")
         .isSubClass(of: Sibling)
@@ -386,6 +458,11 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasEquivalent(incoming: hasBrother)
         .hasPattern(
             .named(pattern(lemma: "brother", tag: .anyNoun))
+        )
+        .hasRelation(incoming: hasBrother)
+        .hasRelation(
+            incoming: hasBrother,
+            pattern: Patterns.of
         )
 
     let GrandParent = ontology.define(class: "GrandParent")
@@ -397,6 +474,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "grandparent", tag: .anyNoun))
         )
+        // TODO: relation
 
     ontology.define(class: "GrandMother")
         .isSubClass(of: GrandParent)
@@ -404,6 +482,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "grandmother", tag: .anyNoun))
         )
+        // TODO: relation
 
     ontology.define(class: "GrandFather")
         .isSubClass(of: GrandParent)
@@ -411,6 +490,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "grandfather", tag: .anyNoun))
         )
+        // TODO: relation
 
     let GrandChild = ontology.define(class: "GrandChild")
         .isSubClass(of: Child)
@@ -421,6 +501,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "grandchild", tag: .anyNoun))
         )
+        // TODO: relation
 
     ontology.define(class: "GrandDaughter")
         .isSubClass(of: GrandChild)
@@ -428,6 +509,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "granddaughter", tag: .anyNoun))
         )
+        // TODO: relation
 
     ontology.define(class: "GrandSon")
         .isSubClass(of: GrandChild)
@@ -435,6 +517,7 @@ public let testQuestionOntology: TestQuestionOntology = {
         .hasPattern(
             .named(pattern(lemma: "grandson", tag: .anyNoun))
         )
+        // TODO: relation
 
     return ontology
 }()
