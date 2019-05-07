@@ -234,6 +234,9 @@ public let testQuestionOntology: TestQuestionOntology = {
         .map(to: .property(Wikidata.P.21))
 
     let Gender = ontology.define(class: "Gender")
+        .hasPattern(
+            .named(pattern(lemma: "gender", tag: .anyNoun))
+        )
 
     let male = ontology.define(individual: "male")
         .isA(Gender)

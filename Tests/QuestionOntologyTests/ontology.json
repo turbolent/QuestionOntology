@@ -488,7 +488,31 @@
       ]
     },
     {
-      "identifier" : "Gender"
+      "identifier" : "Gender",
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "gender",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "broad_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          }
+        }
+      ]
     },
     {
       "equivalents" : [
