@@ -158,7 +158,7 @@ public final class PropertyBuilder<Mappings>: HasEquivalents
     public private(set) unowned var ontology: QuestionOntology<Mappings>
     public private(set) unowned var property: Property<Mappings>
 
-    public init(ontology: QuestionOntology<Mappings>, property: Property<Mappings>) {
+    internal init(ontology: QuestionOntology<Mappings>, property: Property<Mappings>) {
         self.ontology = ontology
         self.property = property
     }
