@@ -9,6 +9,7 @@ public final class Class<Mappings>
     public fileprivate(set) var superClassIdentifiers: Set<String> = []
     public var equivalents: Set<Equivalent<Mappings>> = []
     public var patterns: [ClassPattern] = []
+    public var relations: Set<Relation<Mappings>> = []
 
     internal init(identifier: String) {
         self.identifier = identifier
@@ -23,6 +24,7 @@ extension Class: Equatable {
             && lhs.superClassIdentifiers == rhs.superClassIdentifiers
             && lhs.equivalents == rhs.equivalents
             && lhs.patterns == rhs.patterns
+            && lhs.relations == rhs.relations
     }
 }
 
@@ -51,6 +53,7 @@ extension Class: Codable {
         case equivalents
         case superClasses = "superclasses"
         case patterns
+        case relations
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -61,6 +64,13 @@ extension Class: Codable {
             try container.encode(
                 equivalents.sorted(),
                 forKey: .equivalents
+            )
+        }
+
+        if !relations.isEmpty {
+            try container.encode(
+                relations.sorted(),
+                forKey: .relations
             )
         }
 
@@ -89,6 +99,12 @@ extension Class: Codable {
             try container.decodeIfPresent(Set<Equivalent<Mappings>>.self, forKey: .equivalents)
         {
             self.equivalents = equivalents
+        }
+
+        if let relations =
+            try container.decodeIfPresent(Set<Relation<Mappings>>.self, forKey: .relations)
+        {
+            self.relations = relations
         }
 
         if let superClassIdentifiers =
@@ -170,6 +186,50 @@ public final class ClassBuilder<Mappings>: HasEquivalents
     @discardableResult
     public func hasEquivalent(_ equivalent: Equivalent<Mappings>) -> Self {
         `class`.equivalents.insert(equivalent)
+        return self
+    }
+
+    @discardableResult
+    public func hasRelation(outgoing: HasPropertyIdentifier) -> Self {
+        `class`.relations.insert(Relation(
+            direction: .outgoing,
+            propertyIdentifier: outgoing.propertyIdentifier,
+            pattern: nil
+        ))
+        return self
+    }
+
+    @discardableResult
+    public func hasRelation<T>(outgoing: HasPropertyIdentifier, pattern: T)
+        -> Self where T: Pattern
+    {
+        `class`.relations.insert(Relation(
+            direction: .outgoing,
+            propertyIdentifier: outgoing.propertyIdentifier,
+            pattern: AnyPattern(pattern)
+        ))
+        return self
+    }
+
+    @discardableResult
+    public func hasRelation(incoming: HasPropertyIdentifier) -> Self {
+        `class`.relations.insert(Relation(
+            direction: .incoming,
+            propertyIdentifier: incoming.propertyIdentifier,
+            pattern: nil
+        ))
+        return self
+    }
+
+    @discardableResult
+    public func hasRelation<T>(incoming: HasPropertyIdentifier, pattern: T)
+        -> Self where T: Pattern
+    {
+        `class`.relations.insert(Relation(
+            direction: .incoming,
+            propertyIdentifier: incoming.propertyIdentifier,
+            pattern: AnyPattern(pattern)
+        ))
         return self
     }
 }
