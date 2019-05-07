@@ -49,7 +49,18 @@ public let testQuestionOntology: TestQuestionOntology = {
 
     ontology.personClass = Person.class
 
+    let hasLocation = ontology.define(property: "hasLocation")
+        .map(to: .property(Wikidata.P.276))
+        .hasPatterns(
+            .value(
+                Patterns.be.opt()
+                    ~ pattern(lemma: "locate", tag: .anyVerb)
+                    ~ Patterns.in
+            )
+        )
+
     let Place = ontology.define(class: "Place")
+        .hasEquivalent(outgoing: hasLocation)
         .hasPattern(
             .named(pattern(lemma: "place", tag: .anyNoun))
         )
@@ -219,6 +230,9 @@ public let testQuestionOntology: TestQuestionOntology = {
         .isSubProperty(of: hasParent)
         .map(to: .property(Wikidata.P.22))
 
+    let hasGender = ontology.define(property: "hasGender")
+        .map(to: .property(Wikidata.P.21))
+
     let Gender = ontology.define(class: "Gender")
 
     let male = ontology.define(individual: "male")
@@ -228,9 +242,6 @@ public let testQuestionOntology: TestQuestionOntology = {
     let female = ontology.define(individual: "female")
         .isA(Gender)
         .map(to: Wikidata.Q.6581072)
-
-    let hasGender = ontology.define(property: "hasGender")
-        .map(to: .property(Wikidata.P.21))
 
     let Male = ontology.define(class: "Male")
         .isSubClass(of: Person)

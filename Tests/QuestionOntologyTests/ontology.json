@@ -922,6 +922,15 @@
       ]
     },
     {
+      "equivalents" : [
+        {
+          "segments" : [
+            {
+              "outgoing" : "hasLocation"
+            }
+          ]
+        }
+      ],
       "identifier" : "Place",
       "patterns" : [
         {
@@ -1930,6 +1939,83 @@
     {
       "identifier" : "hasGender"
     },
+        {
+      "identifier" : "hasLocation",
+      "patterns" : [
+        {
+          "value" : {
+            "patterns" : [
+              {
+                "max" : 1,
+                "min" : 0,
+                "pattern" : {
+                  "condition" : {
+                    "conditions" : [
+                      {
+                        "input" : "be",
+                        "label" : "lemma",
+                        "op" : "=",
+                        "type" : "label"
+                      },
+                      {
+                        "input" : "V",
+                        "label" : "broad_tag",
+                        "op" : "=",
+                        "type" : "label"
+                      }
+                    ],
+                    "type" : "and"
+                  },
+                  "type" : "token"
+                },
+                "type" : "repetition"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "locate",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "in",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "IN",
+                      "label" : "fine_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              }
+            ],
+            "type" : "sequence"
+          }
+        }
+      ]
+    },
     {
       "identifier" : "hasMother",
       "superproperties" : [
@@ -2272,6 +2358,11 @@
     "hasGender" : {
       "property" : {
         "identifier" : "http://www.wikidata.org/prop/direct/P21"
+      }
+    },
+    "hasLocation" : {
+      "property" : {
+        "identifier" : "http://www.wikidata.org/prop/direct/P276"
       }
     },
     "hasMother" : {
