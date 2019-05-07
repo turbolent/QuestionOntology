@@ -1,19 +1,19 @@
 
-
-public protocol HasEquivalents: class {
-    associatedtype M: OntologyMappings
-    var equivalents: Set<Equivalent<M>> { get set }
+public protocol HasEquivalents {
+    associatedtype Mappings: OntologyMappings
+    func hasEquivalent(_ equivalent: Equivalent<Mappings>) -> Self
 }
 
+
 public extension HasEquivalents {
-    @discardableResult
-    func hasEquivalent(_ equivalent: Equivalent<M>) -> Self {
-        equivalents.insert(equivalent)
-        return self
-    }
 
     @discardableResult
-    func hasEquivalent(outgoing: Property<M>, _ individual: Individual<M>) -> Self {
+    func hasEquivalent(
+        outgoing: HasPropertyIdentifier,
+        _ individual: HasIndividualIdentifier
+    )
+        -> Self
+    {
         return hasEquivalent(.segments([
             .outgoing(outgoing),
             .individual(individual)
@@ -21,7 +21,7 @@ public extension HasEquivalents {
     }
 
     @discardableResult
-    func hasEquivalent(outgoing: Property<M>) -> Self {
+    func hasEquivalent(outgoing: HasPropertyIdentifier) -> Self {
         return hasEquivalent(.segments([
             .outgoing(outgoing)
         ]))
@@ -29,8 +29,8 @@ public extension HasEquivalents {
 
     @discardableResult
     func hasEquivalent(
-        outgoing: Property<M>,
-        outgoing secondOutgoing: Property<M>
+        outgoing: HasPropertyIdentifier,
+        outgoing secondOutgoing: HasPropertyIdentifier
     ) -> Self {
         return hasEquivalent(.segments([
             .outgoing(outgoing),
@@ -39,7 +39,12 @@ public extension HasEquivalents {
     }
 
     @discardableResult
-    func hasEquivalent(outgoing: Property<M>, incoming: Property<M>) -> Self {
+    func hasEquivalent(
+        outgoing: HasPropertyIdentifier,
+        incoming: HasPropertyIdentifier
+    )
+        -> Self
+    {
         return hasEquivalent(.segments([
             .outgoing(outgoing),
             .incoming(incoming)
@@ -47,7 +52,12 @@ public extension HasEquivalents {
     }
 
     @discardableResult
-    func hasEquivalent(individual: Individual<M>, incoming: Property<M>) -> Self {
+    func hasEquivalent(
+        individual: HasIndividualIdentifier,
+        incoming: HasPropertyIdentifier
+    )
+        -> Self
+    {
         return hasEquivalent(.segments([
             .individual(individual),
             .incoming(incoming)
@@ -55,7 +65,7 @@ public extension HasEquivalents {
     }
 
     @discardableResult
-    func hasEquivalent(incoming: Property<M>) -> Self {
+    func hasEquivalent(incoming: HasPropertyIdentifier) -> Self {
         return hasEquivalent(.segments([
             .incoming(incoming)
         ]))
@@ -63,8 +73,8 @@ public extension HasEquivalents {
 
     @discardableResult
     func hasEquivalent(
-        incoming: Property<M>,
-        incoming secondIncoming: Property<M>
+        incoming: HasPropertyIdentifier,
+        incoming secondIncoming: HasPropertyIdentifier
     ) -> Self {
         return hasEquivalent(.segments([
             .incoming(incoming),
@@ -73,7 +83,12 @@ public extension HasEquivalents {
     }
 
     @discardableResult
-    func hasEquivalent(incoming: Property<M>, outgoing: Property<M>) -> Self {
+    func hasEquivalent(
+        incoming: HasPropertyIdentifier,
+        outgoing: HasPropertyIdentifier
+    )
+        -> Self
+    {
         return hasEquivalent(.segments([
             .incoming(incoming),
             .outgoing(outgoing)

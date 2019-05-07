@@ -1,66 +1,20 @@
 import ParserDescription
 
 
-public final class Property<M>: HasEquivalents where M: OntologyMappings {
-
+public final class Property<Mappings>
+    where Mappings: OntologyMappings
+{
     public let identifier: String
-    public private(set) unowned var ontology: QuestionOntology<M>
 
-    public private(set) var superPropertyIdentifiers: Set<String> = []
-    public var equivalents: Set<Equivalent<M>> = []
+    public fileprivate(set) var superPropertyIdentifiers: Set<String> = []
+    public var equivalents: Set<Equivalent<Mappings>> = []
     public var patterns: [PropertyPattern] = []
 
     public var isSymmetric = false
     public var isTransitive = false
 
-    public var superProperties: [Property<M>] {
-        return superPropertyIdentifiers.map {
-            ontology.properties[$0]!
-        }
-    }
-
-    public init(identifier: String, ontology: QuestionOntology<M>) {
+    internal init(identifier: String) {
         self.identifier = identifier
-        self.ontology = ontology
-    }
-
-    @discardableResult
-    public func map(to mapped: M.Property) -> Property {
-        ontology.map(self, to: mapped)
-        return self
-    }
-
-    @discardableResult
-    public func isSubProperty(of superProperties: Property...) -> Property {
-        superPropertyIdentifiers.formUnion(superProperties.map { $0.identifier })
-        return self
-    }
-
-    @discardableResult
-    public func makeSymmetric() -> Property {
-        isSymmetric = true
-        return self
-    }
-
-    @discardableResult
-    public func makeTransitive() -> Property {
-        isTransitive = true
-        return self
-    }
-
-    @discardableResult
-    public func hasPattern(_ pattern: PropertyPattern) -> Property {
-        guard pattern.hasDefinedLength else {
-            fatalError("invalid property pattern, unknown length: \(pattern)")
-        }
-        patterns.append(pattern)
-        return self
-    }
-
-    @discardableResult
-    public func hasPatterns(_ patterns: PropertyPattern...) -> Property {
-        patterns.forEach { hasPattern($0) }
-        return self
     }
 }
 
@@ -69,11 +23,23 @@ extension Property: Equatable {
 
     public static func == (lhs: Property, rhs: Property) -> Bool {
         return lhs.identifier == rhs.identifier
+            && lhs.superPropertyIdentifiers == rhs.superPropertyIdentifiers
+            && lhs.equivalents == rhs.equivalents
+            && lhs.patterns == rhs.patterns
             && lhs.isSymmetric == rhs.isSymmetric
             && lhs.isTransitive == rhs.isTransitive
-            && lhs.equivalents == rhs.equivalents
-            && lhs.superPropertyIdentifiers == rhs.superPropertyIdentifiers
-            && lhs.patterns == rhs.patterns
+    }
+}
+
+
+extension Property: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+        hasher.combine(superPropertyIdentifiers)
+        hasher.combine(equivalents)
+        hasher.combine(patterns)
+        hasher.combine(isSymmetric)
+        hasher.combine(isTransitive)
     }
 }
 
@@ -129,15 +95,11 @@ extension Property: Codable {
 
     public convenience init(from decoder: Decoder) throws {
         let codingUserInfo =
-            try QuestionOntology<M>.codingUserInfo(from: decoder)
-
-        guard let ontology = codingUserInfo.ontology else {
-            throw QuestionOntologyDecodingError.notPrepared
-        }
+            try QuestionOntology<Mappings>.codingUserInfo(from: decoder)
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let identifier = try container.decode(String.self, forKey: .identifier)
-        self.init(identifier: identifier, ontology: ontology)
+        self.init(identifier: identifier)
 
         if let isSymmetric = try container.decodeIfPresent(Bool.self, forKey: .symmetric) {
             self.isSymmetric = isSymmetric
@@ -148,7 +110,7 @@ extension Property: Codable {
         }
 
         if let equivalents =
-            try container.decodeIfPresent(Set<Equivalent<M>>.self, forKey: .equivalents)
+            try container.decodeIfPresent(Set<Equivalent<Mappings>>.self, forKey: .equivalents)
         {
             self.equivalents = equivalents
         }
@@ -167,5 +129,83 @@ extension Property: Codable {
         {
             self.patterns = patterns
         }
+    }
+}
+
+
+public protocol HasPropertyIdentifier {
+    var propertyIdentifier: String { get }
+}
+
+
+extension Property: HasPropertyIdentifier {
+    public var propertyIdentifier: String {
+        return identifier
+    }
+}
+
+
+extension PropertyBuilder: HasPropertyIdentifier {
+    public var propertyIdentifier: String {
+        return property.identifier
+    }
+}
+
+
+public final class PropertyBuilder<Mappings>: HasEquivalents
+    where Mappings: OntologyMappings
+{
+    public private(set) unowned var ontology: QuestionOntology<Mappings>
+    public private(set) unowned var property: Property<Mappings>
+
+    public init(ontology: QuestionOntology<Mappings>, property: Property<Mappings>) {
+        self.ontology = ontology
+        self.property = property
+    }
+
+    @discardableResult
+    public func map(to mapped: Mappings.Property) -> Self {
+        ontology.map(property, to: mapped)
+        return self
+    }
+
+    @discardableResult
+    public func isSubProperty(of superProperties: HasPropertyIdentifier...) -> Self {
+        property.superPropertyIdentifiers
+            .formUnion(superProperties.map { $0.propertyIdentifier })
+        return self
+    }
+
+    @discardableResult
+    public func makeSymmetric() -> Self {
+        property.isSymmetric = true
+        return self
+    }
+
+    @discardableResult
+    public func makeTransitive() -> Self {
+        property.isTransitive = true
+        return self
+    }
+
+    @discardableResult
+    public func hasPattern(_ pattern: PropertyPattern) -> Self {
+        guard pattern.hasDefinedLength else {
+            fatalError("invalid property pattern, unknown length: \(pattern)")
+        }
+        property.patterns.append(pattern)
+        return self
+    }
+
+    @discardableResult
+    public func hasPatterns(_ patterns: PropertyPattern...) -> Self {
+        patterns.forEach { hasPattern($0) }
+        return self
+    }
+
+    @discardableResult
+    public func hasEquivalent(_ equivalent: Equivalent<Mappings>) -> Self {
+        property.equivalents.insert(equivalent)
+        return self
     }
 }

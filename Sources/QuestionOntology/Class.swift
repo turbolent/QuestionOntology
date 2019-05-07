@@ -1,51 +1,17 @@
 import ParserDescription
 
 
-public final class Class<M>: HasEquivalents where M: OntologyMappings {
-
+public final class Class<Mappings>
+    where Mappings: OntologyMappings
+{
     public let identifier: String
-    public private(set) unowned var ontology: QuestionOntology<M>
 
-    public private(set) var superClassIdentifiers: Set<String> = []
-    public var equivalents: Set<Equivalent<M>> = []
+    public fileprivate(set) var superClassIdentifiers: Set<String> = []
+    public var equivalents: Set<Equivalent<Mappings>> = []
     public var patterns: [ClassPattern] = []
 
-    public var superClasses: [Class<M>] {
-        return superClassIdentifiers.map {
-            ontology.classes[$0]!
-        }
-    }
-
-    public init(identifier: String, ontology: QuestionOntology<M>) {
+    internal init(identifier: String) {
         self.identifier = identifier
-        self.ontology = ontology
-    }
-
-    @discardableResult
-    public func map(to mapped: M.Class) -> Class {
-        ontology.map(self, to: mapped)
-        return self
-    }
-
-    @discardableResult
-    public func isSubClass(of superClasses: Class...) -> Class {
-        superClassIdentifiers.formUnion(superClasses.map { $0.identifier })
-        return self
-    }
-
-    @discardableResult
-    public func hasPattern(_ pattern: ClassPattern) -> Class {
-        guard pattern.hasDefinedLength else {
-            fatalError("invalid class pattern, unknown length: \(pattern)")
-        }
-        patterns.append(pattern)
-        return self
-    }
-
-    @discardableResult
-    public func hasPatterns(_ patterns: ClassPattern...) -> Class {
-        patterns.forEach { hasPattern($0) }
-        return self
     }
 }
 
@@ -54,9 +20,19 @@ extension Class: Equatable {
 
     public static func == (lhs: Class, rhs: Class) -> Bool {
         return lhs.identifier == rhs.identifier
-            && lhs.equivalents == rhs.equivalents
             && lhs.superClassIdentifiers == rhs.superClassIdentifiers
+            && lhs.equivalents == rhs.equivalents
             && lhs.patterns == rhs.patterns
+    }
+}
+
+
+extension Class: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+        hasher.combine(equivalents)
+        hasher.combine(superClassIdentifiers)
+        hasher.combine(patterns)
     }
 }
 
@@ -102,19 +78,15 @@ extension Class: Codable {
 
     public convenience init(from decoder: Decoder) throws {
         let codingUserInfo =
-            try QuestionOntology<M>.codingUserInfo(from: decoder)
-
-        guard let ontology = codingUserInfo.ontology else {
-            throw QuestionOntologyDecodingError.notPrepared
-        }
+            try QuestionOntology<Mappings>.codingUserInfo(from: decoder)
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         let identifier = try container.decode(String.self, forKey: .identifier)
-        self.init(identifier: identifier, ontology: ontology)
+        self.init(identifier: identifier)
 
         if let equivalents =
-            try container.decodeIfPresent(Set<Equivalent<M>>.self, forKey: .equivalents)
+            try container.decodeIfPresent(Set<Equivalent<Mappings>>.self, forKey: .equivalents)
         {
             self.equivalents = equivalents
         }
@@ -133,5 +105,71 @@ extension Class: Codable {
         {
             self.patterns = patterns
         }
+    }
+}
+
+
+public protocol HasClassIdentifier {
+    var classIdentifier: String { get }
+}
+
+
+extension Class: HasClassIdentifier {
+    public var classIdentifier: String {
+        return identifier
+    }
+}
+
+
+extension ClassBuilder: HasClassIdentifier {
+    public var classIdentifier: String {
+        return `class`.identifier
+    }
+}
+
+
+public final class ClassBuilder<Mappings>: HasEquivalents
+    where Mappings: OntologyMappings
+{
+    public private(set) unowned var ontology: QuestionOntology<Mappings>
+    public private(set) unowned var `class`: Class<Mappings>
+
+    internal init(ontology: QuestionOntology<Mappings>, class: Class<Mappings>) {
+        self.ontology = ontology
+        self.class = `class`
+    }
+
+    @discardableResult
+    public func map(to mapped: Mappings.Class) -> Self {
+        ontology.map(`class`, to: mapped)
+        return self
+    }
+
+    @discardableResult
+    public func isSubClass(of superClasses: HasClassIdentifier...) -> Self {
+        `class`.superClassIdentifiers
+            .formUnion(superClasses.map { $0.classIdentifier })
+        return self
+    }
+
+    @discardableResult
+    public func hasPattern(_ pattern: ClassPattern) -> Self {
+        guard pattern.hasDefinedLength else {
+            fatalError("invalid class pattern, unknown length: \(pattern)")
+        }
+        `class`.patterns.append(pattern)
+        return self
+    }
+
+    @discardableResult
+    public func hasPatterns(_ patterns: ClassPattern...) -> Self {
+        patterns.forEach { hasPattern($0) }
+        return self
+    }
+
+    @discardableResult
+    public func hasEquivalent(_ equivalent: Equivalent<Mappings>) -> Self {
+        `class`.equivalents.insert(equivalent)
+        return self
     }
 }

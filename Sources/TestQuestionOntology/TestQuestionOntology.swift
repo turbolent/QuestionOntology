@@ -33,10 +33,12 @@ public let testQuestionOntology: TestQuestionOntology = {
                 outgoing: isInstanceOf,
                 outgoing: isSubclassOf
             )
+            .property
 
     ontology.labelProperty =
         ontology.define(property: "label")
             .map(to: .label)
+            .property
 
     let Person = ontology.define(class: "Person")
         .map(to: Wikidata.Q.5)
@@ -45,7 +47,7 @@ public let testQuestionOntology: TestQuestionOntology = {
             .named(pattern(lemma: "people", tag: .anyNoun))
         )
 
-    ontology.personClass = Person
+    ontology.personClass = Person.class
 
     let Place = ontology.define(class: "Place")
         .hasPattern(

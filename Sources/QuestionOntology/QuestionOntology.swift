@@ -19,19 +19,21 @@ public typealias OntologyProperty = Property
 public typealias OntologyIndividual = Individual
 
 
-public final class QuestionOntology<M> where M: OntologyMappings {
+public final class QuestionOntology<Mappings>
+    where Mappings: OntologyMappings
+{
 
-    public typealias Class = OntologyClass<M>
-    public typealias Property = OntologyProperty<M>
-    public typealias Individual = OntologyIndividual<M>
+    public typealias Class = OntologyClass<Mappings>
+    public typealias Property = OntologyProperty<Mappings>
+    public typealias Individual = OntologyIndividual<Mappings>
 
     public private(set) var classes: [String: Class] = [:]
     public private(set) var properties: [String: Property] = [:]
     public private(set) var individuals: [String: Individual] = [:]
 
-    public private(set) var classMapping: TwoWayDictionary<String, M.Class> = [:]
-    public private(set) var propertyMapping: TwoWayDictionary<String, M.Property> = [:]
-    public private(set) var individualMapping: TwoWayDictionary<String, M.Individual> = [:]
+    public private(set) var classMapping: TwoWayDictionary<String, Mappings.Class> = [:]
+    public private(set) var propertyMapping: TwoWayDictionary<String, Mappings.Property> = [:]
+    public private(set) var individualMapping: TwoWayDictionary<String, Mappings.Individual> = [:]
 
     public private(set) var personClassIdentifier: String?
     public private(set) var instancePropertyIdentifier: String?
@@ -67,27 +69,27 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     public init() {}
 
     @discardableResult
-    public func define(class identifier: String) -> Class {
+    public func define(class identifier: String) -> ClassBuilder<Mappings> {
         ensureNewDefinition(identifier)
-        let newClass = Class(identifier: identifier, ontology: self)
+        let newClass = Class(identifier: identifier)
         classes[identifier] = newClass
-        return newClass
+        return ClassBuilder(ontology: self, class: newClass)
     }
 
     @discardableResult
-    public func define(property identifier: String) -> Property {
+    public func define(property identifier: String) -> PropertyBuilder<Mappings> {
         ensureNewDefinition(identifier)
-        let newProperty = Property(identifier: identifier, ontology: self)
+        let newProperty = Property(identifier: identifier)
         properties[identifier] = newProperty
-        return newProperty
+        return PropertyBuilder(ontology: self, property: newProperty)
     }
 
     @discardableResult
-    public func define(individual identifier: String) -> Individual {
+    public func define(individual identifier: String) -> IndividualBuilder<Mappings> {
         ensureNewDefinition(identifier)
-        let newIndividual = Individual(identifier: identifier, ontology: self)
+        let newIndividual = Individual(identifier: identifier)
         individuals[identifier] = newIndividual
-        return newIndividual
+        return IndividualBuilder(ontology: self, individual: newIndividual)
     }
 
     private func ensureNewDefinition(_ identifier: String) {
@@ -112,7 +114,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func map(_ class: Class, to mapped: M.Class) -> QuestionOntology {
+    public func map(_ class: Class, to mapped: Mappings.Class) -> QuestionOntology {
         ensureNewMapping(mapped)
         if let existingMapping = classMapping[`class`.identifier] {
             fatalError(
@@ -125,7 +127,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func map(_ property: Property, to mapped: M.Property) -> QuestionOntology {
+    public func map(_ property: Property, to mapped: Mappings.Property) -> QuestionOntology {
         ensureNewMapping(mapped)
         if let existingMapping = propertyMapping[property.identifier] {
             fatalError(
@@ -138,7 +140,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     @discardableResult
-    public func map(_ individual: Individual, to mapped: M.Individual) -> QuestionOntology {
+    public func map(_ individual: Individual, to mapped: Mappings.Individual) -> QuestionOntology {
         ensureNewMapping(mapped)
         if let existingMapping = individualMapping[individual.identifier] {
             fatalError(
@@ -151,7 +153,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
     }
 
     private func ensureNewMapping(_ mapped: Any) {
-        if let individualMapping = mapped as? M.Individual,
+        if let individualMapping = mapped as? Mappings.Individual,
             let existingMapping = self.individualMapping[individualMapping]
         {
             fatalError(
@@ -159,7 +161,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
                     + "already mapped to an individual: \(existingMapping)"
             )
         }
-        if let propertyMapping = mapped as? M.Property,
+        if let propertyMapping = mapped as? Mappings.Property,
             let existingMapping = self.propertyMapping[propertyMapping]
         {
             fatalError(
@@ -167,7 +169,7 @@ public final class QuestionOntology<M> where M: OntologyMappings {
                     + "already mapped to a property: \(existingMapping)"
             )
         }
-        if let classMapping = mapped as? M.Class,
+        if let classMapping = mapped as? Mappings.Class,
             let existingMapping = self.classMapping[classMapping]
         {
             fatalError(
@@ -189,6 +191,8 @@ extension QuestionOntology: Equatable {
             && lhs.propertyMapping == rhs.propertyMapping
             && lhs.individualMapping == rhs.individualMapping
             && lhs.personClassIdentifier == rhs.personClassIdentifier
+            && lhs.instancePropertyIdentifier == rhs.instancePropertyIdentifier
+            && lhs.labelPropertyIdentifier == rhs.labelPropertyIdentifier
     }
 }
 
@@ -247,15 +251,15 @@ extension QuestionOntology: Codable {
 
     public static func prepare(decoder: JSONDecoder) {
         decoder.userInfo[questionOntologyCodingUserInfoKey] =
-            QuestionOntologyCodingUserInfo<M>()
+            QuestionOntologyCodingUserInfo<Mappings>()
     }
 
     public static func codingUserInfo(from decoder: Decoder)
-        throws -> QuestionOntologyCodingUserInfo<M>
+        throws -> QuestionOntologyCodingUserInfo<Mappings>
     {
         guard let codingUserInfo =
             decoder.userInfo[questionOntologyCodingUserInfoKey]
-                as? QuestionOntologyCodingUserInfo<M>
+                as? QuestionOntologyCodingUserInfo<Mappings>
         else {
             throw QuestionOntologyDecodingError.notPrepared
         }
@@ -265,10 +269,9 @@ extension QuestionOntology: Codable {
 
     public convenience init(from decoder: Decoder) throws {
         let codingUserInfo =
-            try QuestionOntology<M>.codingUserInfo(from: decoder)
+            try QuestionOntology<Mappings>.codingUserInfo(from: decoder)
 
         self.init()
-        codingUserInfo.ontology = self
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -328,7 +331,7 @@ extension QuestionOntology: Codable {
 
         if let classMapping =
             try container.decodeIfPresent(
-                TwoWayDictionary<String, M.Class>.self,
+                TwoWayDictionary<String, Mappings.Class>.self,
                 forKey: .classMapping
             )
         {
@@ -337,7 +340,7 @@ extension QuestionOntology: Codable {
 
         if let propertyMapping =
             try container.decodeIfPresent(
-                TwoWayDictionary<String, M.Property>.self,
+                TwoWayDictionary<String, Mappings.Property>.self,
                 forKey: .propertyMapping
             )
         {
@@ -346,7 +349,7 @@ extension QuestionOntology: Codable {
 
         if let individualMapping =
             try container.decodeIfPresent(
-                TwoWayDictionary<String, M.Individual>.self,
+                TwoWayDictionary<String, Mappings.Individual>.self,
                 forKey: .individualMapping
             )
         {

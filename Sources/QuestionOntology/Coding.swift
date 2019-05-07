@@ -43,8 +43,9 @@ internal let questionOntologyCodingUserInfoKey =
     CodingUserInfoKey(rawValue: "questionOntologyCodingUserInfoKey")!
 
 
-public final class QuestionOntologyCodingUserInfo<M> where M: OntologyMappings {
-    public internal(set) var ontology: QuestionOntology<M>?
+public final class QuestionOntologyCodingUserInfo<Mappings>
+    where Mappings: OntologyMappings
+{
     public private(set) var classReferences: Set<String> = []
     public private(set) var propertyReferences: Set<String> = []
     public private(set) var individualReferences: Set<String> = []

@@ -105,12 +105,12 @@ public enum WikidataOperation: Codable, Hashable {
     case age(birthDatePropertyIdentifier: String, deathDatePropertyIdentifier: String)
 
     static func age(
-        birthDateProperty: Property<WikidataOntologyMappings>,
-        deathDateProperty: Property<WikidataOntologyMappings>
+        birthDateProperty: HasPropertyIdentifier,
+        deathDateProperty: HasPropertyIdentifier
     ) -> WikidataOperation {
         return .age(
-            birthDatePropertyIdentifier: birthDateProperty.identifier,
-            deathDatePropertyIdentifier: deathDateProperty.identifier
+            birthDatePropertyIdentifier: birthDateProperty.propertyIdentifier,
+            deathDatePropertyIdentifier: deathDateProperty.propertyIdentifier
         )
     }
 }

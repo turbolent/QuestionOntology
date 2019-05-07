@@ -1,6 +1,8 @@
 
 
-public indirect enum Equivalent<M>: Hashable where M: OntologyMappings {
+public indirect enum Equivalent<Mappings>: Hashable
+    where Mappings: OntologyMappings
+{
 
     public struct Segment: Hashable {
 
@@ -12,16 +14,16 @@ public indirect enum Equivalent<M>: Hashable where M: OntologyMappings {
 
         public let identifier: Identifier
 
-        public static func incoming(_ property: Property<M>) -> Segment {
-            return Segment(identifier: .incoming(property.identifier))
+        public static func incoming(_ property: HasPropertyIdentifier) -> Segment {
+            return Segment(identifier: .incoming(property.propertyIdentifier))
         }
 
-        public static func outgoing(_ property: Property<M>) -> Segment {
-            return Segment(identifier: .outgoing(property.identifier))
+        public static func outgoing(_ property: HasPropertyIdentifier) -> Segment {
+            return Segment(identifier: .outgoing(property.propertyIdentifier))
         }
 
-        public static func individual(_ individual: Individual<M>) -> Segment {
-            return Segment(identifier: .individual(individual.identifier))
+        public static func individual(_ individual: HasIndividualIdentifier) -> Segment {
+            return Segment(identifier: .individual(individual.individualIdentifier))
         }
     }
 
@@ -64,7 +66,7 @@ extension Equivalent: Codable {
 
             case .and:
                 if let equivalents =
-                    try container.decodeIfPresent([Equivalent<M>].self, forKey: .and)
+                    try container.decodeIfPresent([Equivalent<Mappings>].self, forKey: .and)
                 {
                     self = .and(equivalents)
                     return
@@ -116,7 +118,7 @@ extension Equivalent.Segment.Identifier: Codable {
 
     public init(from decoder: Decoder) throws {
         let codingUserInfo =
-            try QuestionOntology<M>.codingUserInfo(from: decoder)
+            try QuestionOntology<Mappings>.codingUserInfo(from: decoder)
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
