@@ -74,6 +74,13 @@ public let testQuestionOntology: TestQuestionOntology = {
             pattern: Patterns.in
         )
 
+    let City = ontology.define(class: "City")
+        .isSubClass(of: Place)
+        .map(to: Wikidata.Q.515)
+        .hasPattern(
+            .named(pattern(lemma: "city", tag: .anyNoun))
+        )
+
     let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
         .map(to: .property(Wikidata.P.569))
         .hasPatterns(

@@ -1,5 +1,8 @@
 {
   "class_mapping" : {
+    "City" : {
+      "identifier" : "http://www.wikidata.org/entity/Q515"
+    },
     "Husband" : {
       "identifier" : "http://www.wikidata.org/entity/Q212878"
     },
@@ -309,6 +312,36 @@
       ],
       "superclasses" : [
         "Person"
+      ]
+    },
+    {
+      "identifier" : "City",
+      "patterns" : [
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "city",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "broad_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          }
+        }
+      ],
+      "superclasses" : [
+        "Place"
       ]
     },
     {
