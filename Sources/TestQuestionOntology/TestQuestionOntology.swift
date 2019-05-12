@@ -243,6 +243,24 @@ public let testQuestionOntology: TestQuestionOntology = {
                     preposition: "than"
                 ),
                 .lessThan
+            ),
+            .comparative(
+                comparativePattern(
+                    be: true,
+                    adjective: "old",
+                    comparativeAdjective: "more",
+                    preposition: "than"
+                ),
+                .greaterThan
+            ),
+            .comparative(
+                comparativePattern(
+                    be: true,
+                    adjective: "old",
+                    comparativeAdjective: "less",
+                    preposition: "than"
+                ),
+                .lessThan
             )
         )
 

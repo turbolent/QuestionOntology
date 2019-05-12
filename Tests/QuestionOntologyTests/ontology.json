@@ -2154,6 +2154,192 @@
             "type" : "sequence"
           },
           "comparison" : "<"
+        },
+        {
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "old",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "JJ",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "more",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "JJR",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "than",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "sequence"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : ">"
+        },
+        {
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "old",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "JJ",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "less",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "JJR",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "than",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "sequence"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : "<"
         }
       ]
     },
