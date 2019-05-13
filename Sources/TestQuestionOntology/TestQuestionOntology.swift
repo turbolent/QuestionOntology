@@ -81,6 +81,53 @@ public let testQuestionOntology: TestQuestionOntology = {
             .named(pattern(lemma: "city", tag: .anyNoun))
         )
 
+    let hasPopulation = ontology.define(property: "hasPopulation")
+        .map(to: .property(Wikidata.P.1082))
+        .hasPatterns(
+            .adjective(lemma: "large"),
+            .superlativeAdjective(
+                lemma: "large",
+                order: .descending
+            ),
+            .superlativeAdjective(
+                lemma: "small",
+                order: .ascending
+            ),
+            .comparative(
+                comparativePattern(
+                    be: true,
+                    lemma: "large",
+                    tag: .comparativeAdjective,
+                    preposition: "large"
+                ),
+                .greaterThan
+            ),
+            .comparative(
+                comparativePattern(
+                    be: true,
+                    lemma: "small",
+                    tag: .comparativeAdjective,
+                    preposition: "than"
+                ),
+                .lessThan
+            )
+        )
+
+    ontology.define(class: "Population")
+        .hasEquivalent(incoming: hasPopulation)
+        .hasPatterns(
+            .named(
+                pattern(lemma: "population", tag: .anyNoun)
+                    ~ pattern(lemma: "size", tag: .anyNoun).opt()
+            ),
+            .named(pattern(lemma: "size", tag: .anyNoun))
+        )
+        .hasRelation(incoming: hasPopulation)
+        .hasRelation(
+            incoming: hasPopulation,
+            pattern: Patterns.of
+        )
+
     let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
         .map(to: .property(Wikidata.P.569))
         .hasPatterns(

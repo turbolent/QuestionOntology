@@ -1343,6 +1343,124 @@
         {
           "segments" : [
             {
+              "incoming" : "hasPopulation"
+            }
+          ]
+        }
+      ],
+      "identifier" : "Population",
+      "patterns" : [
+        {
+          "named" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "population",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "N",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "max" : 1,
+                "min" : 0,
+                "pattern" : {
+                  "condition" : {
+                    "conditions" : [
+                      {
+                        "input" : "size",
+                        "label" : "lemma",
+                        "op" : "=",
+                        "type" : "label"
+                      },
+                      {
+                        "input" : "N",
+                        "label" : "broad_tag",
+                        "op" : "=",
+                        "type" : "label"
+                      }
+                    ],
+                    "type" : "and"
+                  },
+                  "type" : "token"
+                },
+                "type" : "repetition"
+              }
+            ],
+            "type" : "sequence"
+          }
+        },
+        {
+          "named" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "size",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "N",
+                  "label" : "broad_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          }
+        }
+      ],
+      "relations" : [
+        {
+          "direction" : "incoming",
+          "pattern" : {
+            "condition" : {
+              "conditions" : [
+                {
+                  "input" : "of",
+                  "label" : "lemma",
+                  "op" : "=",
+                  "type" : "label"
+                },
+                {
+                  "input" : "IN",
+                  "label" : "fine_tag",
+                  "op" : "=",
+                  "type" : "label"
+                }
+              ],
+              "type" : "and"
+            },
+            "type" : "token"
+          },
+          "property" : "hasPopulation"
+        },
+        {
+          "direction" : "incoming",
+          "property" : "hasPopulation"
+        }
+      ]
+    },
+    {
+      "equivalents" : [
+        {
+          "segments" : [
+            {
               "outgoing" : "hasSibling"
             }
           ]
@@ -2761,6 +2879,168 @@
       "identifier" : "hasPlaceOfDeath"
     },
     {
+      "identifier" : "hasPopulation",
+      "patterns" : [
+        {
+          "adjective" : "large"
+        },
+        {
+          "order" : ">",
+          "superlative_adjective" : "large"
+        },
+        {
+          "order" : "<",
+          "superlative_adjective" : "small"
+        },
+        {
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "large",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "JJR",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "large",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "sequence"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : ">"
+        },
+        {
+          "comparative" : {
+            "patterns" : [
+              {
+                "condition" : {
+                  "conditions" : [
+                    {
+                      "input" : "be",
+                      "label" : "lemma",
+                      "op" : "=",
+                      "type" : "label"
+                    },
+                    {
+                      "input" : "V",
+                      "label" : "broad_tag",
+                      "op" : "=",
+                      "type" : "label"
+                    }
+                  ],
+                  "type" : "and"
+                },
+                "type" : "token"
+              },
+              {
+                "patterns" : [
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "small",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "JJR",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  },
+                  {
+                    "condition" : {
+                      "conditions" : [
+                        {
+                          "input" : "than",
+                          "label" : "lemma",
+                          "op" : "=",
+                          "type" : "label"
+                        },
+                        {
+                          "input" : "IN",
+                          "label" : "fine_tag",
+                          "op" : "=",
+                          "type" : "label"
+                        }
+                      ],
+                      "type" : "and"
+                    },
+                    "type" : "token"
+                  }
+                ],
+                "type" : "sequence"
+              }
+            ],
+            "type" : "sequence"
+          },
+          "comparison" : "<"
+        }
+      ]
+    },
+    {
       "identifier" : "hasSibling",
       "symmetric" : true
     },
@@ -3019,6 +3299,11 @@
     "hasPlaceOfDeath" : {
       "property" : {
         "identifier" : "http://www.wikidata.org/prop/direct/P20"
+      }
+    },
+    "hasPopulation" : {
+      "property" : {
+        "identifier" : "http://www.wikidata.org/prop/direct/P1082"
       }
     },
     "hasSibling" : {
