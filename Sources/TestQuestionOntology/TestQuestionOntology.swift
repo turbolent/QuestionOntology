@@ -224,6 +224,10 @@ public let testQuestionOntology: TestQuestionOntology = {
                 lemma: "old",
                 order: .descending
             ),
+            .superlativeAdjective(
+                lemma: "young",
+                order: .ascending
+            ),
             .comparative(
                 comparativePattern(
                     be: true,

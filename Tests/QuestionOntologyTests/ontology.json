@@ -1953,8 +1953,12 @@
           "adjective" : "old"
         },
         {
-            "order" : ">",
-            "superlative_adjective" : "old"
+          "order" : ">",
+          "superlative_adjective" : "old"
+        },
+        {
+          "order" : "<",
+          "superlative_adjective" : "young"
         },
         {
           "comparative" : {
