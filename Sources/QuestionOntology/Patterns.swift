@@ -9,15 +9,17 @@ public enum Tag: String {
     case anyAdjective = "J"
     case adjective = "JJ"
     case comparativeAdjective = "JJR"
+    case superlativeAdjective = "JJS"
     case prepositionOrSubordinatingConjunction = "IN"
 
-    var label: Label {
-        switch self {
-        case .anyNoun, .anyVerb, .anyAdjective:
+    public static let broadTags: Set<Tag> = [.anyNoun, .anyVerb, .anyAdjective]
+
+    public var label: Label {
+        if Tag.broadTags.contains(self) {
             return .broadTag
-        case .adjective, .comparativeAdjective, .prepositionOrSubordinatingConjunction:
-            return .fineTag
         }
+
+        return .fineTag
     }
 }
 
@@ -32,21 +34,25 @@ struct Patterns {
     private init() {}
 
     static let be = pattern(lemma: "be", tag: .anyVerb)
+
+    public static func pattern(lemma: String, tag: Tag) -> TokenPattern {
+        return TokenPattern(condition:
+            LabelCondition(
+                label: Label.lemma.rawValue,
+                op: .isEqualTo,
+                input: lemma
+                ) && LabelCondition(
+                    label: tag.label.rawValue,
+                    op: .isEqualTo,
+                    input: tag.rawValue
+            )
+        )
+    }
 }
 
 
 public func pattern(lemma: String, tag: Tag) -> TokenPattern {
-    return TokenPattern(condition:
-        LabelCondition(
-            label: Label.lemma.rawValue,
-            op: .isEqualTo,
-            input: lemma
-        ) && LabelCondition(
-            label: tag.label.rawValue,
-            op: .isEqualTo,
-            input: tag.rawValue
-        )
-    )
+    return Patterns.pattern(lemma: lemma, tag: tag)
 }
 
 

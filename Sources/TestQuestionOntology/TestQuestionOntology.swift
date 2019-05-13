@@ -149,9 +149,7 @@ public let testQuestionOntology: TestQuestionOntology = {
             .named(
                 Patterns.be ~ pattern(lemma: "bear", tag: .anyVerb)
             ),
-            .adjective(
-                pattern(lemma: "alive", tag: .anyAdjective)
-            ),
+            .adjective(lemma: "alive"),
             .value(
                 Patterns.be
                     ~ pattern(lemma: "bear", tag: .anyVerb)
@@ -206,9 +204,7 @@ public let testQuestionOntology: TestQuestionOntology = {
             .named(
                 pattern(lemma: "die", tag: .anyVerb)
             ),
-            .adjective(
-                pattern(lemma: "dead", tag: .anyAdjective)
-            ),
+            .adjective(lemma: "dead"),
             .value(
                 pattern(lemma: "die", tag: .anyVerb)
                     ~ (Patterns.in || Patterns.on)
@@ -223,8 +219,10 @@ public let testQuestionOntology: TestQuestionOntology = {
             ))
         )
         .hasPatterns(
-            .adjective(
-                pattern(lemma: "old", tag: .anyAdjective)
+            .adjective(lemma: "old"),
+            .superlativeAdjective(
+                lemma: "old",
+                order: .descending
             ),
             .comparative(
                 comparativePattern(

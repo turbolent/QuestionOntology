@@ -1732,26 +1732,7 @@
           }
         },
         {
-          "adjective" : {
-            "condition" : {
-              "conditions" : [
-                {
-                  "input" : "alive",
-                  "label" : "lemma",
-                  "op" : "=",
-                  "type" : "label"
-                },
-                {
-                  "input" : "J",
-                  "label" : "broad_tag",
-                  "op" : "=",
-                  "type" : "label"
-                }
-              ],
-              "type" : "and"
-            },
-            "type" : "token"
-          }
+          "adjective" : "alive"
         },
         {
           "value" : {
@@ -1889,26 +1870,7 @@
           }
         },
         {
-          "adjective" : {
-            "condition" : {
-              "conditions" : [
-                {
-                  "input" : "dead",
-                  "label" : "lemma",
-                  "op" : "=",
-                  "type" : "label"
-                },
-                {
-                  "input" : "J",
-                  "label" : "broad_tag",
-                  "op" : "=",
-                  "type" : "label"
-                }
-              ],
-              "type" : "and"
-            },
-            "type" : "token"
-          }
+          "adjective" : "dead"
         },
         {
           "value" : {
@@ -1988,26 +1950,11 @@
       "identifier" : "hasAge",
       "patterns" : [
         {
-          "adjective" : {
-            "condition" : {
-              "conditions" : [
-                {
-                  "input" : "old",
-                  "label" : "lemma",
-                  "op" : "=",
-                  "type" : "label"
-                },
-                {
-                  "input" : "J",
-                  "label" : "broad_tag",
-                  "op" : "=",
-                  "type" : "label"
-                }
-              ],
-              "type" : "and"
-            },
-            "type" : "token"
-          }
+          "adjective" : "old"
+        },
+        {
+            "order" : ">",
+            "superlative_adjective" : "old"
         },
         {
           "comparative" : {
