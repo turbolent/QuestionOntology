@@ -1,56 +1,58 @@
 import ParserDescription
 
-public enum PropertyPattern: Hashable {
-    case _named(AnyPattern)
-    case _inverse(AnyPattern)
-    case _value(AnyPattern)
-    case _adjective(lemma: String)
-    case _superlativeAdjective(lemma: String, order: Order)
-    case _comparative(AnyPattern, Comparison)
 
-    public static func named<T: Pattern>(_ pattern: T) -> PropertyPattern {
+public enum PropertyPattern: Hashable, Equatable {
+    case _named(AnyPattern)
+    case _value(AnyPattern, filter: FilterPattern?)
+    case _inverse(AnyPattern, filter: FilterPattern?)
+    case _adjective(lemma: String, filter: FilterPattern?)
+    case _superlativeAdjective(lemma: String, order: Order)
+
+    public static func named<T>(_ pattern: T) -> PropertyPattern
+        where T: Pattern
+    {
         return ._named(AnyPattern(pattern))
     }
 
-    public static func inverse<T: Pattern>(_ pattern: T) -> PropertyPattern {
-        return ._inverse(AnyPattern(pattern))
+    public static func inverse<T>(_ pattern: T, filter: FilterPattern? = nil) -> PropertyPattern
+        where T: Pattern
+    {
+        return ._inverse(AnyPattern(pattern), filter: filter)
     }
 
-    public static func value<T: Pattern>(_ pattern: T) -> PropertyPattern {
-        return ._value(AnyPattern(pattern))
+    public static func value<T>(_ pattern: T, filter: FilterPattern? = nil) -> PropertyPattern
+        where T: Pattern
+    {
+        return ._value(AnyPattern(pattern), filter: filter)
     }
 
-    public static func adjective(lemma: String) -> PropertyPattern {
-        return ._adjective(lemma: lemma)
+    public static func adjective(lemma: String, filter: FilterPattern? = nil) -> PropertyPattern {
+        return ._adjective(lemma: lemma, filter: filter)
     }
 
     public static func superlativeAdjective(lemma: String, order: Order) -> PropertyPattern {
         return ._superlativeAdjective(lemma: lemma, order: order)
     }
 
-    public static func comparative<T: Pattern>(
-        _ pattern: T,
-        _ comparison: Comparison
-    )
-        -> PropertyPattern
-    {
-        return ._comparative(AnyPattern(pattern), comparison)
-    }
-
     public var hasDefinedLength: Bool {
         switch self {
-        case ._named(let pattern),
-             ._inverse(let pattern),
-             ._value(let pattern),
-             ._comparative(let pattern, _):
+        case let ._named(pattern):
             return pattern.hasDefinedLength
 
-        case ._adjective,
-             ._superlativeAdjective:
+        case let ._value(pattern, filter),
+             let ._inverse(pattern, filter):
+            return pattern.hasDefinedLength
+                && (filter?.hasDefinedLength ?? true)
+
+        case let ._adjective(_, filter):
+            return filter?.hasDefinedLength ?? true
+
+        case ._superlativeAdjective:
             return true
         }
     }
 }
+
 
 extension PropertyPattern: Codable {
 
@@ -60,34 +62,32 @@ extension PropertyPattern: Codable {
         case value
         case adjective
         case superlativeAdjective = "superlative_adjective"
-        case comparative
-        case comparison
         case order
+        case filter
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         switch self {
-        case ._named(let pattern):
+        case let ._named(pattern):
             try container.encode(pattern, forKey: .named)
 
-        case ._inverse(let pattern):
+        case let ._inverse(pattern, filter):
             try container.encode(pattern, forKey: .inverse)
+            try container.encodeIfPresent(filter, forKey: .filter)
 
-        case ._value(let pattern):
+        case let ._value(pattern, filter):
             try container.encode(pattern, forKey: .value)
+            try container.encodeIfPresent(filter, forKey: .filter)
 
-        case ._adjective(let pattern):
-            try container.encode(pattern, forKey: .adjective)
+        case let ._adjective(lemma, filter):
+            try container.encode(lemma, forKey: .adjective)
+            try container.encodeIfPresent(filter, forKey: .filter)
 
         case let ._superlativeAdjective(pattern, order):
             try container.encode(pattern, forKey: .superlativeAdjective)
             try container.encode(order, forKey: .order)
-
-        case let ._comparative(pattern, comparison):
-            try container.encode(pattern, forKey: .comparative)
-            try container.encode(comparison, forKey: .comparison)
         }
     }
 
@@ -108,7 +108,8 @@ extension PropertyPattern: Codable {
                 if let pattern =
                     try container.decodeIfPresent(AnyPattern.self, forKey: .inverse)
                 {
-                    self = ._inverse(pattern)
+                    let filter = try container.decodeIfPresent(FilterPattern.self, forKey: .filter)
+                    self = ._inverse(pattern, filter: filter)
                     return
                 }
 
@@ -116,7 +117,8 @@ extension PropertyPattern: Codable {
                 if let pattern =
                     try container.decodeIfPresent(AnyPattern.self, forKey: .value)
                 {
-                    self = ._value(pattern)
+                    let filter = try container.decodeIfPresent(FilterPattern.self, forKey: .filter)
+                    self = ._value(pattern, filter: filter)
                     return
                 }
 
@@ -124,7 +126,8 @@ extension PropertyPattern: Codable {
                 if let lemma =
                     try container.decodeIfPresent(String.self, forKey: .adjective)
                 {
-                    self = ._adjective(lemma: lemma)
+                    let filter = try container.decodeIfPresent(FilterPattern.self, forKey: .filter)
+                    self = ._adjective(lemma: lemma, filter: filter)
                     return
                 }
 
@@ -132,23 +135,13 @@ extension PropertyPattern: Codable {
                 if let lemma =
                     try container.decodeIfPresent(String.self, forKey: .superlativeAdjective)
                 {
-                    let order =
-                        try container.decode(Order.self, forKey: .order)
+                    let order = try container.decode(Order.self, forKey: .order)
                     self = ._superlativeAdjective(lemma: lemma, order: order)
                     return
                 }
 
-            case .comparative:
-                if let pattern =
-                    try container.decodeIfPresent(AnyPattern.self, forKey: .comparative)
-                {
-                    let comparison =
-                        try container.decode(Comparison.self, forKey: .comparison)
-                    self = ._comparative(pattern, comparison)
-                    return
-                }
-
-            case .comparison, .order:
+            // ignore secondary coding keys (not used for type dispatch, only for additional info)
+            case .order, .filter:
                 break
             }
         }

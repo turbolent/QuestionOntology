@@ -14,6 +14,11 @@ struct Patterns {
     static let `in` = pattern(lemma: "in", tag: .prepositionOrSubordinatingConjunction)
     static let on = pattern(lemma: "on", tag: .prepositionOrSubordinatingConjunction)
     static let of = pattern(lemma: "of", tag: .prepositionOrSubordinatingConjunction)
+    static let than = pattern(lemma: "than", tag: .prepositionOrSubordinatingConjunction)
+    static let after = pattern(lemma: "after", tag: .prepositionOrSubordinatingConjunction)
+    static let before = pattern(lemma: "before", tag: .prepositionOrSubordinatingConjunction)
+    static let more = pattern(lemma: "more", tag: .comparativeAdjective)
+    static let less = pattern(lemma: "less", tag: .comparativeAdjective)
 }
 
 
@@ -93,23 +98,40 @@ public let testQuestionOntology: TestQuestionOntology = {
                 lemma: "small",
                 order: .ascending
             ),
-            .comparative(
-                comparativePattern(
-                    be: true,
-                    lemma: "large",
-                    tag: .comparativeAdjective,
-                    preposition: "large"
-                ),
-                .greaterThan
+            .value(
+                Patterns.be.opt(),
+                filter: .comparative(
+                    pattern(lemma: "large", tag: .comparativeAdjective) ~ Patterns.than,
+                    comparison: .greaterThan
+                )
             ),
-            .comparative(
-                comparativePattern(
-                    be: true,
-                    lemma: "small",
-                    tag: .comparativeAdjective,
-                    preposition: "than"
-                ),
-                .lessThan
+            .value(
+                Patterns.be.opt(),
+                filter: .comparative(
+                    pattern(lemma: "small", tag: .comparativeAdjective) ~ Patterns.than,
+                    comparison: .lessThan
+                )
+            )
+        )
+
+    ontology.define(property: "populates")
+        .hasEquivalent(incoming: hasPopulation)
+        .hasPatterns(
+            .inverse(
+                pattern(lemma: "live", tag: .anyVerb)
+                    ~ pattern(lemma: "in", tag: .prepositionOrSubordinatingConjunction),
+                filter: .comparative(
+                    Patterns.more ~ Patterns.than,
+                    comparison: .greaterThan
+                )
+            ),
+            .inverse(
+                pattern(lemma: "live", tag: .anyVerb)
+                    ~ pattern(lemma: "in", tag: .prepositionOrSubordinatingConjunction),
+                filter: .comparative(
+                    Patterns.less ~ Patterns.than,
+                    comparison: .lessThan
+                )
             )
         )
 
@@ -131,46 +153,38 @@ public let testQuestionOntology: TestQuestionOntology = {
     let hasDateOfBirth = ontology.define(property: "hasDateOfBirth")
         .map(to: .property(Wikidata.P.569))
         .hasPatterns(
-            .comparative(
-                comparativePattern(
-                    be: true,
-                    lemma: "bear",
-                    tag: .anyVerb,
-                    preposition: "after"
-                ),
-                .greaterThan
+            .value(
+                Patterns.be ~ pattern(lemma: "bear", tag: .anyVerb),
+                filter: .comparative(
+                    Patterns.after,
+                    comparison: .greaterThan
+                )
             ),
-            .comparative(
-                comparativePattern(
-                    be: true,
-                    lemma: "bear",
-                    tag: .anyVerb,
-                    preposition: "before"
-                ),
-                .lessThan
+            .value(
+                Patterns.be ~ pattern(lemma: "bear", tag: .anyVerb),
+                filter: .comparative(
+                    Patterns.before,
+                    comparison: .lessThan
+                )
             )
         )
 
     let hasDateOfDeath = ontology.define(property: "hasDateOfDeath")
         .map(to: .property(Wikidata.P.570))
         .hasPatterns(
-            .comparative(
-                comparativePattern(
-                    be: false,
-                    lemma: "die",
-                    tag: .anyVerb,
-                    preposition: "after"
-                ),
-                .greaterThan
+            .value(
+                pattern(lemma: "die", tag: .anyVerb),
+                filter: .comparative(
+                    Patterns.after,
+                    comparison: .greaterThan
+                )
             ),
-            .comparative(
-                comparativePattern(
-                    be: false,
-                    lemma: "die",
-                    tag: .anyVerb,
-                    preposition: "before"
-                ),
-                .lessThan
+            .value(
+                pattern(lemma: "die", tag: .anyVerb),
+                filter: .comparative(
+                    Patterns.before,
+                    comparison: .lessThan
+                )
             )
         )
 
@@ -267,6 +281,20 @@ public let testQuestionOntology: TestQuestionOntology = {
         )
         .hasPatterns(
             .adjective(lemma: "old"),
+            .adjective(
+                lemma: "old",
+                filter: .comparative(
+                    Patterns.more ~ Patterns.than,
+                    comparison: .greaterThan
+                )
+            ),
+            .adjective(
+                lemma: "old",
+                filter: .comparative(
+                    Patterns.less ~ Patterns.than,
+                    comparison: .greaterThan
+                )
+            ),
             .superlativeAdjective(
                 lemma: "old",
                 order: .descending
@@ -275,41 +303,19 @@ public let testQuestionOntology: TestQuestionOntology = {
                 lemma: "young",
                 order: .ascending
             ),
-            .comparative(
-                comparativePattern(
-                    be: true,
-                    lemma: "old",
-                    tag: .comparativeAdjective,
-                    preposition: "than"
-                ),
-                .greaterThan
+            .value(
+                Patterns.be,
+                filter: .comparative(
+                    pattern(lemma: "old", tag: .comparativeAdjective) ~ Patterns.than,
+                    comparison: .greaterThan
+                )
             ),
-            .comparative(
-                comparativePattern(
-                    be: true,
-                    lemma: "young",
-                    tag: .comparativeAdjective,
-                    preposition: "than"
-                ),
-                .lessThan
-            ),
-            .comparative(
-                comparativePattern(
-                    be: true,
-                    adjective: "old",
-                    comparativeAdjective: "more",
-                    preposition: "than"
-                ),
-                .greaterThan
-            ),
-            .comparative(
-                comparativePattern(
-                    be: true,
-                    adjective: "old",
-                    comparativeAdjective: "less",
-                    preposition: "than"
-                ),
-                .lessThan
+            .value(
+                Patterns.be,
+                filter: .comparative(
+                    pattern(lemma: "young", tag: .comparativeAdjective) ~ Patterns.than,
+                    comparison: .lessThan
+                )
             )
         )
 

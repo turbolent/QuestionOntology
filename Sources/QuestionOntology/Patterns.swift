@@ -56,60 +56,6 @@ public func pattern(lemma: String, tag: Tag) -> TokenPattern {
 }
 
 
-/// prefix a word (with lemma and tag) with optional be/V, and suffix with preposition
-public func comparativePattern(
-    be: Bool,
-    lemma: String,
-    tag: Tag,
-    preposition: String
-)
-    -> AnyPattern
-{
-    var sequence =
-        pattern(
-            lemma: lemma,
-            tag: tag
-        )
-        ~ pattern(
-            lemma: preposition,
-            tag: .prepositionOrSubordinatingConjunction
-        )
-    if be {
-        sequence = Patterns.be ~ sequence
-    }
-    return .sequence(sequence)
-}
-
-
-/// prefix an adjective and comparative adjective with optional be/V, and suffix with preposition
-public func comparativePattern(
-    be: Bool,
-    adjective: String,
-    comparativeAdjective: String,
-    preposition: String
-)
-    -> AnyPattern
-{
-    var sequence =
-        pattern(
-            lemma: adjective,
-            tag: .adjective
-        )
-        ~ pattern(
-            lemma: comparativeAdjective,
-            tag: .comparativeAdjective
-        )
-        ~ pattern(
-            lemma: preposition,
-            tag: .prepositionOrSubordinatingConjunction
-    )
-    if be {
-        sequence = Patterns.be ~ sequence
-    }
-    return .sequence(sequence)
-}
-
-
 extension _Pattern {
     var hasDefinedLength: Bool {
         switch self {
